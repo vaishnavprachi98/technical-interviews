@@ -1,0 +1,3 @@
+String and array questions often interchangeable
+
+
