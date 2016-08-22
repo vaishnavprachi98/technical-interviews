@@ -3,7 +3,7 @@
 @since: 21/08/2016
 @modified:
 
-Note a comparison sort, so comparison O(n log n) lower bound doesn't apply
+Not a comparison sort, so comparison O(n log n) lower bound doesn't apply
 
 Visualization: https://www.cs.usfca.edu/~galles/visualization/CountingSort.html
 
@@ -54,14 +54,9 @@ How it works: Integer sorting algorithm - it counts the number of objects
                     -->      [1, 2, 2, 5, 7]     done!
 
     Note:
-            - doesnt't work for negative nobe's
+            - doesnt't work for negative numbers
             - assumes each element is a small integer
             - O(max v - min v) which is O(n) if difference between min and max not too large
-<><><>
-
-Invariants: when we get to merging, after the merge everything in that list will be sorted?
-
-Compared to quick: work is done putting the array back together
 
 Time complexity
 - dependent on number of buckets
@@ -95,7 +90,7 @@ Stability: yes when you put elements from input to output backwards
 
 Note: no matter what the input is, the count always stays the same for arrays of the same length
 - arr and bar are the same len, but different numbers. Both get a count of 13
-- this reflects merge sort's best=worst=avg complexity
+- this reflects merge sort's best = worst = avg complexity
 """
 
 def counting_sort(arr):
