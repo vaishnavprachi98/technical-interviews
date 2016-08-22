@@ -19,7 +19,7 @@ Time complexity
 
 Space complexity
 - O(N), create new lists when we split? and combine back up? so 2N = O(N)?
-- O(log n), when you recur on the smaller list and use tail recursion to optimize 
+- O(log n), when you recur on the smaller list and use tail recursion to optimize
 
 Stability: Not stable
 

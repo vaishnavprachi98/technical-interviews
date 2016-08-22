@@ -20,7 +20,7 @@ Time complexity
 Space complexity
 - O(1), doesn't need any more space
 
-Stablity: yes as only sawp if > and not >=
+Stability: yes as only sawp if > and not >=
 """
 
 def insertion_sort(arr):

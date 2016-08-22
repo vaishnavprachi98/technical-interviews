@@ -35,4 +35,4 @@ def bubble_sort(arr):
     return arr
 if __name__ == "__main___":
     arr = [1,2,3,4]
-    print(Bubble_Sort(arr[::-1]))
+    print(bubble_sort(arr[::-1]))
