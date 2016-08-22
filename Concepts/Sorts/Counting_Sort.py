@@ -3,6 +3,8 @@
 @since: 21/08/2016
 @modified:
 
+Note a comparison sort, so comparison O(n log n) lower bound doesn't apply
+
 Visualization: https://www.cs.usfca.edu/~galles/visualization/CountingSort.html
 
 How it works: Integer sorting algorithm - it counts the number of objects
@@ -55,6 +57,7 @@ How it works: Integer sorting algorithm - it counts the number of objects
             - doesnt't work for negative nobe's
             - assumes each element is a small integer
             - O(max v - min v) which is O(n) if difference between min and max not too large
+<><><>
 
 Invariants: when we get to merging, after the merge everything in that list will be sorted?
 
@@ -74,17 +77,81 @@ Bad when:
     - all elements are put into the same bucket
     - individual buckets are sorted, if everything put into 1 bucket, complexity dominated by inner
     sorting algo(?)
-    -
-- best O(n log n)
-- worst O(n log n)
-- avg O(n log n)
+
+- first loop to count occurrences is always O(n)
+- second loop to cumulative sum occurrences is always O(k+1) where k is the number such that all values lay in 0..k
+- third loop to put elements in input in the right position of output is always O(n)
+so overall O(2n + k + 1) = O(n+k) which is linear (best = worst = avg)
 
 Space complexity
-- O(N), when we merge we copy so need another N space so O(N), also create new lists when we split?
+- with just input arr it is O(1)
+- we make a solution array (or output) which is the same size as input O(n)
+- we also have an array for the buckets or counts which is the range of smallest to biggest which is of size k+1
+so overall O(n + k) space complexity
 
-Stability: yes as in merge we use > or < and not =
+When the max value difference is significantly smaller than number of items, counting sort is really efficient
+
+Stability: yes when you put elements from input to output backwards
 
 Note: no matter what the input is, the count always stays the same for arrays of the same length
 - arr and bar are the same len, but different numbers. Both get a count of 13
 - this reflects merge sort's best=worst=avg complexity
 """
+
+def counting_sort(arr):
+    c1, c2, c3 = 0, 0, 0
+
+    # set up
+    max_number = max(arr)
+    count = [0] * (max_number+1)            # is the array of "buckets" which starts at 0 and goes to max+1
+    output = [0] * len(arr)
+
+    # count occurrences of each number in arr and put it in 'bucket' in count
+    for number in arr:                      # the item at index number of count += 1 to found occurrence of that number
+        count[number] += 1
+
+        c1 += 1
+
+    # cumulative sum of occurrences
+    for i in range(1, len(count)):          # cumulative sum
+        count[i] += count[i-1]
+
+        c2 += 1
+
+    # put into output stably
+    for j in range(len(arr)-1, -1, -1):       # work backwards to keep stable
+        output_idx = count[arr[j]] - 1      # -1 as output len = arr len
+        output[output_idx] = arr[j]         # put in right place in output
+        count[arr[j]] -= 1                  # decrement value in count
+
+        print(output)
+        c3 += 1
+
+    print("first loop: " + str(c1) + "\nsecond loop: " + str(c2) + "\nthird loop: " + str(c3))
+    """
+    for array [7,1,5,2,2] len = 5, range of values from 0 = 0 to 7
+    the algorithm is
+    O(len) to count (and find max?)
+    O(range) for cumulative sum
+    O(len) to copy back
+
+    so O(3n + k) = O(n)
+
+    if the range is big (like in big_arr), the complexity is dominated by k
+
+    however in application, k usually small
+    """
+    return output
+
+if __name__ == "__main__":
+    #arr = [7,1,5,2,2]
+    #big_arr = [100,101,101,105,104,103]#[1,1,1,1,2,3,3,4,5,6,7,8,9,10,11,100,150,160,170,200,300,650]
+    test_arr = [1,2,3,4,5,6]
+    counting_sort(test_arr[::-1])
+
+
+
+
+
+
+
