@@ -10,10 +10,12 @@ Assuming undirected graph
 - O(1) add edge
 - O(n) enumerate edges for node
 
+Isn't that good for algorithms, other representations can give us a list of nodes easier
+
 with space complexity O(v^2)
 """
 
-class Graph:
+class Graph_Matrix:
     def __init__(self, no_vertices):           # need to know the no_vertices to make matrix, might be a pain resizing
         self.matrix = [[0 for _ in range(no_vertices)] for _ in range(no_vertices)]
         self.no_vertices = no_vertices
@@ -55,7 +57,7 @@ class Graph:
         return results
 
 if __name__ == "__main__":
-    G = Graph(5)
+    G = Graph_Matrix(5)
     print("5x5 matrix")
     G.print_matrix()
     print("6x6 matrix, added vertex")

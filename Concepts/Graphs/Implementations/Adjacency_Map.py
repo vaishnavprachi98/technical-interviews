@@ -11,14 +11,21 @@ An optimal implementation of the Graph data structure supporting
 
 with space complexity O(e + v)
 
+It allows for quick look up and deletions like in the adj matrix with the same space complexity as the adj list
+
 Based on: Data Structures and Algorithms in Python
 I(v) is the incidence collection of v, or vertices whose edges are
 incident (connected) to v
+
+Note: order you put things in dict isn't always reflected in output, so if i keep running this bfs result on
+graph_map might change
 """
 
-from Structures import Vertex, Edge
+from Concepts.Graphs.Implementations.Structures import Vertex, Edge
 
-class Graph:
+#from Structures import Vertex, Edge
+
+class Graph_Map:
     def __init__(self, directed=False):
         """Create empty graph (undirected by default)"""
         self.outgoing = {}
@@ -76,9 +83,9 @@ class Graph:
         output = []
         for edge in adjacent[v].values():   # can use yield edge instead of appeding to a lsit
             output.append(edge)
-        return outgoing_edges
+        return output
 
-    def insert_vertex(self, x=None):
+    def add_vertex(self, x=None):
         v = Vertex(x)
         self.outgoing[v] = {}      # create a new dictionary at that 'index' of outgoing (acts as the array in adj list)
         # note that outgoing[v] creates an input into the dictionary outgoing
@@ -86,7 +93,7 @@ class Graph:
             self.incoming[v] = {}
         return v
 
-    def insert_edge(self, origin, destination, x=None):
+    def add_edge(self, origin, destination, x=None):
         """Insert and return a new Edge from origin to destination"""
         e = Edge(origin, destination, x)
         self.outgoing[origin][destination] = e
@@ -141,10 +148,10 @@ class Graph:
             print("\nNEXT\n")
 
     def remove_edge(self, origin_vertex, destination_vertex):
-        if self.is_directed():
+        if self.is_directed():                                  # directed, just need to delete once
             v_dict = self.outgoing[origin_vertex]
             del v_dict[destination_vertex]
-        else:
+        else:                                                   # undirected, delete from both sides
             v_dict = self.outgoing[origin_vertex]
             del v_dict[destination_vertex]
             v_dict_op = self.outgoing[destination_vertex]
@@ -155,18 +162,18 @@ if __name__ == "__main__":
     # Testing, G is an undirected graph, dG is a directed graph
     # G will look like FIT2004 graphs slide 13
     print("\n   **  Test undirected graph   **  ")
-    G = Graph()
-    A = G.insert_vertex('A')
-    B = G.insert_vertex('B')
-    C = G.insert_vertex('C')
-    D = G.insert_vertex('D')
-    E = G.insert_vertex('E')
+    G = Graph_Map()
+    A = G.add_vertex('A')
+    B = G.add_vertex('B')
+    C = G.add_vertex('C')
+    D = G.add_vertex('D')
+    E = G.add_vertex('E')
     # only need to insert 5 edges as undirected
-    G.insert_edge(A, C)
-    G.insert_edge(A, D)
-    G.insert_edge(A, E)
-    G.insert_edge(C, E)
-    G.insert_edge(D, E)
+    G.add_edge(A, C)
+    G.add_edge(A, D)
+    G.add_edge(A, E)
+    G.add_edge(C, E)
+    G.add_edge(D, E)
 
     G.print_structure()
     G.print_adj_list_rep()
@@ -182,30 +189,30 @@ if __name__ == "__main__":
 
     print("\n **  Testing a directed graph    **  \n")
 
-    dG = Graph(directed=True)
+    dG = Graph_Map(directed=True)
 
-    dA = dG.insert_vertex('-A')
-    dB = dG.insert_vertex('-B')
-    dC = dG.insert_vertex('-C')
-    dD = dG.insert_vertex('-D')
-    dE = dG.insert_vertex('-E')
+    dA = dG.add_vertex('-A')
+    dB = dG.add_vertex('-B')
+    dC = dG.add_vertex('-C')
+    dD = dG.add_vertex('-D')
+    dE = dG.add_vertex('-E')
 
     print("Test after same 5 inserts")
     # doing 5 insert_edges as above
-    dG.insert_edge(dA, dC)
-    dG.insert_edge(dA, dD)
-    dG.insert_edge(dA, dE)
-    dG.insert_edge(dC, dE)
-    dG.insert_edge(dD, dE)
+    dG.add_edge(dA, dC)
+    dG.add_edge(dA, dD)
+    dG.add_edge(dA, dE)
+    dG.add_edge(dC, dE)
+    dG.add_edge(dD, dE)
 
     dG.print_adj_list_rep()     # should not print exactly like above after 5 insert_edges as directed
 
     print("Test after 5 more inserts")
-    dG.insert_edge(dC, dA)
-    dG.insert_edge(dD, dA)
-    dG.insert_edge(dE, dA)
-    dG.insert_edge(dE, dC)
-    dG.insert_edge(dE, dD)
+    dG.add_edge(dC, dA)
+    dG.add_edge(dD, dA)
+    dG.add_edge(dE, dA)
+    dG.add_edge(dE, dC)
+    dG.add_edge(dE, dD)
     dG.print_adj_list_rep()     # should not print exactly like above after 5 insert_edges as directed
 
     print("total edges: " +str(dG.edge_count()))
@@ -217,3 +224,16 @@ if __name__ == "__main__":
     dG.print_adj_list_rep()
 
     # everything works now!! :D yay
+
+    """
+    after insertions should look like
+    A: --> D E C
+    B: -->
+    C: --> A E
+    D: --> A E
+    E: --> A C D
+
+    (which it does ^_^)
+    """
+    adj_edges = dG.get_adjacent_edges(dA)
+    print(adj_edges)

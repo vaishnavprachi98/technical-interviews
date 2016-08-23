@@ -12,6 +12,7 @@ class Vertex:
         self.name = x                                   # integer 'name' or index
         self.pointer = point                            # points to a linked list in adjacency list
         self.rep = rep                                  # string representation
+        self.distance = None
 
 
 class Edge:

@@ -61,7 +61,6 @@ How it works: Integer sorting algorithm - it counts the number of objects
 k is the range of the input
 
 Time complexity
-
 - efficient when range(k) not significantly greater than number of elements to sort
 
 - dependent on number of buckets

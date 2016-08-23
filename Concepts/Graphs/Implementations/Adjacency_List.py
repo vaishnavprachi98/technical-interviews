@@ -12,12 +12,18 @@ Assuming directed graph
 
 with space complexity O(v + e)
 """
+from Concepts.Graphs.Implementations.Structures import Vertex, Edge
+#from Structures import Vertex, Edge
 
-from Structures import Vertex, Edge
-
-class Graph:
+class Graph_List:
     def __init__(self, no_vertices):
-        self.list = [ Vertex() for _ in range(no_vertices)]     # initialize to an array of vertices
+        self.list = [Vertex() for _ in range(no_vertices)]     # initialize to an array of vertices
+
+    def get_vertices(self):
+        v = []
+        for vertex in self.list:
+            v.append(vertex)
+        return v
 
     def add_vertex(self, v, rep):
         new_list = []                                           # creates a new linked list
@@ -41,7 +47,7 @@ class Graph:
                 return edge
         return False
 
-    def get_edges(self, origin_vertex):
+    def get_adjacent_edges(self, origin_vertex):
         origin = origin_vertex.name
         edges = []
         for edge in self.list[origin].pointer:
@@ -69,7 +75,7 @@ class Graph:
 
 if __name__ == "__main__":
     print("Adjacency list")
-    G = Graph(5)
+    G = Graph_List(5)
     G.print_graph()
     A = G.add_vertex(0,"A")
     B = G.add_vertex(1,"B")
