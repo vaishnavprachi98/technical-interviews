@@ -57,6 +57,9 @@ adjacency list but with the O(1) look up of edges
 
 
 3. Adjacency Map
+    - the same as an Adjacency List but uses hashmaps (dictionaries) instead of linked lists
+        this allows for O(1) operations (find edge, insert, edge, delete edge) so we get to keep the benefits of the
+        Adjacency Matrix while keeping the space the same as the Adjacency List O(v + e)
 
 4. Your own object/class
 http://stackoverflow.com/questions/19472530/representing-graphs-data-structure-in-python
@@ -75,5 +78,4 @@ delete edge |   O(1)     |  O(e/n)  |   O(1)  |
 enumerate   |   O(n)     |  O(e/n)  |   O(e/n)|
 edges for node
 
-
-
+For weighted graphs have a cost function in Edge
