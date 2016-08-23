@@ -99,6 +99,7 @@ class Graph:
         return e
 
     def print_structure(self):
+        """print structure of hwo the info is stored"""
         print("Printing Structure")
         for vertex in self.outgoing:
             print("\nVertex - ", end="")
@@ -116,8 +117,18 @@ class Graph:
                 print(e.name, end=" ")
             print()
 
+    def print_adj_list_rep(self):
+        print("Printing Adjacency List like representation")
+        for vertex in self.outgoing:
+            print(str(vertex.name) + ": --> ", end="")
+            for destination_vertex in self.outgoing[vertex]:
+                #edge = self.outgoing[vertex][destination_vertex]    # don't need to do this, can just say dest_ver.name
+                print(destination_vertex.name, end=" ")               # but this is an example how how it looks
+            print()
+
 
     def print_graph(self):
+        """Don't use this, just here to remind me what classes they are"""
         for thing in self.outgoing:
             print(thing.__class__)
             print(thing)
@@ -129,42 +140,80 @@ class Graph:
             print(b.values())
             print("\nNEXT\n")
 
+    def remove_edge(self, origin_vertex, destination_vertex):
+        if self.is_directed():
+            v_dict = self.outgoing[origin_vertex]
+            del v_dict[destination_vertex]
+        else:
+            v_dict = self.outgoing[origin_vertex]
+            del v_dict[destination_vertex]
+            v_dict_op = self.outgoing[destination_vertex]
+            del v_dict_op[origin_vertex]
+
 if __name__ == "__main__":
+
+    # Testing, G is an undirected graph, dG is a directed graph
+    # G will look like FIT2004 graphs slide 13
+    print("\n   **  Test undirected graph   **  ")
     G = Graph()
     A = G.insert_vertex('A')
     B = G.insert_vertex('B')
-    C= G.insert_vertex('C')
-    G.insert_edge(A, B, 'e1')
-    G.insert_edge(B, C, 'e2')
-    G.insert_edge(A, C, 'c1')
+    C = G.insert_vertex('C')
+    D = G.insert_vertex('D')
+    E = G.insert_vertex('E')
+    # only need to insert 5 edges as undirected
+    G.insert_edge(A, C)
+    G.insert_edge(A, D)
+    G.insert_edge(A, E)
+    G.insert_edge(C, E)
+    G.insert_edge(D, E)
 
-    edges = list(G.get_edges())
-    verts = list(G.get_vertices())
-    for e in edges:
-        print(e.name)
-    for v in verts:
-        print(v.name)
-
-    print(G.get_edge(C, B).name)    # we inserted an edge from B to C as it is undirected by default, the edge
-                                    # C to B exists as well!
-    print("Testing a directed graph")
-
-    directedG = Graph(True)
-    A = directedG.insert_vertex('A')
-    B = directedG.insert_vertex('B')
-    C= directedG.insert_vertex('C')
-    directedG.insert_edge(A, B, 'e1')
-    directedG.insert_edge(B, C, 'e2')
-    edges = list(directedG.get_edges())
-    verts = list(directedG.get_vertices())
-    for e in edges:
-        print(e.name)
-    for v in verts:
-        print(v.name)
-
-    print(directedG.get_edge(C, B)) # directed so the edge is only one way!
-    print("\nTest print graph\n")
-    G.print_graph()
     G.print_structure()
-    #G.get_edge(A, B)
-    #print(G.get_vertices())
+    G.print_adj_list_rep()
+
+    print("total edges: " +str(G.edge_count()))
+    edges = list(G.get_edges())
+    print([e.to_string(ends_vertex_obs=True) for e in edges])
+
+    print("\nTest remove edge\n")
+    G.remove_edge(A, D)
+    G.print_adj_list_rep()              # remove successfully works!
+
+
+    print("\n **  Testing a directed graph    **  \n")
+
+    dG = Graph(directed=True)
+
+    dA = dG.insert_vertex('-A')
+    dB = dG.insert_vertex('-B')
+    dC = dG.insert_vertex('-C')
+    dD = dG.insert_vertex('-D')
+    dE = dG.insert_vertex('-E')
+
+    print("Test after same 5 inserts")
+    # doing 5 insert_edges as above
+    dG.insert_edge(dA, dC)
+    dG.insert_edge(dA, dD)
+    dG.insert_edge(dA, dE)
+    dG.insert_edge(dC, dE)
+    dG.insert_edge(dD, dE)
+
+    dG.print_adj_list_rep()     # should not print exactly like above after 5 insert_edges as directed
+
+    print("Test after 5 more inserts")
+    dG.insert_edge(dC, dA)
+    dG.insert_edge(dD, dA)
+    dG.insert_edge(dE, dA)
+    dG.insert_edge(dE, dC)
+    dG.insert_edge(dE, dD)
+    dG.print_adj_list_rep()     # should not print exactly like above after 5 insert_edges as directed
+
+    print("total edges: " +str(dG.edge_count()))
+    edges = list(dG.get_edges())
+    print([e.to_string(ends_vertex_obs=True) for e in edges])
+
+    print("\nTest remove edge\n")
+    dG.remove_edge(dA, dD)
+    dG.print_adj_list_rep()
+
+    # everything works now!! :D yay

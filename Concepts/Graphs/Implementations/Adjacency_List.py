@@ -3,7 +3,7 @@
 @since: 21/08/2016
 @modified:
 
-Implementation of graph data structure
+Implementation of graph data structure using Adjacency List
 Assuming directed graph
 - O(e/v) find edge
 - O(e/v) remove edge
@@ -91,3 +91,4 @@ if __name__ == "__main__":
     G.remove_edge(A, C)
     print("\nRemoved A to C\n")
     G.print_graph()
+    # implementation works :D

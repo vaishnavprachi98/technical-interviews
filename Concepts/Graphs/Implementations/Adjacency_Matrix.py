@@ -3,7 +3,7 @@
 @since: 21/08/2016
 @modified: 
 
-Implementation of graph data structure
+Implementation of graph data structure using Adjacency Matrix
 Assuming undirected graph
 - O(1) find edge
 - O(1) remove edge
@@ -75,3 +75,4 @@ if __name__ == "__main__":
     v1_edges = G.get_edges(1)
     for e in v1_edges:
         print(e)
+    # implementation works :D
