@@ -38,6 +38,7 @@ def quick_sort(arr):
     if len(arr) <= 1:
         return arr
     else:
+        ### PARTITION ARR
         # assume last item chosen as pivot
         pivot = arr[-1]
 
@@ -56,10 +57,82 @@ def quick_sort(arr):
 
         return less_than + arr[wall:wall+1] + greater_eq_than
 
-if __name__ == "__main___":
+# more pythonic solution
+# http://stackoverflow.com/questions/25690175/bucket-sort-faster-than-quicksort
 
+pythonic_count = 0
+def pythonic_quick_sort(arr):         # more pythonic
+    global pythonic_count
+    pythonic_count += 1
+    print(pythonic_count)
+    if len(arr) <= 1:
+        return arr
+    low, pivot, high = partition(arr)
+    return quick_sort(low) + [pivot] + quick_sort(high)     # note [1] or [pivot] is a list of len 1
+
+
+def partition(arr):
+    pivot = arr[-1]
+    # inefficient space of merge sort
+    low = [arr[x] for x in range(len(arr)-1) if arr[x] < pivot]
+    high = [arr[x ]for x in range(len(arr)-1) if arr[x] >= pivot]
+    return low, pivot, high
+
+
+def quick_sort_inplace(arr, low, hi):
+    #low = 0
+    #hi = len(arr)
+
+    if (hi-low) <= 1:           # array of len 1 eg first index, low = 0, hi = 1
+        return                  # array[start:to_non_inclusive]
+
+    else:
+        l_start, l_end, pivot_idx, ge_start, ge_end = partition_inplace(arr, low, hi)
+        quick_sort_inplace(arr, l_start, l_end)
+        quick_sort_inplace(arr, ge_start, ge_end)
+
+        return arr
+
+def partition_inplace(arr, low, hi):
+    """
+    low = start index of this sub array to partition
+    hi = end index + 1 of this sub array to partition
+
+    inplace (using the same array)
+    restrict the array with the bounds arr[low:hi]
+        1. make pivot the last element of the section we are looking at
+        2. make some pointers to keep track of the part that is lower than pivot and greater than pivot
+        3. loop over array from low to hi inclusive
+        4. if element is < swap it with the first element that is greater (element at index wall)
+
+    invariant: everything before wall is < pivot, everything after wall that we have already looked at is >= pivot
+    """
+    pivot = arr[hi-1]                               # take pivot to be the last element
+    wall = low                                      # everything before the is < pivot
+    for i in range(low, hi, 1):                     # loop from low to hi inclusive
+        if arr[i] < pivot:                          # if less than pivot swap element at wall with the less than element
+            arr[wall], arr[i] = arr[i], arr[wall]
+            wall += 1
+    arr[hi-1] = arr[wall]                           # put pivot in the right place
+    arr[wall] = pivot
+    # array mutated, don't need to return it
+    # low = start of section < pivot
+    # wall-1 = end of section < pivot
+    # wall = pivot
+    # wall+1 = start of section >= pivot
+    # hi = end of section >= pivot
+    return low, wall, wall, wall+1, hi
+
+
+
+if __name__ == "__main__":
     arr = [1,2,3,4]
     bar = [8, 100 ,1,-3,11,1,0]
     car = [0,-3,1,-2]
     foo = [123,91,-19, 1,1,2,1,-54,1909,-51293,192,3,-4]
-    print(quick_sort(foo))
+    #print(quick_sort(foo))
+    #print("\nPythonic version\n")
+    #print(pythonic_quick_sort(foo))
+    print("\nInplace version\n")
+
+    print(quick_sort_inplace(foo, 0, len(foo)))

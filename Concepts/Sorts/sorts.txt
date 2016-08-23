@@ -1,0 +1,2 @@
+use insertion sort when n <= 5
+- tim sort (uses merge sort and insertion sort)

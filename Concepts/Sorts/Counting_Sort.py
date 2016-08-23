@@ -58,7 +58,12 @@ How it works: Integer sorting algorithm - it counts the number of objects
             - assumes each element is a small integer
             - O(max v - min v) which is O(n) if difference between min and max not too large
 
+k is the range of the input
+
 Time complexity
+
+- efficient when range(k) not significantly greater than number of elements to sort
+
 - dependent on number of buckets
     fast when data being sorted can be distributed between buckets evenly, if values sparse allocated then bigger buckets
     if values are dense, smaller buckets i.e.
@@ -92,6 +97,25 @@ Note: no matter what the input is, the count always stays the same for arrays of
 - arr and bar are the same len, but different numbers. Both get a count of 13
 - this reflects merge sort's best = worst = avg complexity
 """
+
+def counting_sort_alphabet(arr):
+    """
+    assuming only lower case letters
+    """
+    count = [0]*26
+    output = [0]*len(arr)
+
+    for char in arr:
+        count[ord(char)-ord('a')] += 1
+
+    for i in range(1, len(count)):
+        count[i] += count[i-1]
+
+    for j in range(len(arr)-1, -1, -1):     # working backwards from input arr
+        idx = count[ord(arr[j])-ord('a')] -1
+        output[idx] = arr[j]
+        count[ord(arr[j])-ord('a')] -= 1
+    return output
 
 def counting_sort(arr):
     c1, c2, c3 = 0, 0, 0
@@ -144,8 +168,11 @@ if __name__ == "__main__":
     test_arr = [1,2,3,4,5,6]
     counting_sort(test_arr[::-1])
 
+    print("test alphabet counting sort")
+    s = "zsquirtlebulbasaurcharmander"
+    print(counting_sort_alphabet(s))
 
-
+    # works!
 
 
 

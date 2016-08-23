@@ -14,9 +14,6 @@ How it works: puts elements of array into buckets, each bucket sorted individual
             3. Sort each non empty bucket
             4. Gather - visit buckets in order and put elements back into original array
 
-Invariants: when we get to merging, after the merge everything in that list will be sorted?
-
-Compared to quick: work is done putting the array back together
 
 Time complexity
 - dependent on number of buckets
@@ -42,7 +39,20 @@ Space complexity
 
 Stability: yes as in merge we use > or < and not =
 
-Note: no matter what the input is, the count always stays the same for arrays of the same length
-- arr and bar are the same len, but different numbers. Both get a count of 13
-- this reflects merge sort's best=worst=avg complexity
+Note: number of buckets matters, i'll just use 10 as an example
+- can be used with hash fn to distribute elements into buckets
 """
+
+def bucket_sort(arr):
+    max_val = max(arr)
+    # create buckets
+    n = 10                                      # n = number of buckets
+    buckets = [[]*n]                            # array of 10 buckets
+    # put things from the input into the bucket
+    for i in range(len(arr)):
+        buckets[arr[i]//n].append(arr[i])
+
+    for index, bucket in enumerate(buckets):    # enumerate returns an index and value
+
+
+
