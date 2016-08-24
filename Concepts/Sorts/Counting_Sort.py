@@ -60,7 +60,7 @@ How it works: Integer sorting algorithm - it counts the number of objects
 
 k is the range of the input
 
-Time complexity
+Time complexity: O(n + k)
 - efficient when range(k) not significantly greater than number of elements to sort
 
 - dependent on number of buckets
@@ -82,7 +82,7 @@ Bad when:
 - third loop to put elements in input in the right position of output is always O(n)
 so overall O(2n + k + 1) = O(n+k) which is linear (best = worst = avg)
 
-Space complexity
+Space complexity: O(n + k)
 - with just input arr it is O(1)
 - we make a solution array (or output) which is the same size as input O(n)
 - we also have an array for the buckets or counts which is the range of smallest to biggest which is of size k+1
@@ -91,10 +91,6 @@ so overall O(n + k) space complexity
 When the max value difference is significantly smaller than number of items, counting sort is really efficient
 
 Stability: yes when you put elements from input to output backwards
-
-Note: no matter what the input is, the count always stays the same for arrays of the same length
-- arr and bar are the same len, but different numbers. Both get a count of 13
-- this reflects merge sort's best = worst = avg complexity
 """
 
 def counting_sort_alphabet(arr):

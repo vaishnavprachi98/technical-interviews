@@ -17,7 +17,7 @@ Time complexity
 - worst O(n^2), when the pviot only discards one element from the array each time, thus needs to do it N^2 times
 - avg O(n log n)
 
-Space complexity
+Space complexity - can do O(log n) note? figure out how
 - O(N), create new lists when we split? and combine back up? so 2N = O(N)?
 - O(log n), when you recur on the smaller list and use tail recursion to optimize
 
@@ -107,7 +107,7 @@ def partition_inplace(arr, low, hi):
 
     invariant: everything before wall is < pivot, everything after wall that we have already looked at is >= pivot
     """
-    pivot = arr[hi-1]                               # take pivot to be the last element
+    pivot = arr[hi-1]                                  # take pivot to be the last element
     wall = low                                      # everything before the is < pivot
     for i in range(low, hi, 1):                     # loop from low to hi inclusive
         if arr[i] < pivot:                          # if less than pivot swap element at wall with the less than element
