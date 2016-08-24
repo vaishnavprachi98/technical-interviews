@@ -21,9 +21,10 @@ Time complexity: O(n log n)
     2. take out n elements and each time need to maintain heap property O(n log n)
          so either O(n + n log n) or O(n log n + n log n) = O(n log n)
 
-Space complexity
-- O(1) if array implementation can do it inplace of the array or use an output array of same len - 1
+Space complexity: best O(1) inplace in array, just swap around pointers where the sorted portion starts
+- O(1) if array implementation can do it inplace of the array or use an output array O(n) of same len - 1
 - O(n) if use out array of same len to return
+explanation http://stackoverflow.com/questions/22233532/why-does-heap-sort-have-a-space-complexity-of-o1
 
 Stability: yes as only swap if > and not >=
 """

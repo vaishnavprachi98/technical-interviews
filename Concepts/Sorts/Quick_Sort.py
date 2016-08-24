@@ -18,11 +18,18 @@ Time complexity
 - avg O(n log n)
 
 Space complexity - can do O(log n) note? figure out how
-- O(N), create new lists when we split? and combine back up? so 2N = O(N)?
-- O(log n), when you recur on the smaller list and use tail recursion to optimize
+- O(N), create new lists when we split, for partitionaing arrays
+- O(log n), when in place, still need log n space to for recursive calls to stall stack frames
+
+I understand that both quick sort and merge sort need O(n) auxiliary space for the temporary sub-arrays that
+are constructed, and in-place quick sort requires O(log n) auxiliary space for the recursive stack frames.
+http://stackoverflow.com/questions/22233532/why-does-heap-sort-have-a-space-complexity-of-o1
+
+There is a more complex version which uses an in-place partition algorithm and can achieve the complete sort
+using O(log n) space (not counting the input) on average (for the call stack).
+http://stackoverflow.com/questions/12573330/why-does-quicksort-use-ologn-extra-space
 
 Stability: Not stable
-
 """
 count = 0
 
