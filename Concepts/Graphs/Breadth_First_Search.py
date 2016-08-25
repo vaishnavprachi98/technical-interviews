@@ -22,6 +22,7 @@ Time complexity: O(v + e)
     - for a given current node, we look at all adjacent edges (eventually look at all edges)
     O(v + e) as we look at all edges and nodes
     O(e) wil at most be O(v^2) and at least O(1)
+    so worst case bounded by e = O(e)
 
 
 Space complexity: O(v)
@@ -38,6 +39,7 @@ http://stackoverflow.com/questions/4458169/in-what-order-does-python-display-dic
 That in turn depends on the keys hash-value, the order they were inserted, and which Python implementation you are using.
 The order is arbitrary (but not random) and it will never be useful to know which order it will be."
 """
+from Linked_Queue import LinkedQ
 
 def breadth_first_search(G, root, use_rep=False):
 
@@ -53,7 +55,7 @@ def breadth_first_search(G, root, use_rep=False):
     while(not Q.is_empty()):                            # while stuff in Q
         current_node = Q.deque()
         edges = G.get_adjacent_edges(current_node)
-        for edge in edges:                      # for nodes adjacent
+        for edge in edges:                      # for nodes adjacent, at most once per edge as we check if the end of the edge is visit or not
             node = edge.destination
             if node.distance == "Infinity":
                 node.distance = current_node.distance + 1
@@ -65,45 +67,13 @@ def breadth_first_search(G, root, use_rep=False):
             output.append(current_node.name)                # .name just because of the weird way I implemented it :P
     return output
 
-# supporting data structures
-
-class LinkedNode:
-    def __init__(self, item=None, next=None):
-        self.item = item
-        self.next = next
-
-class LinkedQ:
-    def __init__(self):
-        self.front = None
-        self.end = None
-
-    def is_empty(self):
-        return self.front == None
-
-    def enqueue(self, x):
-        new_node = LinkedNode(x)
-        if self.is_empty():
-            self.front = new_node
-        else:
-            self.rear.next = new_node   # self.rear will point at the last node
-        self.rear = new_node            # always points at last item
-
-    def deque(self):
-        if not self.is_empty():
-            item = self.front.item
-            self.front = self.front.next
-            if self.is_empty():
-                self.rear = None        # just insace this is the last element, rear will still point to it w/o this
-            return item
-        raise Exception
-
 if __name__ == "__main__":
     #from Implementations.Adjacency_Map\
     from Concepts.Graphs.Implementations.Adjacency_Map import Graph_Map
     from Concepts.Graphs.Implementations.Adjacency_List import Graph_List
 
     # example from FIT2004 sem 2 2014 lec 15, slide 16 = A, B, C, E, F, D
-
+    # any permutation of B, C, E (lvl 1) and F, D (lvl 2) are fine as they are all on the same level
     graph_map = Graph_Map()
 
     # set up adj map graph
@@ -131,7 +101,7 @@ if __name__ == "__main__":
     # this is because there is some randomness with dictionaries
 
     graph_list = Graph_List(6)
-
+    # this Graph List data structure assumes a directed graph
     # set up adj map graph, slightly different set up due to diff underlying structure
     a = graph_list.add_vertex(0,'A')
     b = graph_list.add_vertex(1,'B')
@@ -147,6 +117,15 @@ if __name__ == "__main__":
     graph_list.add_edge(c, d)
     graph_list.add_edge(e, d)
     graph_list.add_edge(f, d)
+
+    graph_list.add_edge(b, a)
+    graph_list.add_edge(c, a)
+    graph_list.add_edge(e, a)
+    graph_list.add_edge(c, b)
+    graph_list.add_edge(f, b)
+    graph_list.add_edge(d, c)
+    graph_list.add_edge(d, e)
+    graph_list.add_edge(d, f)
 
     source2 = a
 

@@ -60,15 +60,6 @@ Space Complexity: O(n + k)
 
 Stability: yes as iterating backwards when you put back into output array (like in counting sort)
 
-Lemma 8.3
-Given n d -digit numbers in which each digit can take on up to k possible values,
- RADIX-SORT correctly sorts these numbers in ‚.d.n C k// time if the stable sort it uses takes ‚.n C k/ time.
-Proof The correctness of radix sort follows by induction on the column being sorted (see Exercise 8.3-3).
-The analysis of the running time depends on the stable sort used as the intermediate sorting algorithm.
-When each digit is in the range 0 to k 1 (so that it can take on k possible values), and k is not too large,
-counting sort is the obvious choice. Each pass over n d -digit numbers then takes time ‚.n C k/. There are d passes, and so the total time for radix sort is ‚.d.n C k//.
-When d is constant and k D O.n/, we can make radix sort run in linear time. More generally, we have some flexibility in how to break each key into digits.
-
 Notes:
 
 lexicographical order = dictionary order
