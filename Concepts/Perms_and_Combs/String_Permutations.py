@@ -41,3 +41,26 @@ public class Permutations {
 }
 
 """
+"""
+@author: David Lei
+@since: 14/06/2016
+@modified:
+
+"""
+
+def permutations(string):
+    if len(string)<=1:          # base case
+        return string
+    # perms = permutations(- first char)
+    perms = permutations(string[1:])
+
+    char = string[0]            # first char
+    result = []
+    for perm in perms:
+        #insert the character into every possible location
+        for i in range(len(perm)+1):
+            result.append(perm[:i] + char + perm[i:])
+    return resultƒ
+print(permutations("abc"))
+
+

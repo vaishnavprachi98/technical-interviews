@@ -50,6 +50,7 @@ Time Complexity: O(a*b) = best = worst = avg
     nested for loops run for each in string_b for each in string_a so O(a*b)
     a lot better than exponential, it is (almost linear), if a is near b O(2b) = O(b)
 
+    with putting the solution togeter = O(a * b + a + b) = dominated by O(a*b)
 Space Complexity: O(a*b) due to table
 """
 
@@ -83,6 +84,11 @@ def reconstruct_lcs_solution(table, string_a, string_b):
         3. if not match, then the number would have come from max(left, top) so move there and update our position
            nothing has been added to LCS
         continue until reaching 0 (where table[i][j] = 0 or i or j, boundary case) and we are done
+
+    Time Complexity to make solution: O(a+b) where a is len(string_a) and b is len(string_b)
+        this is because we loop until i or j = 0 and each pass decrements one of i or j or both
+        so at worst bound is when only one of i or j decrements each pass which is O(i + j)
+
     :return: longest common subsequence
     """
     solution = []

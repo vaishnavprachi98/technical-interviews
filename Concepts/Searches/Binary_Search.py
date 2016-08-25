@@ -22,7 +22,7 @@ Does it always pick up the first occurance of an element. No as in [1,1,1] searc
 
 count = 0
 
-def binary_search(arr, target):
+def binary_search_recursive(arr, target):
 
     global count
     count += 1
@@ -37,10 +37,15 @@ def binary_search(arr, target):
         return mid
     else:
         if target < arr[mid]:
-            binary_search(arr[:mid], target)
+            binary_search_recursive(arr[:mid], target)
         elif target > arr[mid]:
-            binary_search(arr[mid+1:], target)
+            binary_search_recursive(arr[mid + 1:], target)
+
+def binary_search_recursive_inplace():
+    pass
+def binary_search_iterative():
+    pass
 
 if __name__ == "__main__":
     arr = [1,2,3,4,4,4,5,6,7,8,9]
-    binary_search(arr,11)
+    binary_search_recursive(arr, 11)
