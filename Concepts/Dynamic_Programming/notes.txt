@@ -1,2 +1,0 @@
-very common to set first row and column to 0
-- starting point
