@@ -74,6 +74,10 @@ to sort these
 so sort LBD then move towards MSD (Least sig dig first leads to stable correct sort)
 
 This helps: https://www.cs.usfca.edu/~galles/visualization/RadixSort.html (implementation based off)
+
+Binary radix sort is good:
+    -  use 2 buckets [0,1]
+    -  convert things to binary --> do things with them
 """
 
 def radix_sort_decimals(arr):

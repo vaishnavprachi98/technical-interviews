@@ -42,8 +42,6 @@ Time complexity: O(v + e)
         could be assumed to be O(ve), we know that when we execute we will only look at
         all edges in the graph overall and not at each iteration so O(v + e) but e can be at most v^2 leading to O(v^2)
 
-
-
 Space complexity: O(v)
     - output array
     - stack
@@ -107,7 +105,7 @@ def depth_first_search_iterative(G, root, use_rep=False):
                     destination_node = edge.origin      # depending on how we add edges
                 S.push(destination_node)                # push destination on to stack
         # implicit else for a node we have already seen
-    #print(output)
+    print(output)
     return output
 
 def test_dictionary_adj_map_output():
