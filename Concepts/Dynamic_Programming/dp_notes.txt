@@ -1,0 +1,6 @@
+pg: 594 Data Structures and Algorithms in Python
+
+hint: can be used to tackle problems that take exponential time O(2^n)
+
+- nested loops filling out a table
+- often initialise first row and col as 0s
