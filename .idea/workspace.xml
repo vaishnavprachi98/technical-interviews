@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59e07510-811a-44f8-af97-e4f6c1ccc086" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py" afterPath="$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py" afterPath="$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Concepts/Trees/Tree_Node.py" afterPath="$PROJECT_DIR$/Concepts/Trees/Tree_Node.py" />
     </list>
     <ignored path="Interview_Prep.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Binary_Search_Tree.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Binary_Search_Tree.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50138503">
-              <caret line="179" column="85" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
+            <state vertical-scroll-proportion="-10.592592">
+              <caret line="149" column="44" selection-start-line="59" selection-start-column="3" selection-end-line="149" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -74,12 +74,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AVL_Tree.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AVL_Tree.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.6587838">
+              <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+              <folding>
+                <element signature="e#4528#4794#0" expanded="false" />
+                <element signature="e#4852#5090#0" expanded="false" />
+                <element signature="e#5150#5529#0" expanded="false" />
+                <element signature="e#5590#6217#0" expanded="false" />
+                <element signature="e#6267#6666#0" expanded="false" />
+                <element signature="e#6716#7041#0" expanded="false" />
+                <element signature="e#7079#7258#0" expanded="false" />
+                <element signature="e#7391#8013#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,7 +148,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Practice_Questions/FIT2004_Questions/notes.txt" />
         <option value="$PROJECT_DIR$/Python_Specifics/Yield.py" />
         <option value="$PROJECT_DIR$/Python_Specifics/c.py" />
         <option value="$PROJECT_DIR$/Concepts/Graphs/Adjacency_Matrix.py" />
@@ -187,13 +195,15 @@
         <option value="$PROJECT_DIR$/Concepts/Searches/Binary_Search_root2.py" />
         <option value="$PROJECT_DIR$/Practice_Questions/General/Random_Array_Permutation.py" />
         <option value="$PROJECT_DIR$/Concepts/Trees/__init__.py" />
-        <option value="$PROJECT_DIR$/Concepts/Trees/Tree_Node.py" />
         <option value="$PROJECT_DIR$/Concepts/Trees/trees.txt" />
         <option value="$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py" />
+        <option value="$PROJECT_DIR$/Concepts/Trees/Tree_Node.py" />
+        <option value="$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-23" />
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="712" />
@@ -402,24 +412,7 @@
       <recent name="$PROJECT_DIR$/Concepts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Binary_Search_Tree">
-    <configuration default="false" name="Coins_Changing" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Concepts/Dynamic_Programming" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Interview_Prep" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Concepts/Dynamic_Programming/Coins_Changing.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.AVL_Tree">
     <configuration default="false" name="onezero_Knapsack" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -484,6 +477,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Interview_Prep" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="AVL_Tree" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Concepts/Trees" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Interview_Prep" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -611,19 +621,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.Coins_Changing" />
-      <item index="1" class="java.lang.String" itemvalue="Python.onezero_Knapsack" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Matrix_Chain_Product" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Lowest_Common_Subsequence" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Binary_Search_Tree" />
+      <item index="0" class="java.lang.String" itemvalue="Python.onezero_Knapsack" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Matrix_Chain_Product" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Lowest_Common_Subsequence" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Binary_Search_Tree" />
+      <item index="4" class="java.lang.String" itemvalue="Python.AVL_Tree" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Binary_Search_Tree" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Lowest_Common_Subsequence" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Matrix_Chain_Product" />
-        <item index="3" class="java.lang.String" itemvalue="Python.onezero_Knapsack" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Coins_Changing" />
+        <item index="0" class="java.lang.String" itemvalue="Python.AVL_Tree" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Binary_Search_Tree" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Lowest_Common_Subsequence" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Matrix_Chain_Product" />
+        <item index="4" class="java.lang.String" itemvalue="Python.onezero_Knapsack" />
       </list>
     </recent_temporary>
   </component>
@@ -641,20 +651,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="712" extended-state="6" />
+    <frame x="-23" y="23" width="1280" height="712" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16203336" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5056543" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32419354" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.49434572" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49434572" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28548387" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20967741" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -768,7 +778,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="108" />
+      <option name="time" value="116" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1124,6 +1134,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Concepts/Trees/trees.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="83" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Concepts/Trees/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1132,18 +1150,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py">
+    <entry file="file://$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Concepts/Trees/trees.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="83" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
+        <state vertical-scroll-proportion="-10.592592">
+          <caret line="149" column="44" selection-start-line="59" selection-start-column="3" selection-end-line="149" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1164,11 +1174,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Concepts/Trees/Binary_Search_Tree.py">
+    <entry file="file://$PROJECT_DIR$/Concepts/Trees/AVL_Tree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50138503">
-          <caret line="179" column="85" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
-          <folding />
+        <state vertical-scroll-proportion="0.6587838">
+          <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+          <folding>
+            <element signature="e#4528#4794#0" expanded="false" />
+            <element signature="e#4852#5090#0" expanded="false" />
+            <element signature="e#5150#5529#0" expanded="false" />
+            <element signature="e#5590#6217#0" expanded="false" />
+            <element signature="e#6267#6666#0" expanded="false" />
+            <element signature="e#6716#7041#0" expanded="false" />
+            <element signature="e#7079#7258#0" expanded="false" />
+            <element signature="e#7391#8013#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

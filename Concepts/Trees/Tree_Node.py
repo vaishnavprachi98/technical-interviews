@@ -11,6 +11,6 @@ class Tree_Node:
         self.extra_data = None          # can hold any info I forgot to add
         self.left = left
         self.right = right
-        self.height = -1                # assume it's a leaf
+        self.height = None              # assume it's a leaf
         self.colour = None              # can use for red/black implementation
-        self.balance = 0
+        self.balance = None
