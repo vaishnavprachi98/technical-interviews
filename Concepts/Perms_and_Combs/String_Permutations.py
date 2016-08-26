@@ -49,18 +49,15 @@ public class Permutations {
 """
 
 def permutations(string):
-    if len(string)<=1:          # base case
+    if len(string)<=1:
         return string
-    # perms = permutations(- first char)
     perms = permutations(string[1:])
-
-    char = string[0]            # first char
+    char = string[0]
     result = []
     for perm in perms:
-        #insert the character into every possible location
         for i in range(len(perm)+1):
             result.append(perm[:i] + char + perm[i:])
-    return resultƒ
+    return result
 print(permutations("abc"))
 
 

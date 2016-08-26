@@ -52,10 +52,13 @@ ___________
         o = 'outside' can be fixed with a single rotation
         i = 'inside' needs more complex double rotation
 
-        treat caps as twice height of lower case
+    treat caps as twice height of lower case
+
+
+    Single Rotations
 
                     k2                                      k1              drag z down, make k1 new root
-                  /   \                                    /  \             attach y to k2
+                  /   \      left left case                 /  \             attach y to k2
                 k1    z     => rotate right =>             X    k2
                /  \                                            / \
               X   y                                           y   z
@@ -69,13 +72,40 @@ ___________
 
 
             A                               B
-           /                               / \
+           /       left left case so       / \
           B     => right rotation =>       C   A      this keeps BST property and keeps tree shallower allowing O(log n ) operations
          /
         C
 
+    Double Rotations
+
+                k3                                                   k3                     k2
+        l     /  \                                                  / \                     /  \
+            k1    D   => left right case                     =>   k2  D      =>          k1    k3
+           /  \  r       so rotate left to get rid of the r      /  \                   / \   /  \
+          A    k2           then rotate right                  k1   C                  A  B   C  D
+              /  \                                           /  |
+            B     C                                         A   B
+
+                k3 is violating the AVL property
+        h b
+    k3|3 2
+    k1|2 1
+    k2|1 0
+    A |0 0
+    D |0 0
+    B |0 0
+    C |0 0
+
+
 - insert is same as BST with updating height after and rebalanced to enforce AVL property
 - look up, get min, get max is same as BST
+
+All operations O(log n)
+
+O(n) space
+
+WORKS!!! :D 
 """
 from Tree_Node import Tree_Node
 
@@ -90,12 +120,89 @@ class AVL_Tree:
     def is_leaf(self, node):
         return node.left is None and node.right is None
 
-    def rebalance(self):
-        while abs(self.root.balance) > 1:
-            if self.root.balance > 1:
+    def left_rotation(self, violating_node):
+        right_child = violating_node.right
+        violating_node.right = right_child.left # as BST property, Right tree, left most >= root
+        right_child.left = violating_node
+        return right_child
 
-            # rebalance
-            pass
+    def right_rotation(self, violating_node):
+        left_child = violating_node.left         # left child is our new root of this portion
+        violating_node.left = left_child.right   # as BST property, Left tree, right most element < root
+        left_child.right = violating_node
+        return left_child
+
+    def rebalance(self):
+        start = self.root
+        parent = None
+        self._rebalance_aux(start, parent)
+
+    def _rebalance_aux(self, current_node, parent):
+        """
+        rebalance the violating node
+        remember the 4 possible cases:
+            1. insertion into left subtree of left child of *   | insertion occurs 'outside', left left
+            2. insertion into right subtree of left child of *  | insertion occurs 'inside', right left
+            3. insertion into left subtree of right child of *  | insertion occurs 'inside', left right
+            4. insertion into right subtree of right child of * | insertion occurs 'outside', right right
+        1 & 4 just need one rotation in the opposite direction as the insert
+        the others need 2, can check for which subtree of the child is heavier
+        remember balance = left - right
+        so if balance < -1, must be right heavy, if balance > 1 must be left heavy
+        :param current_node: node with abs(balance)  > 1
+        """
+        #if parent == None:
+        #    parent = self.root
+        # recurse down tree and rebalance every node
+        if current_node.left is not None:
+            self._rebalance_aux(current_node.left, current_node)
+        if current_node.right is not None:
+            self._rebalance_aux(current_node.right, current_node)
+
+        while abs(current_node.balance) > 1:
+            # if left > right
+            if current_node.balance > 1:
+                # left side is heavy, need at least a right rotate
+                # we already know that the left side is heavy, lets call this left side the left child of the violating node
+                # but is the right subtree of the left child heavy? or is the left subtree of the left child heavy?
+                if current_node.left.balance < 0:     # if left child balance is < 0, must be right dominated
+                    # left - right case, do a left then right rotation to fix, inside - need double rotation
+                    if parent:
+                        current_node.left = self.left_rotation(current_node.left)
+                    else:
+                        current_node.left = self.left_rotation(current_node.left)
+                    self.update_balances()
+                    self.update_heights()
+                # do right rotate
+                # implicit else, left child balance is not < 0, must be left dominated
+                # left - left case, do one right rotation
+                if parent:
+                    parent.left = self.right_rotation(current_node)
+                else:
+                    self.root = self.right_rotation(current_node)
+                self.update_heights()
+                self.update_balances()
+            # right > left
+            elif current_node.balance < -1:
+            # right side is heavy, need at least a left rotate
+                if current_node.right.balance > 0:    # if right child balance > 0, must be left dominated
+                    # right - left case, do a right rotation then left rotation to fix, inside - need double rotation
+                    if parent:
+                        #parent = current_node
+                        current_node.right = self.right_rotation(current_node.right)    # right rotate
+                    else:
+                        current_node.right = self.right_rotation(current_node.right)    # we don't assign this to self.root as the right rotate chang the bottom 2 nodes
+                    self.update_heights()
+                    self.update_balances()
+                # do left rotate
+                # implicit else, right child balance is not < 0, must be right dominated
+                # right - right case, do one left rotation
+                if parent:
+                    parent.right = self.left_rotation(current_node)
+                else:
+                    self.root = self.left_rotation(current_node)
+                self.update_heights()
+                self.update_balances()
 
 
     def update_balances(self):
@@ -148,7 +255,7 @@ class AVL_Tree:
         # maintain AVL property
         self.update_heights()
         self.update_balances()
-       # self.rebalance()
+        self.rebalance()
 
     def _insert_aux(self, current_node, new_node):
         if new_node.key < current_node.key:                      # check if new node lies to the left
@@ -233,15 +340,68 @@ class AVL_Tree:
             else:   # current_node.key == key
                 return current_node, parent
 
+    def in_order(self):
+        """
+        in-order = left, root, right
+        """
+        a =[]
+        self._in_order(self.root, a)
+        #print()
+        return a
+
+    def _in_order(self, current_node, a):
+        if current_node is not None:
+            self._in_order(current_node.left, a)
+            a.append(current_node.key)
+            #print(current_node.key, end="b")
+            self._in_order(current_node.right, a)
+
+    def pre_order(self):
+        """
+        pre-order = root, left, right
+        """
+        a = []
+        self._pre_order(self.root, a)
+        #print()
+        return a
+
+    def _pre_order(self, current_node, a):
+        if current_node is not None:
+            a.append(current_node.key)
+            #print(current_node.key, end = "c")
+            self._pre_order(current_node.left, a)
+            self._pre_order(current_node.right, a)
+    def post_order(self):
+        """
+        post-order = left, right, root
+        """
+        a = []
+        self._post_order(self.root, a)
+        #print()
+        return a
+
+    def _post_order(self, current_node, a):
+        if current_node is not None:
+            self._post_order(current_node.left, a)
+            self._post_order(current_node.right, a)
+            a.append(current_node.key)
+            #print(current_node.key, end="a")
 if __name__ == "__main__":
     AVL_Tree = AVL_Tree()
     #a = [10, 5, 11, 6, 7, 15]
     a = [10, 5, 4, 3, 12, 11]
-    for n in a:
+    c = [6,2,4,3,1]             # fit2004 prac
+    b = [5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 4, 5, 16, 20, 4, 0, 5, 4, 3]
+    for n in b:
         AVL_Tree.insert(n)
-    print(AVL_Tree.get_min())
-
-    """Test AVL Tree before any rotations, making sure b, h values are correct
+    print(AVL_Tree.get_min().key)
+    print(AVL_Tree.pre_order())
+    print(AVL_Tree.in_order())
+    print(AVL_Tree.post_order())
+    # all this works! avl implementation completed :D
+    """
+    for array a
+    Test AVL Tree before any rotations, making sure b, h values are correct
 
                                              10 (h=3, b=1)
                                              /             \
@@ -252,5 +412,18 @@ if __name__ == "__main__":
         3 (h=0, b=0)         x                   x            x
         /           \
        x             x
+
     where x is None (height = -1)
+
+    After rotations implemented
+    rotations:
+    - after insert 4
+    - after insert 11
+
+    structure of inserting a looks like
+                    5
+                   / \
+                  4   11
+                 /   /  \
+                3   10  12
     """

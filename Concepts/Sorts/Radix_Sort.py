@@ -121,11 +121,10 @@ def radix_sort_decimals(arr):
             else:
                 digit_to_consider = 0
             output_idx = counts[digit_to_consider] -1
-            try:
-                output[output_idx] = arr_copy[x]
-                counts[digit_to_consider] -= 1
-            except IndexError:
-                pass
+
+            output[output_idx] = arr_copy[x]
+            counts[digit_to_consider] -= 1
+
         arr_copy = output
         # completed once pass of O(n + k) counting sort, k is range or in this case size of alphabet (possible values)
         # which is [0-9] so 10

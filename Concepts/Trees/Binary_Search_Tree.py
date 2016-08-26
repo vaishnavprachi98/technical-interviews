@@ -45,6 +45,8 @@ Traversals:
     post-order (L,R,r) = A, C, E, D, B, H, I, G, F
 
 Note: Better than linear time, worse than hashtables
+    - we use BST to get better performance than O(n) (linked lists etc can also do O(n)
+    - but in the worst case they are also O(n) --> then comes AVL trees =]
 """
 
 from Tree_Node import Tree_Node

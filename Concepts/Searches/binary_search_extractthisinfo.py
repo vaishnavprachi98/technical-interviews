@@ -126,3 +126,4 @@ def myBinarySearch(list, item):
                 return myBinarySearch(list[mid+1:], item)
 
 print(myBinarySearch([1,2,3,4,5,7,8,10], 9))
+print(binary_search_root2(2,1,5))

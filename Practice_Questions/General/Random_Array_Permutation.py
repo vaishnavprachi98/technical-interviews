@@ -4,6 +4,7 @@
 @modified: 
 
 """
+import random
 def permute_array(A):
     for i in range(len(A)):
         j = random.randint(i,len(A)-1)
