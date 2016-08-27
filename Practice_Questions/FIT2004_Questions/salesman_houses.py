@@ -21,6 +21,43 @@ init: 50, 10, 12, 65
         112 (idx = 7) can look at 65, 12, 10, 50
 """
 
+def houses_hate_neighbours_proper(arr, k):
+    # initalize table
+    table = [0] * len(arr)
+    table[0] = arr[0]
+    for i in range(1, len(arr)):    # chuck in the best so far for your base cases
+        if i < k + 1:
+            table[i] = max(table[i-1], arr[i])
+        else:
+            table[i] = max(table[i-k-1] + arr[i], table[i-1])   # look back on the best so far value -k-1 places
+    best = max(table)
+    # find solution
+    partial_soln = best
+    solution = []
+    was_equal = False
+    for j in range(len(table)-1, -1, -1):
+        if table[j] == partial_soln:
+            was_equal = True
+            if j == 0:
+                partial_soln -= arr[j]
+                solution.append(arr[j])
+            else:
+                pass
+        else:
+            if was_equal:
+                partial_soln -= arr[j + 1]
+                solution.append(arr[j + 1])
+                was_equal = False
+    print(partial_soln)
+    print("Solution: " + str(solution))
+    print("Max val: " + str(best))
+
+    print(table)
+
+    # left most occurrence of maximum
+
+
+
 def houses_hate_neighbours(arr, k):
 
     can_grab = len(arr)//k
@@ -70,4 +107,6 @@ def houses_hate_neighbours(arr, k):
     print(arr)
     print(table)
     return max(table)
-print(houses_hate_neighbours([50, 10, 12, 65, 40, 95, 100, 12, 20, 30], 2))
+if __name__ == "__main__":
+
+    print(houses_hate_neighbours_proper([50, 10, 12, 65, 40, 95, 100, 12, 20, 30], 3))

@@ -240,6 +240,9 @@ class Binary_Search_Tree:
             else:
                 raise Exception ('custom msg here')
 
+    """
+    Traversal is O(n) as you need to visit the n nodes
+    """
     def in_order(self):
         """
         in-order = left, root, right

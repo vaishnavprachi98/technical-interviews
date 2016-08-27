@@ -105,7 +105,7 @@ All operations O(log n)
 
 O(n) space
 
-WORKS!!! :D 
+WORKS!!! :D
 """
 from Tree_Node import Tree_Node
 
@@ -339,6 +339,10 @@ class AVL_Tree:
                     #return False, parent                    # right is None, item not found, return False, parent
             else:   # current_node.key == key
                 return current_node, parent
+
+    """
+    Traversal is O(n) as you need to visit the n nodes
+    """
 
     def in_order(self):
         """
