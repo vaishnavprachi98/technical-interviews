@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59e07510-811a-44f8-af97-e4f6c1ccc086" name="Default" comment="test get my project back pls">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="59e07510-811a-44f8-af97-e4f6c1ccc086" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Concepts/Hashing/Hashing.py" afterPath="$PROJECT_DIR$/Concepts/Hashing/Hashing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Concepts/Perms_and_Combs/String_Permutations.py" afterPath="$PROJECT_DIR$/Concepts/Perms_and_Combs/String_Permutations.py" />
     </list>
     <ignored path="Interview_Prep.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -416,7 +410,13 @@
       <option name="project" value="LOCAL" />
       <updated>1472357647973</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="test get my project back pls">
+      <created>1472357658221</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1472357658222</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
