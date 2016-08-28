@@ -32,15 +32,23 @@ print(d.keys())
 print(d.values())
 print(d.get('a'))
 print(d.items())
+
 print("Getting items form dict")
 for an_item in d.items():
     print(an_item)
-to_list = list(d.items())       # get items in a form nicley
+to_list = list(d.items())       # get items in a form nicely
 print("Items from dict to list of tuples")
 print(to_list)
 
 for item in to_list:
     print("item: " + str(item) + ", key: " + str(item[0]) + ", value: " + str(item[1]))
+print("\nRemoving elements form dictionary")
+first_element = 'a', 'Apple'
+d.pop('b')    # dictionary.pop(key, default)
+#d.pop(first_element) won't work as only meant to pass key to pop
+# remove and return the value of key, if not in, return default, else keyerror
+print(d.items())
+
 
 """
 .sort
