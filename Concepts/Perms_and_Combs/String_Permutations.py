@@ -62,26 +62,39 @@ def permutations(input_string):
                 concatenated = a_permutation[:i] + removed_character + a_permutation[i:]
                 results.append(concatenated)
         return results
-
+count_call = 0
+count_modify_current_perm = 0
+count_for_p_in_perms = 0
 def permutations_2(string):
+    global count_call
+    count_call += 1
+    print("Count called: " + str(count_call))
     if len(string)<=1:
         return string
-    perms = permutations(string[1:])
+    perms = permutations_2(string[1:])
     char = string[0]
     result = []
     for perm in perms:
+        global count_for_p_in_perms
+        count_for_p_in_perms += 1
+        print("For p in perms count: " + str(count_for_p_in_perms))
         for i in range(len(perm)+1):
+            global count_modify_current_perm
+            count_modify_current_perm+= 1
+            print("Modify current perm count: " + str(count_modify_current_perm))
             result.append(perm[:i] + char + perm[i:])
     return result
-s = 'abcde'
-p = permutations_2(s)
-print("Permutations of a string of length: " + str(len(s)) + "\nNumber of permutations")
-print(len(p))
-print(p)
 
 
 
 #https://www.youtube.com/watch?v=nYFd7VHKyWQ&list=PLrmLmBdmIlpslxZUHHWmfOzNn6cA7jvyh
 
 if __name__ == "__main__":
+    s = 'abhbf'
+    p = permutations_2(s)
+    print("Permutations of a string of length: " + str(len(s)) + "\nNumber of permutations")
+    print(len(p))
+    print(p)
+
+
     print(permutations("abc"))
