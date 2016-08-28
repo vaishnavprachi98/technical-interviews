@@ -71,7 +71,7 @@ class HashTable:
         self.size = 0
         self.keys = []                          # keys
         self.table = [[] for _ in range(1000)]   # 1000 buckets in our table
-        # in python [] is a linked list, so this will be seperate chaining
+        # in python [] is a linked list, so this will be separate chaining
 
     def _look_up(self, key):
         hashed_key = self.hash_function(key)    # brings us to index of linked list
@@ -137,13 +137,11 @@ class HashTable:
 
     def get_items(self):
         return [(key, self.get(key)) for key in self.keys ]
-if __name__ == "main":
-    mytable = HashTable()
+if __name__ == "__main__":
+    mytable = HashTable(6)
     mytable.add('a', 'Apple')
     mytable.add('aa', 'Angry Apple')
     mytable.add('b', 'Bee')
     print(mytable.get('a'))
     print(mytable.get_items())
 
-    for i in range(3):
-        print(i)
