@@ -46,9 +46,24 @@ public class Permutations {
 @since: 14/06/2016
 @modified:
 
+Final all permutations of a string of the length of the string
 """
 
-def permutations(string):
+def permutations(input_string):
+    if len(input_string) <= 1:      # base case, string of length 1
+        return input_string
+    else:
+        removed_first_char = input_string[1:]
+        len_minus_one_perms = permutations(removed_first_char)  # permutations of len - 1
+        removed_character = input_string[0]
+        results = []
+        for a_permutation in len_minus_one_perms:               # for each permutation of len - 1
+            for i in range(len(len_minus_one_perms) + 1):       # insert removed char at every location
+                concatenated = a_permutation[:i] + removed_character + a_permutation[i:]
+                results.append(concatenated)
+        return results
+
+def permutations_2(string):
     if len(string)<=1:
         return string
     perms = permutations(string[1:])
@@ -58,7 +73,15 @@ def permutations(string):
         for i in range(len(perm)+1):
             result.append(perm[:i] + char + perm[i:])
     return result
-print(permutations("abc"))
+s = 'abcde'
+p = permutations_2(s)
+print("Permutations of a string of length: " + str(len(s)) + "\nNumber of permutations")
+print(len(p))
+print(p)
 
 
-https://www.youtube.com/watch?v=nYFd7VHKyWQ&list=PLrmLmBdmIlpslxZUHHWmfOzNn6cA7jvyh
+
+#https://www.youtube.com/watch?v=nYFd7VHKyWQ&list=PLrmLmBdmIlpslxZUHHWmfOzNn6cA7jvyh
+
+if __name__ == "__main__":
+    print(permutations("abc"))
