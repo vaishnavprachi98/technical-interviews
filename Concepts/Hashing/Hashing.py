@@ -70,7 +70,7 @@ class HashTable:
         self.capacity = capacity
         self.size = 0
         self.keys = []                          # keys
-        self.table = [[] for _ in range(1000)]   # 1000 buckets in our table
+        self.table = [[] for _ in range(self.capacity)]   # 1000 buckets in our table
         # in python [] is a linked list, so this will be separate chaining
 
     def _look_up(self, key):
@@ -90,6 +90,23 @@ class HashTable:
             return found_entry[1]
         else:
             return False
+    def re_size(self):
+        print("\nResizing")
+        print("Current size: " + str(self.size) + ", new capacity: " + str(self.capacity))
+
+        items = self.get_items()    # everything in my current table is here
+        self.size = 0
+        self.capacity = self.capacity*2
+        self.table = [[] for _ in range(self.capacity)]   # double size of table
+        self.keys = []
+        for pair in items:
+            key = pair[0]
+            data = pair[1]
+            self.add(key, data)
+        print("Re-sized")
+        print("Current size: " + str(self.size) + ", new capacity: " + str(self.capacity))
+        print(self.get_items())
+        print()
 
     def set(self, key, data):
         """
@@ -102,16 +119,19 @@ class HashTable:
         """
         found_entry, linked_list = self._look_up(key)
         if found_entry:                              # update current entry
-            found_entry = (found_entry[0], data)     # update tuple?
-            print(found_entry)
+            #found_entry = (found_entry[0], data)     # update tuple?
+            found_entry[1] = data                    # can easily update the data stored here
+                                                    # make sure you store entries as [] and not () and tuple won't allow assignment
         else:                                        # make new entry
-            new_entry = (key, data)
+            new_entry = [key, data]
             linked_list.append(new_entry)         # insert into head of linked list in O(1) time
             self.keys.append(key)                 # add key to keys for easy return
             self.size += 1                        # increase number of elements in our hashtable
             # Append (insertion to back) is O(1), while insertion (everywhere else) is O(n)
     def add(self, key, data):
         self.set(key, data)
+        if self.size/self.capacity > 0.75:
+            self.re_size()
 
     def delete(self, key):
         found_entry, linked_list = self._look_up(key)
@@ -139,12 +159,14 @@ class HashTable:
     def get_items(self):
         return [(key, self.get(key)) for key in self.keys ]
 if __name__ == "__main__":
-    mytable = HashTable(6)
+    mytable = HashTable(3)
     mytable.add('a', 'Apple')
     mytable.add('aa', 'Angry Apple')
     mytable.add('b', 'Bee')
     print(mytable.get('a'))
     print(mytable.get_items())
     mytable.add('b', 'Beefly')
+    print(mytable.get_items())
+    mytable.delete('a')
     print(mytable.get_items())
 
