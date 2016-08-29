@@ -26,7 +26,7 @@ class Graph_Matrix:
 
     def add_edge(self, origin, destination):    # assuming we start at vertex 0
         self.matrix[origin][destination] += 1   # assuming bi-directional, otherwise just have og and dest
-        self.matrix[destination][origin] += 1
+        #self.matrix[destination][origin] += 1  # <- not bidirectional
 
     def add_vertex(self):
         self.no_vertices += 1
@@ -55,7 +55,9 @@ class Graph_Matrix:
             if og_edges[i] > 0:
                 results.append((orgin, i, og_edges[i]))
         return results
-
+    def get_vertices(self):
+        # return list of vertices represented as integers starting at 0
+        return [x for x in range(self.no_vertices)]
 if __name__ == "__main__":
     G = Graph_Matrix(5)
     print("5x5 matrix")

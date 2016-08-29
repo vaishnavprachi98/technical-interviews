@@ -20,6 +20,8 @@ of a collection of (key, value) pairs, such that each possible key appears at mo
 based on: https://www.youtube.com/watch?v=AXjmTQ8LEoI
 
 Time Complexity:
+There can not be more than n * l nodes in the tree, where n is the number of strings and l is the length of search string
+so at worst the below operations are O(n * l)
 - look up (search):
 - delete (remove):
 - insert (add):

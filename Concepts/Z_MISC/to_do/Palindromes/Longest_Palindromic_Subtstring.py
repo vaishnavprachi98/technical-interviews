@@ -54,3 +54,4 @@ def longest_palindromic_substring_linear(s):
 if __name__ == "__main__":
     #print(longest_palindromic_substring_brute("abbalomomomoz"))
     print(longest_palindromic_substring_db("bananas"))
+print("YO GUHURT")
