@@ -10,9 +10,9 @@ Includes:
 
 - Selection 
 
-- Graphs (need to add more)
+- Graphs (BFS, DFS)
 
-- DP (need to add more)
+- DP 
 
 - Trees (BST, AVL, Trie)
 
@@ -23,7 +23,7 @@ To add:
 
 - more DP
 
-- more Trees (red/black Tree, suffix trie, N*array tree)
+- more Trees (red/black tree, suffix trie, N*array tree)
 
 - more Graph algorithms (max flow, shortest path)
 
