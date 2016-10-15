@@ -45,3 +45,5 @@ To add:
 
 - regex
 
+- string searching (Knuth–Morris–Pratt etc)
+
