@@ -19,6 +19,8 @@ incident (connected) to v
 
 Note: order you put things in dict isn't always reflected in output, so if i keep running this bfs result on
 graph_map might change
+
+! like a hashmap/dict
 """
 
 from Concepts.Graphs.Implementations.Structures import Vertex, Edge
