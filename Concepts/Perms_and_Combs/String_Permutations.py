@@ -90,7 +90,7 @@ def permutations_2(string):
 #https://www.youtube.com/watch?v=nYFd7VHKyWQ&list=PLrmLmBdmIlpslxZUHHWmfOzNn6cA7jvyh
 
 if __name__ == "__main__":
-    s = 'abhbf'
+    s = 'aaaaaaaaaaa'
     p = permutations_2(s)
     print("Permutations of a string of length: " + str(len(s)) + "\nNumber of permutations")
     print(len(p))
