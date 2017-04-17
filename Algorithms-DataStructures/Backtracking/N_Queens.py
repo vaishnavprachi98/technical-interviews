@@ -14,6 +14,44 @@ indexes:   0 1 2 3
         1 |0|0|0|1|
         2 |1|0|0|0|
         3 |0|0|1|0|
+
+Complexity analysis
+
+TODO: Clean up complexity analysis.
+
+Time Complexity:
+- Best: Placement always works, O(n) for n rows.
+- Worst: (Guess)
+
+    For n = 4.
+        After placing the first queen in the first row, there are another n-1 (3) queens to place.
+        After placing the 2nd queen in the second row, there are another n-2 (2) queens to place.
+        This goes on until all n (4) queens are placed. This is n work.
+
+        After placing each queen and moving on to the next row, backtracking may occur. Once the first queen is placed,
+        if backtracking occurs there is an upper bound of another n-1 options to consider.
+
+    After placing a queen, there are n-1 options left in that row.
+    There are also n - 1 - placed_queens rows left to assign to a queen.
+    This can be done all the way until the end at which there may be a backtrack all the way to the start which can occur n - 1 times.
+
+    n work to place n queens in some configuration with considering n columns = n * n.
+
+    backtracking to the first row can happen  = (n * n ) ^ n - 1
+
+    this can happen n times
+
+
+
+    N!?
+
+    Tries everything. N rows to loop through, N columns to try until board is exhausted. Then can backtrack to the start
+    and try another N times. Can do 'full backtracks' (from board exhaustion) N times when setting queen in first row,
+    N - 1 times for setting queen in 2nd row, N - 2 for setting queen in 3rd row and 1 time in setting the last queen.
+    (N * N)^N!
+
+Space Complexity:
+- O(n) use 1 board.
 """
 
 
