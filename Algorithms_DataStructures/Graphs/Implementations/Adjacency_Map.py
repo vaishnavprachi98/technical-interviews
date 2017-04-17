@@ -23,7 +23,7 @@ graph_map might change
 ! like a hashmap/dict
 """
 
-from Concepts.Graphs.Implementations.Structures import Vertex, Edge
+from Algorithms_DataStructures.Graphs.Implementations.Structures import Vertex, Edge
 
 #from Structures import Vertex, Edge
 

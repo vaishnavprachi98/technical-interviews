@@ -12,7 +12,7 @@ Assuming directed graph
 
 with space complexity O(v + e)
 """
-from Concepts.Graphs.Implementations.Structures import Vertex, Edge
+from Algorithms_DataStructures.Graphs.Implementations.Structures import Vertex, Edge
 #from Structures import Vertex, Edge
 
 class Graph_List:

@@ -167,12 +167,10 @@ def min_bounded(table, coin_denminations, i, j):
     else:
         raise Exception
 
-min_coins = minimum_number_of_coins([2,4,6],5)
+denominations = [1, 2, 4, 6]
+total = 100
+min_coins = minimum_number_of_coins(denominations, total)
 table, coins = min_coins
-
-#for row in table:
-#    print(row)
 
 print("Minimum number of coins: " + str(table[-1][-1]))
 print("Coins used: " + str(coins))
-# refactor this

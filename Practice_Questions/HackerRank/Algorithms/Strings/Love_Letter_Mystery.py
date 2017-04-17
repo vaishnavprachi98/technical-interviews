@@ -3,6 +3,9 @@
 @since: 2/04/2017
 @modified: 
 
+ASCII representations.
+
+https://www.hackerrank.com/challenges/the-love-letter-mystery?h_r=internal-search
 """
 import math
 
@@ -22,8 +25,8 @@ T = int(input())
 for _ in range(T):
     s = input()
     mid_point = math.ceil(len(s)/2)
-    lhs = s[:mid_point] # if len 3, will include the 1st index, middle char is always part of palindrome for odd len.
-    rhs = s[mid_point:][::-1] # reverse this
+    lhs = s[:mid_point]  # if len 3, will include the 1st index, middle char is always part of palindrome for odd len.
+    rhs = s[mid_point:][::-1]  # reverse this
     cost = 0
 
     for i in range(len(rhs)):

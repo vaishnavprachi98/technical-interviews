@@ -3,6 +3,8 @@
 @since: 14/04/2017
 @modified: 
 
+Smart array manipulation.
+
 https://www.hackerrank.com/challenges/crush
 """
 number_elements, operations = [int(x) for x in input().split(' ')]

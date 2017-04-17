@@ -110,8 +110,8 @@ def depth_first_search_iterative(G, root, use_rep=False):
 
 def test_dictionary_adj_map_output():
     for i in range(5):
-        from Concepts.Graphs.Implementations.Adjacency_Map import Graph_Map
-        from Concepts.Graphs.Implementations.Adjacency_List import Graph_List
+        from Algorithms_DataStructures.Graphs.Implementations.Adjacency_Map import Graph_Map
+        from Algorithms_DataStructures.Graphs.Implementations.Adjacency_List import Graph_List
 
         # example from https://en.wikipedia.org/wiki/Depth-first_search
         # iterative version correct order: A, E, F, B, D, C, G
@@ -149,8 +149,8 @@ def test_dictionary_adj_map_output():
         # due to randomness with {} sometimes we get a different order using a adj map
 
 if __name__ == "__main__":
-    from Concepts.Graphs.Implementations.Adjacency_Map import Graph_Map
-    from Concepts.Graphs.Implementations.Adjacency_List import Graph_List
+    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_Map import Graph_Map
+    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_List import Graph_List
 
     # recursive version correct order: A, B, D, F, E, C, G (went to D first instead of F)
     # this is also a correct dfs ordering: A, B, F, E, D, C, G
