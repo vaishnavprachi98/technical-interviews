@@ -1,8 +1,10 @@
-# Interview_Prep
+# Interview-Prep
 
-Revision for technical interviews in Python 
+Coding interview preperation.
 
 Includes:
+
+- Backtracking
 
 - Hashing
 
@@ -27,7 +29,7 @@ Todo:
 
 - more Graph algorithms (dijksta, max flow, shortest path)
 
-- backtracking (N queens, depth first search/depth limited search)
+- backtracking (depth first search/depth limited search, sudoku)
 
 - P/NP problems
 
