@@ -11,8 +11,16 @@ l = ['apple', 'google', 'microsoft', 'atlassian', 'dropbox', 'pokemon']
 
 enum = list(enumerate(l))
 
-print(enum)
-
 for idx, value in enumerate(l):
     print(str(idx) + ", " + str(value))
 
+"""
+prints out index then ',' then value
+
+0, apple
+1, google
+2, microsoft
+3, atlassian
+4, dropbox
+5, pokemon
+"""

@@ -59,3 +59,33 @@ next value until there is no value to return
 
 refer to stack overflow link to learn more.
 """
+
+"""
+http://stackoverflow.com/questions/7883962/where-to-use-yield-in-py
+
+yield is best used when you have a function that returns a sequence and you want to iterate over that sequence, but you do not need to have every value in memory at once.
+
+For example, I have a python script that parses a large list of CSV files, and I want to return each line to be processed in another function. I don't want to store the megabytes of data in memory all at once, so I yield each line in a python data structure. So the function to get lines from the file might look something like:
+
+def get_lines(files):
+    for f in files:
+        for line in f:
+            #preprocess line
+            yield line
+I can then use the same syntax as with lists to access the output of this function:
+
+for line in get_lines(files):
+    #process line
+
+but I save a lot of memory usage.
+
+~~~
+Instead of using
+
+arr = []
+for line in file:
+    arr.append(line)
+
+pipe arr somewhere else to iterate over.
+better to yield each line as needed
+"""
