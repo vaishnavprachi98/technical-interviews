@@ -19,13 +19,13 @@ Includes:
 - Standard Searching (not intelligent)
 
 
-Todo:
+To add:
 
 - more DP
 
 - more Trees (red/black tree, suffix trie, N*array tree)
 
-- more Graph algorithms (dijksta, max flow, shortest path)
+- more Graph algorithms (max flow, shortest path)
 
 - backtracking
 
@@ -47,4 +47,3 @@ Todo:
 
 - string searching (Knuth–Morris–Pratt etc)
 
-- OOP
