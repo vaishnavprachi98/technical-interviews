@@ -27,7 +27,7 @@ Todo:
 
 - more Graph algorithms (dijksta, max flow, shortest path)
 
-- backtracking
+- backtracking (N queens, depth first search/depth limited search)
 
 - P/NP problems
 

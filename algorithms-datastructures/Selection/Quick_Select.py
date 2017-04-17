@@ -24,6 +24,8 @@ to find 3rd smallest element in array, a = [5, 4, 1, 2, 9, 8, 6]
 # but can do without complete sorting the entire array
 """
 import random
+
+
 def randomized_partition(array, start, end):
     random_index = random.randint(start, end)
     array[random_index], array[end] = array[end], array[random_index]
@@ -59,5 +61,8 @@ def randomized_quick_select(array, start, end, i):
         return randomized_quick_select(array, pivot_index+1, end, i-k)      # recurse on upper half
 
 if __name__ == "__main__":
-    a = [1,2,3,4,5,6,8]
-    print(randomized_quick_select(a[::-1], 0, 6, 1))
+    #    1  2  3  4  5  6  7  8  9   10  11  12  13  14 | th smallest element.
+    a = [1, 1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 14, 15, 20]
+    # ith smallest element is in range [1, len(a)].
+    ith_smallest_element_to_find = 11  # len(a) - 1
+    print(randomized_quick_select(a[::-1], 0, len(a) - 1, ith_smallest_element_to_find))
