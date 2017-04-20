@@ -21,40 +21,47 @@ TODO: Clean up complexity analysis.
 
 Time Complexity:
 - Best: Placement always works, O(n) for n rows.
-- Worst: (Guess)
-
-    For n = 4.
-        After placing the first queen in the first row, there are another n-1 (3) queens to place.
-        After placing the 2nd queen in the second row, there are another n-2 (2) queens to place.
-        This goes on until all n (4) queens are placed. This is n work.
-
-        After placing each queen and moving on to the next row, backtracking may occur. Once the first queen is placed,
-        if backtracking occurs there is an upper bound of another n-1 options to consider.
-
-    After placing a queen, there are n-1 options left in that row.
-    There are also n - 1 - placed_queens rows left to assign to a queen.
-    This can be done all the way until the end at which there may be a backtrack all the way to the start which can occur n - 1 times.
-
-    n work to place n queens in some configuration with considering n columns = n * n.
-
-    backtracking to the first row can happen  = (n * n ) ^ n - 1
-
-    this can happen n times
-
-
-
-    N!?
-
-    Tries everything. N rows to loop through, N columns to try until board is exhausted. Then can backtrack to the start
-    and try another N times. Can do 'full backtracks' (from board exhaustion) N times when setting queen in first row,
-    N - 1 times for setting queen in 2nd row, N - 2 for setting queen in 3rd row and 1 time in setting the last queen.
-    (N * N)^N!
+- Worst: O(N! * N^2)
 
 Space Complexity:
-- O(n) use 1 board.
+- O(n^2) use 1 board, where n is number of queens to place and board size is n*n.
 """
 
 
+"""
+Assume the time complexity of this function (solve()) is T(N - row_index), where N is the number of queens to place.
+Let Place(N) be the complexity of the can_place_queen
+
+T(N - row_index) = (N - row_index) * T(N - (row_index + 1)) + N * Place(N)
+    Where:
+        - (N - row_index) is the complexity for this recursive.
+        - T(N - (row_index + 1)) is the complexity for the next recursive call on the next row
+        - N is the complexity for all columns in this row
+        - Place(N) is the complexity to check if a queen can be placed.
+
+    In each solve(), can_place_queen is called N times for each column in the current row we are placing the queen in.
+    If we ignore the diagonal cases (because that's hard to analysis), solve() is called (N - row_index) times.
+
+So solve(0, board_config, n) will call solve(1, board_config, n), N times max, once for each column where the queen
+can be placed. N is because there are no queens currently placed so all columns in row 0 are viable.
+
+Each call of solve(1, board_config, n) will call solve(2, board_config, n),  N - 1 times max. N - 1 is because when a
+queen is placed by solve(0, board_config, n), a column will be taken up (no other queen can be placed in that column).
+Thus in the for loop for col_index in range(n), test_place_queen will be true at max N - 1 times.
+
+Likewise solve(2, board_config, n) will call solve(3, board_config, n) N - 2 times as when placing a queen in row 3,
+2 columns have already been taken up.
+
+So the size of the recursion search tree is N * (N - 1) *  (N - 2) * ... * 2 * 1 => N!
+
+Each node in the search tree will call can_place_queen() N times (in every iteration in the loop for col_index in range(n)).
+
+Calling can_place_queen() is Place(N), doing this N times is O(N * Place(N)).
+
+This can be done for every single node (recursive call) in the recursive search tree in the worst case (N! nodes/recursive calls).
+
+So the total time complexity is O(N! * N * Place(N)) => O(N!*(N^2))
+"""
 def solve(row_index, board_config, n):
     # Search by column first (exhaust a row), then row (exhaust columns fully on last row).
     if row_index >= n:  # Exhausted rows indexes.
@@ -75,7 +82,15 @@ def solve(row_index, board_config, n):
         # Check other column indexes.
     return False  # All columns checked.
 
-
+"""
+Time complexity: O(N)
+Where N is the total number of queens (== num rows == num cols).
+Loops through
+- all rows in column current_col O(n)
+- all columns in row current_row O(n)
+- 2 diagonals (max length of a diagonal is n where board is of size n*n) = O(2n)
+Total = O(4n) = O(n).
+"""
 def can_place_queen(current_row, current_col, board_config, n):
     # Test can place queen in row.
     for c in range(current_col + 1, n):  # Check rightwards.
@@ -151,4 +166,3 @@ for row in board:
         else:
             s += c
     print(s)
-
