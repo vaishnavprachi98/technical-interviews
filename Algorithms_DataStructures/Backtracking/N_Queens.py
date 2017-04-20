@@ -55,6 +55,22 @@ Space Complexity:
 """
 
 
+"""
+Assume the time complexity of this function is T(N - row_index, N), where N is the size of the board.
+Let M(N) be the complexity of the can_place_queen
+
+T(N - row_index, N) = (N - row_index) * T(N - (row_index + 1)) + N * M(N)
+    in each solve, can_place_queen is called N times.
+    If we ignore the diagonal cases (because that's hard to analysis), solve() is called (N - row_index) times.
+
+So solve(0, board_config, n) will call solve(1, board_config, n), N times
+each call of solve(1, board_config, n) will call solve(2, board_config, n),  N - 1 times.
+etc
+
+So the size of the search tree is N * (N - 1) * ... * 2 * 1 => N!
+Each node in the search tree need to call can_place_queen N times
+So the total time complexity is O(N! * N * M(N)) => O(N!*(N^2))
+"""
 def solve(row_index, board_config, n):
     # Search by column first (exhaust a row), then row (exhaust columns fully on last row).
     if row_index >= n:  # Exhausted rows indexes.
@@ -75,7 +91,12 @@ def solve(row_index, board_config, n):
         # Check other column indexes.
     return False  # All columns checked.
 
-
+"""
+time complexity: O(N)
+when N is the total number of rows, not the n passed to this funtion
+because this function loops through each cells in one row, then each cells in one colum,
+then each cells in the main and the secondary diagonal.
+"""
 def can_place_queen(current_row, current_col, board_config, n):
     # Test can place queen in row.
     for c in range(current_col + 1, n):  # Check rightwards.
