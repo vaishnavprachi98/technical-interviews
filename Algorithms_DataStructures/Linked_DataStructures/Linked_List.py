@@ -30,7 +30,7 @@ class LinkedList:
         # Bound indexes, don't allow negative or > self.count.
         if index < 0:
             index = 0
-        elif index > self.count:  # Next index in list, assuming 0 indexed.
+        elif index > self.count + 1:  # Next index in list, assuming 0 indexed.
             index = self.count
 
         if index == 0:  # Put at start of linkedlist.
@@ -46,7 +46,7 @@ class LinkedList:
         # Bound indexes, don't allow negative or > self.count.
         if index < 0:
             index = 0
-        elif index > self.count:  # Next index in list, assuming 0 indexed.
+        elif index > self.count + 1:  # Next index in list, assuming 0 indexed.
             index = self.count
 
         if index == 0:
@@ -60,18 +60,23 @@ class LinkedList:
     def __str__(self):
         stringify = []
         current_node = self.head
-        while current_node.next is not None:
-            print(current_node)
+        while current_node is not None:
             stringify.append(current_node.data)
             current_node = current_node.next
         return str(stringify)
 
 if __name__ == "__main__":
     l = LinkedList()
-    l.insert("B", 0)
-    l.insert("C", 1)
-    print(l)
-    l.insert("A", 0)
-    print(l)
-    l.delete(1)
-    print(l)
+    alpha = ["A", "B", "C", "D", "E", "F", "G", "!", "HI"]
+    for i in range(len(alpha)):
+        l.insert(alpha[i], i)
+    print(l)  # ['A', 'B', 'C', 'D', 'E', 'F', 'G', '!', 'HI']
+    l.delete(100)
+    print(l)  # ['A', 'B', 'C', 'D', 'E', 'F', 'G', '!']
+    l.delete(-100)
+    print(l)  # ['B', 'C', 'D', 'E', 'F', 'G', '!']
+    l.delete(4)
+    print(l)  # ['B', 'C', 'D', 'E', 'G', '!']
+    l.insert("Coconut", 2)
+    print(l)  # ['B', 'C', 'Coconut', ''D', 'E', 'G', '!']
+
