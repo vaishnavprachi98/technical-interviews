@@ -3,7 +3,7 @@
 @since: 22/04/2017
 @modified: 
 
-Inversions: How close/far te array is from being sorted.
+Inversions: How close/far the array is from being sorted.
 
 Inversions occur in the merge step.
 
