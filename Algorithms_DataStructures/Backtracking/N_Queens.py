@@ -17,8 +17,6 @@ indexes:   0 1 2 3
 
 Complexity analysis
 
-TODO: Clean up complexity analysis.
-
 Time Complexity:
 - Best: Placement always works, O(n) for n rows.
 - Worst: O(N! * N^2)

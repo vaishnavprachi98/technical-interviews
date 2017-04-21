@@ -29,7 +29,7 @@ TODO: Complexity Analysis
 
 def start_knights_tour(board, n, counter):
     for r in range(n):
-        for c in range(n):
+        for c in range(n):  # O(n^2), where n is the number of rows/columns on the board.
             solved = find_tour(r, c, board, n, counter)
             if solved:
                 return True
@@ -63,7 +63,7 @@ def find_tour(current_row, current_col, board, n, counter):
     return False
 
 
-def get_possible_moves(current_row, current_column, board_config, n):
+def get_possible_moves(current_row, current_column, board_config, n):  # O(Move set) = O(1).
     possible_moves = []
     move_up_row = current_row - 2
     move_down_row = current_row + 2
