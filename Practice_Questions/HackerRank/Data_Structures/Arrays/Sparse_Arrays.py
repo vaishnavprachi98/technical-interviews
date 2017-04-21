@@ -9,7 +9,7 @@ This question can be done without sparse arrays :(
 """
 import collections
 num_strings = int(input())
-string_map = collections.defaultdict(int)
+string_map = collections.defaultdict(int)  # If key not in dict, adds it and maps it to 0.
 
 for _ in range(num_strings):
     string = input()
