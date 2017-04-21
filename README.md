@@ -8,18 +8,25 @@ Includes:
 
 - Hashing
 
+- Divide and Conquer
+
 - Sorting
 
 - Selection 
 
-- Graphs (BFS, DFS)
+- Graphs
 
-- DP 
+- Dynamic Programming
 
 - Trees (BST, AVL, Trie)
 
-- Standard Searching (not intelligent)
+- Standard Searching
 
+- Linked Structures
+
+- Collection of practice questions from books, CodeJam, HackerRank etc.
+
+[TLDR: Common Complexities](http://bigocheatsheet.com/)
 
 Todo:
 
