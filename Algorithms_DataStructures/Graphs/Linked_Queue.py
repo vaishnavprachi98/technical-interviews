@@ -13,7 +13,7 @@ class LinkedNode:
         self.item = item
         self.next = next
 
-class LinkedQ:
+class LinkedQueue:
     def __init__(self):
         self.front = None
         self.end = None

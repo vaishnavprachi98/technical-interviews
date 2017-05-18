@@ -39,7 +39,7 @@ http://stackoverflow.com/questions/4458169/in-what-order-does-python-display-dic
 That in turn depends on the keys hash-value, the order they were inserted, and which Python implementation you are using.
 The order is arbitrary (but not random) and it will never be useful to know which order it will be."
 """
-from Linked_Queue import LinkedQ
+from Linked_Queue import LinkedQueue
 
 def breadth_first_search(G, root, use_rep=False):
 
@@ -49,7 +49,7 @@ def breadth_first_search(G, root, use_rep=False):
         node.distance = "Infinity"
 
     root.distance = 0
-    Q = LinkedQ()                                       # array acting as a Queue, root enqueued
+    Q = LinkedQueue()                                       # array acting as a Queue, root enqueued
     Q.enqueue(root)
     output = []
     while(not Q.is_empty()):                            # while stuff in Q
@@ -68,9 +68,8 @@ def breadth_first_search(G, root, use_rep=False):
     return output
 
 if __name__ == "__main__":
-    #from Implementations.Adjacency_Map\
-    from Concepts.Graphs.Implementations.Adjacency_Map import Graph_Map
-    from Concepts.Graphs.Implementations.Adjacency_List import Graph_List
+    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_Map import Graph_Map
+    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_List import Graph_List
 
     # example from FIT2004 sem 2 2014 lec 15, slide 16 = A, B, C, E, F, D
     # any permutation of B, C, E (lvl 1) and F, D (lvl 2) are fine as they are all on the same level

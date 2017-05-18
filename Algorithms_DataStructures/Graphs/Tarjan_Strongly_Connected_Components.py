@@ -4,3 +4,5 @@
 @modified: 
 
 """
+
+data_stream = [int(x) for x in input().split(' ')]
