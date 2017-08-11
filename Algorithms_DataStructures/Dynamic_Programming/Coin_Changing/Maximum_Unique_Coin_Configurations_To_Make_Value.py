@@ -5,12 +5,33 @@
 
 
 Given a value and denomination of coins, what it the maximum number of unique ways to make up the value.
+
+Validate results with: https://prismoskills.appspot.com/lessons/Dynamic_Programming/Chapter_03_-_Max_ways_in_which_coins_can_make_a_sum.jsp
 """
 
 value = 10
-denominations = [1, 2, 5, 10]
+denominations = [1, 3, 5]
 
-""" Ways to make 10: 11
+
+def get_max_unique_ways_to_make_value(value, coins):
+    dp_table = [[0 for _ in range(value + 1)] for _ in range(len(coins) + 1)]
+
+    for coin_index in range(1, len(coins) + 1):
+        # Skip first row, loop through all coins.
+        for i in range(1, value + 1):
+            # Loop from value 1 to value.
+            value_from_above = dp_table[coin_index - 1][i]
+            is_col_same_as_coin = 1 if i == coins[coin_index - 1] else 0
+            value_to_the_left = dp_table[coin_index][i - coins[coin_index - 1]] if i - coins[coin_index - 1] >= 0 else 0
+            dp_table[coin_index][i] = value_from_above + is_col_same_as_coin + value_to_the_left
+    print("Max unique ways to form {0} with coins {1} is {2}".format(value, coins, dp_table[len(coins)][value]))
+
+
+get_max_unique_ways_to_make_value(value, denominations)
+
+""" Working out
+
+Ways to make 10: 11
 - 1 (x 10)
 - 2 (x 1) + 1 (x 8)
 - 2 (x 2) + 1 (x 6)
