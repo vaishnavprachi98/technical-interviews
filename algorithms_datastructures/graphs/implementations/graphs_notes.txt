@@ -1,0 +1,81 @@
+Graphs consist of edges and verticies
+- weighted vs unweighted
+- directed vs undirected
+
+Note:
+for a graph with n vertices, there are n-1 directed edges that can come out from it at max
+so max number of edges = n * (n-1)
+this is the same as n^2 - n
+so for a dense graph with lots of edges, edges = O(n^2 - n) = O(n^2)
+
+Representations
+1. Adjacency Matrix (2D matrix)
+    - Storage: O(v^2), where v is the number of vertices
+    - Time to find edge: O(1)
+
+    Directed graph (as upper triangle not a mirror of lower)
+      _A_B_C_D_
+    A| 1 0 1 0|  (loop to itself)A --> C
+    B| 0 0 0 1|                  /     ^
+    C| 0 1 0 0|                  v      \
+    D| 0 0 1 0|                  B  -->  D
+      --------
+
+    Undirected (upper triangle reflects lower)
+     _A_B_C_
+    A|0 1 1|                A <--> B
+    B|1 0 1|                 ^     ^
+    C|1 1 0|                   \   |
+      -----                      v v
+                                   C
+
+2. Adjacency List (1D array of Linked Lists)
+    - index i of the list stores all vertices adjacent (you can go to) from the ith vertex
+    - Storage: O(v + edges)
+        - array = O(v) space, where v is the number of vertices
+        - linked list = O(edges incident to vertices) = O(edges)
+        for a dense graph, there can be v^2 edges (if undirected, we need to store these edges at the index of the array
+        at both ends of the edge) so if the graph is dense the store will be O(v + v^2) = O(v^2)
+    - Time to find connected edge: O(size adjacent vertices)
+        - need to traverse the linked list for a given
+
+    However we can get the set of edges connected to a particular vertex quickly
+
+    (Above directed example)
+    vertex  linked list of adjacent vertices
+     __
+    |A| --> |C|B|
+    |B| --> |D|
+    |C| --> null
+    |D| --> |C|
+    --
+
+http://stackoverflow.com/questions/12599143/what-is-the-distinction-between-sparse-and-dense-graphs
+better to use a adjacency list when sparse (not many edges) as we can traverse the linked list relatively quickly and
+save space (also consider operations on graph). While if dense, adjacency matrix as it will use the same space as an
+adjacency list but with the O(1) look up of edges
+
+
+3. Adjacency Map
+    - the same as an Adjacency List but uses hashmaps (dictionaries) instead of linked lists
+        this allows for O(1) operations (find edge, insert, edge, delete edge) so we get to keep the benefits of the
+        Adjacency Matrix while keeping the space the same as the Adjacency List O(v + e)
+
+4. Your own object/class
+http://stackoverflow.com/questions/19472530/representing-graphs-data-structure-in-python
+    - dictionary of sets
+    - this is an adjacency list implementation with a dictionary making it very easy to grab the set of edges you can get
+        from one vertex
+
+Complexity comparisons
+
+note: e/n is the number of edges per node on average
+
+Operation   | Adj Matrix | Adj List | Adj Map |
+find edge   |   O(1)     |  O(e/n)  |   O(1)  |
+insert edge |   O(1)     |  O(e/n)  |   O(1)  |
+delete edge |   O(1)     |  O(e/n)  |   O(1)  |
+enumerate   |   O(n)     |  O(e/n)  |   O(e/n)|
+edges for node
+
+For weighted graphs have a cost function in Edge

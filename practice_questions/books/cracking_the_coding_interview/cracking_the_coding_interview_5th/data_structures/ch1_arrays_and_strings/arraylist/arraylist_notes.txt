@@ -1,0 +1,5 @@
+ArrayList a.k.a Dynamically resizing array
+- resize when needed
+- when full, doubles in size
+- doubling takes O(n) time
+- happens rarely to amortized time O(1)

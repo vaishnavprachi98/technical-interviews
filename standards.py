@@ -5,7 +5,6 @@
 Use to help enforce PEP8 naming standards for files and directories.
 """
 import os
-import subprocess
 
 files_to_ignore = {
     "LICENSE", ".gitignore", "README.md", "misc", ".", "..", ".DS_Store", ".git", ".idea",
@@ -13,11 +12,13 @@ files_to_ignore = {
 }
 
 
-def standardize_dir(current_dir, is_tracked_by_git):
+def standardize_dir(current_dir):
     """Recursively traverse a directory to rename all it's files to lower case, then finally rename it as lowercase.
     If a file is a directory will call itself again on that directory.
 
-    Uses subprocess.check_call to wait for the git mv to complete to make sure only one path is being affected at a time.
+    Note: Tried using subprocess and git mv but that lead to lots of issues, easiest to run this and change the
+    ignorecase flag in git config to false.
+        $ git config core.ignorecase false
 
     :param current_dir: current directory to change to lower case
     """
@@ -27,19 +28,23 @@ def standardize_dir(current_dir, is_tracked_by_git):
             continue
         file_path = os.path.join(current_dir, filename)
         if os.path.isdir(file_path):
-            standardize_dir(file_path, is_tracked_by_git)
+            standardize_dir(file_path)
         else:
-            if is_tracked_by_git:
-                subprocess.check_call('git mv {0} {1}'.format(file_path, os.path.join(current_dir, filename.lower())))
-            else:
-                os.rename(file_path, os.path.join(current_dir, filename.lower()))
+            src = file_path
+            dest = os.path.join(current_dir, filename.lower())
+            if src == dest:
+                continue
+            os.rename(file_path, os.path.join(current_dir, filename.lower()))
 
     # Rename directory.
-    if is_tracked_by_git:
-        subprocess.check_call('git mv {0} {1}'.format(current_dir, current_dir.lower()))
-    else:
-        os.rename(current_dir, current_dir.lower())
+    dir_hierarchy = current_dir.split(os.path.sep)
+    lowest_level_dir = dir_hierarchy[-1]
+    src = current_dir
+    dest = "/" + os.path.join(*dir_hierarchy[0:-1], lowest_level_dir.lower())
+    if src == dest:
+        return
+    os.rename(src, dest)
 
-standardize_dir(os.getcwd(), is_tracked_by_git=True)
+standardize_dir(os.getcwd())
 
 
