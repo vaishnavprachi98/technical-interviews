@@ -6,6 +6,8 @@ https://www.hackerrank.com/challenges/ctci-contacts/problem
 
 Implemented using a Trie, can get the words that have a prefix in the target for find and the number as well.
 Note: Current approach is slow, TLE on 10/13 test cases, but it is right afaik :)
+
+TODO: Optimize, can get rid of most of the Trie class code, https://www.youtube.com/watch?v=vlYZb68kAY0
 """
 
 
@@ -22,7 +24,6 @@ class Trie:
     def find_words_from_node(self, node, words, prefix):
         for child_char, next_node in node.children.items():
             next_prefix = prefix + child_char
-
             self.find_words_from_node(next_node, words, next_prefix)
         if node.end_of_word:
             words.append(prefix)
