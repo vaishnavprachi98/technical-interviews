@@ -7,6 +7,8 @@
 Given a value and denomination of coins, what it the maximum number of unique ways to make up the value.
 
 Validate results with: https://prismoskills.appspot.com/lessons/Dynamic_Programming/Chapter_03_-_Max_ways_in_which_coins_can_make_a_sum.jsp
+
+Also can submit on: https://www.hackerrank.com/challenges/ctci-coin-change/problem
 """
 
 value = 10
