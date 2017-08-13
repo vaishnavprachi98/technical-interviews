@@ -83,7 +83,7 @@ def subset_sum(set_of_values, total):
     return dp_table[len(set_of_values) - 1][total]
 
 total = 11
-set_of_values = [2, 3, 7, 8, 10]
+set_of_values = [2, 3, 3, 7, 8, 10]
 
 # Below examples should be True as well:
 
