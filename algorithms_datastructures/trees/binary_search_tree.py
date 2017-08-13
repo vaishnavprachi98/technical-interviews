@@ -49,9 +49,9 @@ Note: Better than linear time, worse than hashtables
     - but in the worst case they are also O(n) --> then comes AVL trees =]
 """
 
-from Tree_Node import Tree_Node
+from tree_node import Tree_Node
 
-class Binary_Search_Tree:
+class BinarySearchTree:
 
     def __init__(self):
         self.root = None
@@ -292,7 +292,7 @@ class Binary_Search_Tree:
             self._pre_order(current_node.right, a)
 
 def big_test():
-    BST1 = Binary_Search_Tree()
+    BST1 = BinarySearchTree()
     print('\nTest vs https://www.cs.usfca.edu/~galles/visualization/BST.html, cant do - ')
     a = [6, 2, 9, 1, 4, 8, 5]
     for n in a:
@@ -306,7 +306,7 @@ def big_test():
     print("In order: ", end= "")
     print_ordering(in_order)
 
-    BST2 = Binary_Search_Tree()
+    BST2 = BinarySearchTree()
     print('\nTest traversals: https://en.wikipedia.org/wiki/Tree_traversal')
     a = ['F', 'B', 'G', 'A', 'D', 'I', 'C', 'E','H']
     for n in a:
@@ -337,7 +337,7 @@ def big_test():
     print("root: " + str(BST2.root.key))
 
     print('\nTest vs http://quiz.geeksforgeeks.org/binary-search-tree-set-2-delete/')
-    BST3 = Binary_Search_Tree()
+    BST3 = BinarySearchTree()
     a = [50, 40, 70, 60, 80]
     for n in a:
         BST3.insert(n)
@@ -357,7 +357,7 @@ def print_ordering(a):
     print()
 
 if __name__ == "__main__":
-    BST = Binary_Search_Tree()
+    BST = BinarySearchTree()
     print('Test binary search tree')
     a = [10, 5] #, 20, 4, 3, 6, 7, 0, 1, 11, 15, 25, 30, 40, 26, 7, 17, 22, 26, 10, -5, -2]
     for n in a:
@@ -370,7 +370,7 @@ if __name__ == "__main__":
     BST.remove(5)
     print(BST.in_order())
     # test boundary
-    #BST_tests = Binary_Search_Tree()
+    #BST_tests = BinarySearchTree()
     #BST_tests.insert(1)
     #BST_tests.remove(1)
 

@@ -1,6 +1,6 @@
 # Interview-Prep
 
-Coding interview preperation.
+Coding interview preparation.
 
 Includes:
 
@@ -30,6 +30,10 @@ Includes:
 
 Todo:
 
+- args, kwargs
+
+- how to use yield, generators and iterators properly 
+
 - more DP
 
 - more Trees (red/black tree, suffix trie, N*array tree)
@@ -57,3 +61,5 @@ Todo:
 - string searching (Knuth–Morris–Pratt etc)
 
 - OOP
+
+- compare List Comprehension vs Generator Comprehension vs Lambda, Map, Filter

@@ -2,7 +2,9 @@
 @author: David Lei
 @since: 11/08/2017
 
-Functional-ish things in Python 3:
+Functional-ish things in Python3:
+
+Other cool functional programming things in Python3: https://docs.python.org/3/howto/functional.html
 
 Note: Differences in Python2 and Python3:
 - Python3 map(), filter() return iterators instead of lists
