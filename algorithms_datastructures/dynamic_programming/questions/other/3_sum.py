@@ -23,7 +23,7 @@ Loop from either end, find what number you need to make the target 0 and check i
 """
 
 # Complexity below is upper bounded by O(n choose r) where n is len of set_of_values and r is 3.
-# This is more than n^2 (the optimal solution).
+# This is bad, more than n^2 (the optimal solution).
 import itertools
 
 set_of_values = [-1, 0, 1, 2, -1, -4]

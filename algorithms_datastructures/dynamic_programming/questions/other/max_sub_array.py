@@ -18,7 +18,7 @@ def max_subarray_non_contiguous(arr):
 
     return table[-1]
 
-#print(max_subarray_non_contiguous(arr))
+# print(max_subarray_non_contiguous(arr))
 
 def max_subarray_contiguous(arr):
     table = [0] * len(arr)
@@ -29,4 +29,4 @@ def max_subarray_contiguous(arr):
 
     return max(table)
 
-#print(max_subarray_contiguous(arr))
+# print(max_subarray_contiguous(arr))
