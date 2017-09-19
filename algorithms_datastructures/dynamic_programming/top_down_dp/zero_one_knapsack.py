@@ -9,17 +9,7 @@ Note: Solution is slightly different to https://www.youtube.com/watch?v=149WSzQ4
 
 Note how the recursive code is so much more cleaner than bottom up iterative approach.
 """
-# Can use to test, expected 9.
-# ITEM_WEIGHTS = [1, 3, 4, 5]
-# ITEM_VALUES = [1, 4, 5, 7]
-# TOTAL_CAPACITY = 7
 
-ITEM_WEIGHTS = [2, 2, 4, 5]
-ITEM_VALUES = [2, 4, 6, 9]
-TOTAL_CAPACITY = 8
-
-MEMO = [[-1 for _ in range(TOTAL_CAPACITY + 1)] for _ in range(len(ITEM_WEIGHTS))]
-N = len(ITEM_WEIGHTS)
 
 def kanpsack(item_index, capacity):
     if capacity == 0:
@@ -38,8 +28,31 @@ def kanpsack(item_index, capacity):
     MEMO[item_index][capacity] = max_value
     return max_value
 
-print(kanpsack(0, TOTAL_CAPACITY))
 
+if __name__ == "__main__":
+    print("Scenario 1, expect 13")
+    ITEM_WEIGHTS = [2, 2, 4, 5]
+    ITEM_VALUES = [2, 4, 6, 9]
+    TOTAL_CAPACITY = 8
+    MEMO = [[-1 for _ in range(TOTAL_CAPACITY + 1)] for _ in range(len(ITEM_WEIGHTS))]
+    N = len(ITEM_WEIGHTS)
+    print(kanpsack(0, TOTAL_CAPACITY))
+
+    print("Scenario 2, expect 9")
+    ITEM_WEIGHTS = [1, 3, 4, 5]
+    ITEM_VALUES = [1, 4, 5, 7]
+    TOTAL_CAPACITY = 7
+    MEMO = [[-1 for _ in range(TOTAL_CAPACITY + 1)] for _ in range(len(ITEM_WEIGHTS))]
+    N = len(ITEM_WEIGHTS)
+    print(kanpsack(0, TOTAL_CAPACITY))
+
+    print("Scenario 3, expect 90")
+    ITEM_WEIGHTS = [5, 4, 6, 3]
+    ITEM_VALUES = [10, 40, 30, 50]
+    TOTAL_CAPACITY = 10
+    MEMO = [[-1 for _ in range(TOTAL_CAPACITY + 1)] for _ in range(len(ITEM_WEIGHTS))]
+    N = len(ITEM_WEIGHTS)
+    print(kanpsack(0, TOTAL_CAPACITY))
 
 """ State tree
 
