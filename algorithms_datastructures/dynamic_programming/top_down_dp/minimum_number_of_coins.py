@@ -21,7 +21,7 @@ MEMO = {}  # Map value: min number of coins to form it, can use a value * len co
 MEMO_ARR = [-1 for _ in range(value + 1)]
 
 # O(value * len(coins)), if no memoization will be exponential.
-def rec(value):
+def min_coins(value):
     if value == 0:  # Base case, 0 coins to make value 0.
         return 0
     if MEMO_ARR[value] >= 0:
@@ -32,7 +32,7 @@ def rec(value):
     for coin in coins:
         if coin > value:
             continue
-        return_value = rec(value - coin)
+        return_value = min_coins(value - coin)
         # Add 1 to show we have taken 1 coin (the coin chosen in the current iteration of the for loop).
         min_coins = return_value + 1 if not min_coins else min(min_coins, return_value + 1)
     # MEMO[value] = min_coins
@@ -40,7 +40,7 @@ def rec(value):
     print("Added value {0} to map, can be made using {1} coins".format(value, min_coins))
     return min_coins
 
-print(rec(value))
+print(min_coins(value))
 
 """ State space to consider:
 
