@@ -8,6 +8,8 @@ If you pick an item the value you can get is the value of the item and the value
 Note: Solution is slightly different to https://www.youtube.com/watch?v=149WSzQ4E1g&ab_channel=TusharRoy-CodingMadeSimple
 
 Note how the recursive code is so much more cleaner than bottom up iterative approach.
+
+State space: O(items * capacity) = O(N * C)
 """
 
 
