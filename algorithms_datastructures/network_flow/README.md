@@ -25,7 +25,7 @@ Or the `flow`` between an edge is the same regardless of direction.
 ## Cuts
 A `cut` partitions the nodes in a `flow network` into two sets `S` and `T` such that `s (source) ∈ S` and `t (target) ∈ T`.
 
-<img src="../../images/networkflow_cut.png" width="200">
+<img src="../../images/networkflow_cut.png" width="500">
 
 ## Max Flow == Min Cut
 The size of the `minimum cut` is equal to the size of the `maximum flow`
@@ -39,9 +39,9 @@ Cost is usually the sum of max flow of the removed edges.
 - sending max packages through routes
 - assignment
 
-## Variations to vanilla network flow
+# Variations to vanilla network flow
 
-### Handling anti parallel edges
+## Handling anti parallel edges
 If there exists two edges `(v1, v2)` and `(v2, v1)` then assumption `(v1, v2)` is in `E` and `(v2, v1)` is not is violated.
 These edges are called `anti-parallel`.
 
@@ -51,13 +51,13 @@ Remove the `anti-parallel` edges, add a new node `v'` such that the edge `(v1, v
 
 **Pretty much add an edge node and pipe the old edge through it, now the property `no reverse edge` holds.**
 
-### Several Sources and Targets
+## Several Sources and Targets
 Add a `super source S` and `super target T`, add an edge from the `super source/target` to the `sources/targets` with infinite capacity.
 Then can just run normal algorithm.
 
-<img src="../../images/networkflow_superST.png" width="200">
+<img src="../../images/networkflow_superST.png" width="500">
 
-### Edge-disjoint paths
+## Edge-disjoint paths
 Given a network flow graph find the maximum number of edge-disjoint paths from `source` to `target`.
 
 **Two paths are edge-independent (or edge-disjoint) if they do not have any internal edge in common.**
@@ -75,7 +75,7 @@ If you want only `n` paths extend `t` with another node `T (super sink)` and giv
 
 A `1-0 network` will enforce that if an edge is chosen then it can't be used in another path form `s` to `t` hence sovling the problem.
 
-### Vertex-disjoint path
+## Vertex-disjoint path
 Given a network flow graph find the maximum number of `vertex-disjoint` paths from `s` to `t`.
 
 **Two paths are vertex-independent (alternatively, internally vertex-disjoint) if they do not have any internal vertex in common.**
@@ -86,13 +86,13 @@ Given a network flow graph find the maximum number of `vertex-disjoint` paths fr
 We split a vertex `v` into two `v_in` and `v_out` with an edge with capacity 1 between them.
 This will make the `edge-disjoint` algorithm only pick 1 vertex once for each path from `s` to `t`.
 
-### Disconnecting Edges (min number of edges to disconnect source and target)
+## Disconnecting Edges (min number of edges to disconnect source and target)
 Given a graph `G` find the minimum number of edges needed to be removed such that there is no path from `s` to `t`.
  
 1. Give every edge capacity 1 to form a `1-0 network`
 2. Find `max flow` == max number of `edge-disjoint paths`
 3. max number of `edge-disjoint paths` == min edges to disconnect `s` and `t`
 
-<img src="../../images/networkflow_min_disconnecting_edges.png" width="200">
+<img src="../../images/networkflow_min_disconnecting_edges.png" width="500">
 
 
