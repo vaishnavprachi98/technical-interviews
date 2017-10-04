@@ -9,20 +9,23 @@ For convenience can assume the graph is connected and for each node `v` there ex
 
 Formally Let `G=(V, E)` be a flow network (holds above properties) with capacity function `c()`.
 A `flow` in `G` is a function `f()` such that:
-1. `Capacity constraint`: For all `v, u` in `V` `0 <= f(u, v) <= c(u, v)`
+1. **Capacity constraint**: For all `v, u` in `V` `0 <= f(u, v) <= c(u, v)`
 For all `v`, `u` in `V` the edge between them has the `flow` (given by `f(u, v)`) >= 0 and `capacity` (given by `c(u, v)`) is >= flow.
 If the edge doesn't exist from node `v` to `u` then the `flow` and `capacity` is 0.
 Pretty much means that `flow` is 0 if edge doesn't exist, `capacity` is >= to `flow`.
-> TLDR: Flow from 1 node to another must be non negative and can't exceed capacity
-2. `Flow Conservation`: For all `u` in `V - {s, t}` `sum flow(v, u) == sum(flow(u, v)` for all `v` in `V`. 
+
+**TLDR: Flow from 1 node to another must be non negative and can't exceed capacity**
+
+2. **Flow Conservation**: For all `u` in `V - {s, t}` `sum flow(v, u) == sum(flow(u, v)` for all `v` in `V`. 
 Pretty much means for all nodes in V the flow from it to any other must equal the `flow`` from the other node to it.
 Or the `flow`` between an edge is the same regardless of direction.
-> TLDR: Total flow into a node other than source or sink must equal total flow out of that node, flow in == flow out.
+
+**TLDR: Total flow into a node other than source or sink must equal total flow out of that node, flow in == flow out.**
 
 ## Cuts
 A `cut` partitions the nodes in a `flow network` into two sets `S` and `T` such that `s (source) ∈ S` and `t (target) ∈ T`.
 
-<img src="../images/networkflow_cut.png" width="200">
+<img src="../../images/networkflow_cut.png" width="200">
 
 ## Max Flow == Min Cut
 The size of the `minimum cut` is equal to the size of the `maximum flow`
@@ -41,20 +44,24 @@ Cost is usually the sum of max flow of the removed edges.
 ### Handling anti parallel edges
 If there exists two edges `(v1, v2)` and `(v2, v1)` then assumption `(v1, v2)` is in `E` and `(v2, v1)` is not is violated.
 These edges are called `anti-parallel`.
->TLDR: two edges are anti-parallel if they are between the same pair of vertices but in opposite directions i.e. v1 -> v2 and v1 <- v2.
+
+**TLDR: two edges are anti-parallel if they are between the same pair of vertices but in opposite directions i.e. v1 -> v2 and v1 <- v2.**
 
 Remove the `anti-parallel` edges, add a new node `v'` such that the edge `(v1, v2)` is replaced by `(v1, v')` and `(v', v2)`
-> Pretty much add an edge node and pipe the old edge through it, now the property `no reverse edge` holds.
+
+**Pretty much add an edge node and pipe the old edge through it, now the property `no reverse edge` holds.**
 
 ### Several Sources and Targets
 Add a `super source S` and `super target T`, add an edge from the `super source/target` to the `sources/targets` with infinite capacity.
 Then can just run normal algorithm.
 
-<img src="../images/networkflow_superST.png" width="200">
+<img src="../../images/networkflow_superST.png" width="200">
 
 ### Edge-disjoint paths
 Given a network flow graph find the maximum number of edge-disjoint paths from `source` to `target`.
-> Two paths are edge-independent (or edge-disjoint) if they do not have any internal edge in common.
+
+**Two paths are edge-independent (or edge-disjoint) if they do not have any internal edge in common.**
+
 Pretty much two paths are `edge-disjoint` if they don't have any of the same edges.
  
 1. Assign 1 capacity to each edge (called a `1-0 network`).
@@ -70,7 +77,8 @@ A `1-0 network` will enforce that if an edge is chosen then it can't be used in 
 
 ### Vertex-disjoint path
 Given a network flow graph find the maximum number of `vertex-disjoint` paths from `s` to `t`.
-> Two paths are vertex-independent (alternatively, internally vertex-disjoint) if they do not have any internal vertex in common.
+
+**Two paths are vertex-independent (alternatively, internally vertex-disjoint) if they do not have any internal vertex in common.**
 
 1. Do vertex splitting by adding an edge b/w each vertex and splitting the vertex into two. 
 2. Do `edge-disjoint` paths algorithm.
@@ -85,6 +93,6 @@ Given a graph `G` find the minimum number of edges needed to be removed such tha
 2. Find `max flow` == max number of `edge-disjoint paths`
 3. max number of `edge-disjoint paths` == min edges to disconnect `s` and `t`
 
-<img src="../images/networkflow_min_disconnecting_edges.png" width="200">
+<img src="../../images/networkflow_min_disconnecting_edges.png" width="200">
 
 
