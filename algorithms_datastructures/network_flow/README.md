@@ -127,7 +127,11 @@ Sending flow back si the same as decreasing flor on the edge.
 
 > An augmenting path is a simple path - a path that does not contain cycles - through the graph using only edges with positive capacity from the source to the sink in the residual network.
 Pretty much an `augmenting path` is a positive path from `s` to `t` in `G'` which does the extra flow we can push through edges.
-> Given a flow network G D .V;E/ and a flow f, an augmenting path p is a simple path from s to t in the residual network Gf . By the definition of the resid- ual network, we may increase the flow on an edge .u; / of an augmenting path by up to cf .u;  / without violating the capacity constraint on whichever of .u;  / and . ; u/ is in the original flow network G.
+
+
+> Given a flow network G = (V, E) and a flow f, an augmenting path p is a simple path from s to t in the residual network Gf . By the definition of the resid- ual network, we may increase the flow on an edge .u; / of an augmenting path by up to cf .u;  / without violating the capacity constraint on whichever of .u;  / and . ; u/ is in the original flow network G.
+
+
 > Residual capacity of an edge is the difference between the edge's capacity and its flow  = c(e) - f(e). From this we can construct a residual network, denoted G' which models the amount of available capacity on the set of edges
 
 ## Cuts
@@ -148,7 +152,9 @@ They are all the same as we update the original graph based on changes in the re
 ## Dealing with things that aren't integers
 Scale values to make them integers otherwise life will be hard.
 
-# Edmonds-Karp O(VE^2) where V = num vertices, E = num edges
+# Edmonds-Karp O(VE^2)
+where V = num vertices, E = num edges
+
 Find an augmenting path using `bfs()`, this will give the shortest path from `s` to `t` in the `residual network` where each edge is assigned a unit distance.
 
 Each `ford-fulkerson` iteration takes `O(E)` as you do a `for edge in augmented_path_edges: update capacites`
@@ -160,7 +166,10 @@ Something like each augmenting path has a least 1 `critical edge (saturated, use
 # Maximum bipartite (separating into parties) matching O(VE)
 - **bipartite** means separate.
 - **matching** one to one pairing of elements from a set to another.
-> A matching in a Bipartite Graph is a set of the edges chosen in such a way that no two edges share an endpoint. A maximum matching is a matching of maximum size (maximum number of edges). In a maximum matching, if any edge is added to it, it is no longer a matching. There can be more than one maximum matchings for a given Bipartite Graph.
+
+> A matching in a Bipartite Graph is a set of the edges chosen in such a way that no two edges share an endpoint.
+
+> A maximum matching is a matching of maximum size (maximum number of edges). In a maximum matching, if any edge is added to it, it is no longer a matching. There can be more than one maximum matchings for a given Bipartite Graph.
 Can only have edges from 1 set to another, not within a set.
 
 Can use `ford-fulkerson` to find maximum matching in an undirected `bipartite graph`. Make flows correspond to matching (capacities of 1 and add new nodes for `s` and `t`)
@@ -169,6 +178,7 @@ Can use `ford-fulkerson` to find maximum matching in an undirected `bipartite gr
 Note: I think it is `O(VE)` because we don't need to update edges more than once as it is given a unit flow?
 
 Note: Checking if a graph is bipartite is just a `two_colouring()`
+
 ## Useful in assignment problems
 
 <img src="../../images/network_flow_bipartite_ex.png" width="500">
