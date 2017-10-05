@@ -9,17 +9,18 @@ Based Vertex and Edge clases
 """
 class Vertex:
     def __init__(self, x=None, point=None, rep=None):
-        self.name = x                                   # integer 'name' or index
+        self.name = x                                   # integer 'name' or index....why did I call this name?
         self.pointer = point                            # points to a linked list in adjacency list
         self.rep = rep                                  # string representation
         self.distance = None
 
 
 class Edge:
-    def __init__(self, origin, destination, x=None, weight=None,):
+    def __init__(self, origin, destination, x=None, weight=None, capacity=None):
         self.origin = origin
         self.destination = destination
         self.weight = weight
+        self.capacity = capacity
         self.name = x
 
     def get_endpoints(self):

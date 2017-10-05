@@ -12,10 +12,10 @@ Assuming directed graph
 
 with space complexity O(v + e)
 """
-from Algorithms_DataStructures.Graphs.Implementations.Structures import Vertex, Edge
+from algorithms_datastructures.graphs.implementations.structures import Vertex, Edge
 #from Structures import Vertex, Edge
 
-class Graph_List:
+class Adjacency_List:
     def __init__(self, no_vertices):
         self.list = [Vertex() for _ in range(no_vertices)]     # initialize to an array of vertices
 
@@ -25,18 +25,18 @@ class Graph_List:
             v.append(vertex)
         return v
 
-    def add_vertex(self, v, rep):
+    def add_vertex(self, index, rep):
         new_list = []                                           # creates a new linked list
-        vertex = self.list[v]
-        vertex.name = v                                         # set vertex name
+        vertex = self.list[index]
+        vertex.name = index                                     # set vertex name
         vertex.rep = rep                                        # string representation
         vertex.pointer = new_list                               # set vertex pointer
         return vertex
 
-    def add_edge(self, origin_vertex, destination_vertex, edge_name=None):
+    def add_edge(self, origin_vertex, destination_vertex, edge_name=None, weight=None, capacity=None):
         origin = origin_vertex.name
         destination = destination_vertex.name
-        edge = Edge(origin_vertex, destination_vertex, edge_name)
+        edge = Edge(origin_vertex, destination_vertex, edge_name, weight, capacity)
         self.list[origin].pointer.append(edge)
         return edge
 
@@ -75,7 +75,7 @@ class Graph_List:
 
 if __name__ == "__main__":
     print("Adjacency list")
-    G = Graph_List(5)
+    G = Adjacency_List(5)
     G.print_graph()
     A = G.add_vertex(0,"A")
     B = G.add_vertex(1,"B")

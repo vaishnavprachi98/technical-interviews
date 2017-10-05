@@ -15,7 +15,7 @@ Isn't that good for algorithms, other representations can give us a list of node
 with space complexity O(v^2)
 """
 
-class Graph_Matrix:
+class Adjacency_Matrix:
     def __init__(self, no_vertices):           # need to know the no_vertices to make matrix, might be a pain resizing
         self.matrix = [[0 for _ in range(no_vertices)] for _ in range(no_vertices)]
         self.no_vertices = no_vertices
@@ -59,7 +59,7 @@ class Graph_Matrix:
         # return list of vertices represented as integers starting at 0
         return [x for x in range(self.no_vertices)]
 if __name__ == "__main__":
-    G = Graph_Matrix(5)
+    G = Adjacency_Matrix(5)
     print("5x5 matrix")
     G.print_matrix()
     print("6x6 matrix, added vertex")
