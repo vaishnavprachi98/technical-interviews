@@ -16,12 +16,15 @@ class Vertex:
 
 
 class Edge:
-    def __init__(self, origin, destination, x=None, weight=None, capacity=None):
+    def __init__(self, origin, destination, x=None, weight=None, capacity=None, flow=None, residual_capacity=None, residual_flow=None):
         self.origin = origin
         self.destination = destination
         self.weight = weight
         self.capacity = capacity
         self.name = x
+        self.flow = flow
+        self.residual_capacity = residual_capacity
+        self.residual_flow = residual_flow
 
     def get_endpoints(self):
         return self.origin, self.destination

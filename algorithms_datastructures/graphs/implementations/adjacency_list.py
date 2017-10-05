@@ -33,10 +33,10 @@ class Adjacency_List:
         vertex.pointer = new_list                               # set vertex pointer
         return vertex
 
-    def add_edge(self, origin_vertex, destination_vertex, edge_name=None, weight=None, capacity=None):
+    def add_edge(self, origin_vertex, destination_vertex, edge_name=None, weight=None, capacity=None, flow=None, residual_capacity=None, residual_flow=None):
         origin = origin_vertex.name
         destination = destination_vertex.name
-        edge = Edge(origin_vertex, destination_vertex, edge_name, weight, capacity)
+        edge = Edge(origin_vertex, destination_vertex, edge_name, weight, capacity, flow, residual_capacity, residual_flow)
         self.list[origin].pointer.append(edge)
         return edge
 
