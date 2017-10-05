@@ -84,6 +84,31 @@ def ford_fulkerson(flow_network, residual_network, source, target, num_nodes, re
 
 # ------------------------------------------------- driver functions ---------------------------------------------------
 
+def make_networks_mathspace():
+    # https://mathspace.co/learn/world-of-maths/networks/network-flow-18724/network-flow-1289/
+    flow_network = Adjacency_List(4)
+    A = flow_network.add_vertex(index=0, rep='A')
+    B = flow_network.add_vertex(index=1, rep='B')
+    D = flow_network.add_vertex(index=2, rep='D')
+    C = flow_network.add_vertex(index=3, rep='C')
+    flow_network.add_edge(origin_vertex=A, destination_vertex=B, capacity=12, flow=0)
+    flow_network.add_edge(origin_vertex=A, destination_vertex=D, capacity=9, flow=0)
+    flow_network.add_edge(origin_vertex=D, destination_vertex=B, capacity=8, flow=0)
+    flow_network.add_edge(origin_vertex=B, destination_vertex=C, capacity=15, flow=0)
+    flow_network.add_edge(origin_vertex=D, destination_vertex=C, capacity=11, flow=0)
+
+    residual_network = Adjacency_List(4)
+    Ar = residual_network.add_vertex(index=0, rep='A')
+    Br = residual_network.add_vertex(index=1, rep='B')
+    Dr = residual_network.add_vertex(index=2, rep='D')
+    Cr = residual_network.add_vertex(index=3, rep='C')
+    residual_network.add_edge(origin_vertex=Ar, destination_vertex=Br, residual_capacity=12, flow=0)
+    residual_network.add_edge(origin_vertex=Ar, destination_vertex=Dr, residual_capacity=9, flow=0)
+    residual_network.add_edge(origin_vertex=Dr, destination_vertex=Br, residual_capacity=8, flow=0)
+    residual_network.add_edge(origin_vertex=Br, destination_vertex=Cr, residual_capacity=15, flow=0)
+    residual_network.add_edge(origin_vertex=Dr, destination_vertex=Cr, residual_capacity=11, flow=0)
+    return flow_network, residual_network, A, C, Ar, Cr
+
 def make_networks_basic_test():
     # A simple linear chain network showing that edges S->A and B->T will be restricted by the min flow in an edge in the augmenting path.
     flow_network = Adjacency_List(4)
@@ -202,6 +227,13 @@ if __name__ == "__main__":
     # Test graph from https://www.youtube.com/watch?v=rLIR89YyNjg&ab_channel=A%26A
     print("\n\t\t~~~ Test 3 ~~~")
     flow_network, residual_network, source, target, residual_source, residual_target = make_networks_example()
+    max_flow = ford_fulkerson(flow_network, residual_network, source, target, 6, residual_source, residual_target)
+    print("max flow: %s, expected: 21" % max_flow)
+    print("Passed: %s" % (max_flow == 21))
+
+    # Test graph from https://mathspace.co/learn/world-of-maths/networks/network-flow-18724/network-flow-1289
+    print("\n\t\t~~~ Test 4 ~~~")
+    flow_network, residual_network, source, target, residual_source, residual_target = make_networks_mathspace()
     max_flow = ford_fulkerson(flow_network, residual_network, source, target, 6, residual_source, residual_target)
     print("max flow: %s, expected: 21" % max_flow)
     print("Passed: %s" % (max_flow == 21))
