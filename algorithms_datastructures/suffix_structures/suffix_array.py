@@ -10,7 +10,10 @@ Creation:
 - using radix sort O(n^2)
 - using suffix tree O(n * alpha) where alpha is the alphabet size (bounded by 26?).
 
-
+Resources:
+- http://www.cs.jhu.edu/~langmea/resources/lecture_notes/suffix_arrays.pdf
+- https://louisabraham.github.io/notebooks/suffix_arrays.html
+- https://gist.github.com/prasoon2211/cc3f3d5b43a0885c0e7a
 """
 
 class SuffixArray:
@@ -43,6 +46,7 @@ class SuffixArray:
             else:
                 hi = mid - 1
         return None
+
 
 if __name__ == "__main__":
     s = "bananabatman"
