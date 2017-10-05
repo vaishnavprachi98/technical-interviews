@@ -95,4 +95,41 @@ Given a graph `G` find the minimum number of edges needed to be removed such tha
 
 <img src="../../images/networkflow_min_disconnecting_edges.png" width="500">
 
+## Undirected graph
+> 	
+There is algorithm called Ford-Fulkerson algorithm which gives the maximum flow of a flow network in polynomial time, you can look it up in the book Algorithm Design by Kleinberg and Tardos, or even in CLRS.
 
+The only thing you need to do to solve your problem is that you should replace every edge in your undirected grah by two edges backwards and forwards with the same capacity and then solve your problem using the Ford-Fulkerson algorithm. It can be easily proven that in such conversion, flow only propagates through one of the two edges and always one of them is not used.
+
+# Ford-Fulkerson
+Relies on 
+- residual networks
+- augmenting paths
+- cuts
+
+
+Iteratively increase the value of flow. Starting with `f(u, v) = 0` at each iteration increase the flow value in G by finding an `augmenting path` in an associated `residual network G'`.
+From knowing edges of an `augmenting path` in `G'` you can easily find corresponding edges in `G` to change to increase the flow. Note increasing overall flow might mean you need to decrease flow on some edge.
+Repeatedly augment flow until `residual network` has no more `augmenting paths`.
+
+## Residual networks
+
+Given a flow network `G` it's residual network `G'` are it's edges with capacities that represent how we can change the flow.
+An edge in `G'` can emit extra flow of the same edge in `G` - `capacity(edge)`, if it is >= then add it from `G` into `G'` so `G'`
+will only have edges that can send more flow. We also add `backwards edges` in `G'` so we can see the effect of not sending flow down a path in `G` and instead investing it elsewhere thus cancelling out the flow sent down the path in `G`.
+Sending flow back si the same as decreasing flor on the edge.
+
+## Augmenting path
+
+> An augmenting path is a simple path - a path that does not contain cycles - through the graph using only edges with positive capacity from the source to the sink in the residual network.
+Pretty much an `augmenting path` is a positive path from `s` to `t` in `G'` which does the extra flow we can push through edges.
+> Given a flow network G D .V;E/ and a flow f, an augmenting path p is a simple path from s to t in the residual network Gf . By the definition of the resid- ual network, we may increase the flow on an edge .u; / of an augmenting path by up to cf .u;  / without violating the capacity constraint on whichever of .u;  / and . ; u/ is in the original flow network G.
+> Residual capacity of an edge is the difference between the edge's capacity and its flow  = c(e) - f(e). From this we can construct a residual network, denoted G' which models the amount of available capacity on the set of edges
+
+## Cuts
+`Ford-Fulkerson` repeatedly augments flow on augmenting paths until max flow is found.
+Due to the `max-flow min-cut` theorem, a flow is maximum iff it's residual network contains no augmenting paths.
+
+Intuitively (not sure if this is right but logic seems sound) the max flow means we pushed as much as possible though `G` thus using up as much as of the possible capacity through edges saturating at least 1 edge in the path from `s` to `t` meaning there is no path from `s` to `t` in `G'`
+
+// pg 720
