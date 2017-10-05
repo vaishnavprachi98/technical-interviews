@@ -195,7 +195,7 @@ Also VCPC question where you need to match questions and difficulty.
 Rather than examine entire residual network to find augmenting paths, `push-relabel` work on one node at a time looking only at it's neighbours.
 
 # TODO as exercises:
-- [ x ] Fork-Fulkerson algorithm
+- [x] Fork-Fulkerson algorithm
 - [ ] Dinics algorithm
 - [ ] Edmons-Karp algorithm
 - [ ] Implement maximum bipartite matching
