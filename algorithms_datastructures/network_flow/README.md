@@ -129,7 +129,7 @@ Sending flow back si the same as decreasing flor on the edge.
 Pretty much an `augmenting path` is a positive path from `s` to `t` in `G'` which does the extra flow we can push through edges.
 
 
-> Given a flow network G = (V, E) and a flow f, an augmenting path p is a simple path from s to t in the residual network Gf . By the definition of the resid- ual network, we may increase the flow on an edge .u; / of an augmenting path by up to cf .u;  / without violating the capacity constraint on whichever of .u;  / and . ; u/ is in the original flow network G.
+> Given a flow network G = (V, E) and a flow f, an augmenting path p is a simple path from s to t in the residual network Gf . By the definition of the residual network, we may increase the flow on an edge u of an augmenting path by up to cf u without violating the capacity constraint on whichever of u and u is in the original flow network G.
 
 
 > Residual capacity of an edge is the difference between the edge's capacity and its flow  = c(e) - f(e). From this we can construct a residual network, denoted G' which models the amount of available capacity on the set of edges
@@ -185,3 +185,18 @@ Note: Checking if a graph is bipartite is just a `two_colouring()`
 
 Also VCPC question where you need to match questions and difficulty.
 
+
+# Push-relabel
+- fastest asymptotically
+- can also do min-cost flow problem
+- do not maintain `flow-conservation`, `flow-conservation` is `flow_in == flow_out` for non source/target nodes.
+- has a preflow
+
+Rather than examine entire residual network to find augmenting paths, `push-relabel` work on one node at a time looking only at it's neighbours.
+
+# TODO as exercises:
+- [ x ] Fork-Fulkerson algorithm
+- [ ] Dinics algorithm
+- [ ] Edmons-Karp algorithm
+- [ ] Implement maximum bipartite matching
+- [ ] Push-relabel algorithms
