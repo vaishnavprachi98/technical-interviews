@@ -9,7 +9,7 @@ from algorithms_datastructures.graphs.implementations.adjacency_list import Adja
 def find_path_dfs(residual_network, source, target, edge_list, visited):
     if source == target:
         return edge_list
-    visited[source.name] = 1
+    visited[source.name] = 1  # Note source.name is just an index.
     for edge in residual_network.get_adjacent_edges(source):
         if edge.residual_capacity <= 0:
             continue
@@ -20,7 +20,6 @@ def find_path_dfs(residual_network, source, target, edge_list, visited):
                 return found_path
 
 def ford_fulkerson(flow_network, residual_network, source, target, num_nodes, residual_source, residual_target):
-    # Assume dag is represented in an adjacency list.
     visited = [0 for _ in range(num_nodes)]
     augmenting_path = find_path_dfs(residual_network, residual_source, residual_target, [], visited) # List of chosen edges.
     augmented_path_flows = []
@@ -31,14 +30,17 @@ def ford_fulkerson(flow_network, residual_network, source, target, num_nodes, re
             print("->%s" % edge.destination.rep, end="")
         print()
 
-        flow_of_augmented_path = min(edge.residual_capacity for edge in augmenting_path) # The flow.
+        # The flow of the path is defined as the min flow through all edges in the path.
+        flow_of_augmented_path = min(edge.residual_capacity for edge in augmenting_path)
         augmented_path_flows.append(flow_of_augmented_path)
 
         for residual_edge in augmenting_path:
             original_edge = flow_network.find_edge(residual_edge.origin, residual_edge.destination)
             if not original_edge:
                 raise ValueError("Missing edge? How did this happen")
+            # Add the flow to the original graph, greedly use that path.
             original_edge.flow += flow_of_augmented_path
+            # Remove the flow from the residual graph edges with residual_capacity == flow of aug path will be saturated.
             residual_edge.residual_capacity -= flow_of_augmented_path
 
         # Get next augmenting path.
