@@ -39,7 +39,7 @@ http://stackoverflow.com/questions/4458169/in-what-order-does-python-display-dic
 That in turn depends on the keys hash-value, the order they were inserted, and which Python implementation you are using.
 The order is arbitrary (but not random) and it will never be useful to know which order it will be."
 """
-from algorithms_datastructures.graphs.linked_queue import LinkedQueue
+from algorithms_datastructures.graphs.traversal.linked_queue import LinkedQueue
 
 def breadth_first_search(G, root, use_rep=False):
 

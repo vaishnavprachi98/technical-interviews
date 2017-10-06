@@ -51,7 +51,7 @@ Space complexity: O(v)
 
 Can use to traverse trees or graphs
 """
-from algorithms_datastructures.graphs.linked_stack import LinkedStack
+from algorithms_datastructures.graphs.traversal.linked_stack import LinkedStack
 
 def depth_first_search_rec_driver(G, root, use_rep=False):
     nodes = G.get_vertices()
@@ -111,7 +111,6 @@ def depth_first_search_iterative(G, root, use_rep=False):
 def test_dictionary_adj_map_output():
     for i in range(5):
         from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
-        from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
 
         # example from https://en.wikipedia.org/wiki/Depth-first_search
         # iterative version correct order: A, E, F, B, D, C, G
