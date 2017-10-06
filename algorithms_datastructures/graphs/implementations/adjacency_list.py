@@ -29,6 +29,7 @@ class Adjacency_List:
         new_list = []                                           # creates a new linked list
         vertex = self.list[index]
         vertex.name = index                                     # set vertex name
+        vertex.index = index
         vertex.rep = rep                                        # string representation
         vertex.pointer = new_list                               # set vertex pointer
         return vertex
@@ -46,6 +47,14 @@ class Adjacency_List:
             if destination_vertex.name == edge.destination.name:
                 return edge
         return False
+
+    def get_all_edges(self):
+        all_edges = set()
+        for vertex in self.list:
+            for edge in self.get_adjacent_edges(vertex):
+                if not edge in all_edges:
+                    all_edges.add(edge)
+        return all_edges
 
     def get_adjacent_edges(self, origin_vertex):
         origin = origin_vertex.name

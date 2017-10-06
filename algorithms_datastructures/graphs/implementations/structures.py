@@ -13,6 +13,7 @@ class Vertex:
         self.pointer = point                            # points to a linked list in adjacency list
         self.rep = rep                                  # string representation
         self.distance = None
+        self.index = x                                  # made this because I didn't want to refactor to change .name to .index everywhere.
 
 
 class Edge:
