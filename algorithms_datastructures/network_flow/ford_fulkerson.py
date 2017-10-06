@@ -9,11 +9,11 @@ from algorithms_datastructures.graphs.implementations.adjacency_list import Adja
 def find_path_dfs(residual_network, source, target, edge_list, visited):
     if source == target:
         return edge_list
-    visited[source.name] = 1  # Note source.name is just an index.
+    visited[source.index] = 1  # Note source.index is just an index.
     for edge in residual_network.get_adjacent_edges(source):
         if edge.residual_capacity <= 0:
             continue
-        if visited[edge.destination.name] != 1:
+        if visited[edge.destination.index] != 1:
 
             found_path = find_path_dfs(residual_network, edge.destination, target, edge_list + [edge], visited)
             if found_path:

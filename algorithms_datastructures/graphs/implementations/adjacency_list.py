@@ -19,6 +19,9 @@ class Adjacency_List:
     def __init__(self, no_vertices):
         self.list = [Vertex() for _ in range(no_vertices)]     # initialize to an array of vertices
 
+    def get_all_vertices(self):
+        return self.get_vertices()
+
     def get_vertices(self):
         v = []
         for vertex in self.list:
