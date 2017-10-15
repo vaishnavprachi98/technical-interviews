@@ -207,7 +207,30 @@ def make_networks_example():
 
     return flow_network, residual_network, A, F, Ar, Fr
 
+def make_networks_codeforces():
+    flow_network = Adjacency_List(4)
+    one = flow_network.add_vertex(index=0, rep='(1)')
+    two = flow_network.add_vertex(index=1, rep='(2)')
+    three = flow_network.add_vertex(index=2, rep='(3)')
+    four = flow_network.add_vertex(index=3, rep='(4)')
+    flow_network.add_edge(origin_vertex=one, destination_vertex=two, capacity=10, flow=0)
+    flow_network.add_edge(origin_vertex=one, destination_vertex=three, capacity=10, flow=0)
+    flow_network.add_edge(origin_vertex=two, destination_vertex=three, capacity=1, flow=0)
+    flow_network.add_edge(origin_vertex=two, destination_vertex=four, capacity=10, flow=0)
+    flow_network.add_edge(origin_vertex=three, destination_vertex=four, capacity=10, flow=0)
 
+    residual_network = Adjacency_List(4)
+    one_r = residual_network.add_vertex(index=0, rep='(1)')
+    two_r = residual_network.add_vertex(index=1, rep='(2)')
+    three_r = residual_network.add_vertex(index=2, rep='(3)')
+    four_r = residual_network.add_vertex(index=3, rep='(4)')
+    residual_network.add_edge(origin_vertex=one_r, destination_vertex=two_r, residual_capacity=10, flow=0)
+    residual_network.add_edge(origin_vertex=one_r, destination_vertex=three_r, residual_capacity=10, flow=0)
+    residual_network.add_edge(origin_vertex=two_r, destination_vertex=three_r, residual_capacity=1, flow=0)
+    residual_network.add_edge(origin_vertex=two_r, destination_vertex=four_r, residual_capacity=10, flow=0)
+    residual_network.add_edge(origin_vertex=three_r, destination_vertex=four_r, residual_capacity=10, flow=0)
+
+    return flow_network, residual_network, one, four, one_r, four_r
 
 if __name__ == "__main__":
     # Test simple linear network.
@@ -237,3 +260,10 @@ if __name__ == "__main__":
     max_flow = ford_fulkerson(flow_network, residual_network, source, target, 6, residual_source, residual_target)
     print("max flow: %s, expected: 21" % max_flow)
     print("Passed: %s" % (max_flow == 21))
+
+    # Test from code forces network flow applications A.
+    print("\n\t\t~~~ Test 5 ~~~")
+    flow_network, residual_network, source, target, residual_source, residual_target = make_networks_codeforces()
+    max_flow = ford_fulkerson(flow_network, residual_network, source, target, 4, residual_source, residual_target)
+    print("max flow: %s, expected: 20" % max_flow)
+    print("Passed: %s" % (max_flow == 20))
