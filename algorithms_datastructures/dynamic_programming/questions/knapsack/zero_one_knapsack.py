@@ -15,9 +15,7 @@ Dynamic programming approach is bottom up
 Recursive approach is top down
 """
 
-def knapsack_recusrive(items, bag_capacity):
-    pass
-
+# Bottom up approach.
 def knapsack_iterative(items, bag_capacity):
     """
     Uses dp to find optimal solution to the one-zero (either take or leave)
@@ -41,13 +39,13 @@ def knapsack_iterative(items, bag_capacity):
             if item[0] <= j:                      # space item takes vs bag capacity (j), if we can take item
 
                 table[i][j] = max(                        # take max of (remember can only take each item once)
-                    table[i - 1][j],                      # - previous best, and leave this item
-                    item[1] + table[i - 1][j - item[0]]   # - take this item and anything we can with the left space
+                        table[i - 1][j],                      # - previous best, and leave this item
+                        item[1] + table[i - 1][j - item[0]]   # - take this item and anything we can with the left space
                     )                                     # space by going up one row and going the the index with space
             else:                                 # no chance we can take the item, go with previous best
                 table[i][j] = table[i - 1][j]
-    took_items = find_chosen(table, items)
-    return table, took_items
+    # took_items = find_chosen(table, items)
+    return table, []
 
 def find_chosen(table, items):
     """
@@ -60,6 +58,7 @@ def find_chosen(table, items):
     using negative indexes to work our way up (yay python =])
     the first row will be - len(table) with - indexing
     """
+    # TODO: Bug here, probs an edge case/off by one leading to infinite loop.
     took = []
     solution = table[-1][-1]
     current_value = solution
@@ -106,11 +105,20 @@ def test(items, bag_capacity):
         print(" -  item space: " + str(item[0]) + ", item: value: " + str(item[1]))
 
 if __name__ == "__main__":
+    print("Testing scenario 1, expected 9")
     items = [(1,1), (3,4), (4,5), (5,7)]
     bag_capacity = 7
     test(items, bag_capacity)
-    #print("Testing scenario 2")
-    #items = [(4,22), (2,20), (3,15), (5,30), (5,24), (6,54), (9,21), (7,32), (8,18), (10,25)]
-    #bag_capacity = 30
-    #test(items, bag_capacity)
-    # problems with scenario 2, might be because things unsorted
+    print("Testing scenario 2, expected 13")
+    item_weights = [2, 2, 4, 5]
+    item_values = [2, 4, 6, 9]
+    bag_capacity = 8
+    items = list(zip(item_weights, item_values))
+    test(items, bag_capacity)
+    print("Testing scenario 3, expected 90") # bug in find chosen here.
+    item_weights = [5, 4, 6, 3]
+    item_values = [10, 40, 30, 50]
+    bag_capacity = 10
+    items = list(zip(item_weights, item_values))
+    items.sort(key=lambda t:t[0])
+    test(items, bag_capacity)

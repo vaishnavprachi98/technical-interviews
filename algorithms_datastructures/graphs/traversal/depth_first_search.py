@@ -51,7 +51,7 @@ Space complexity: O(v)
 
 Can use to traverse trees or graphs
 """
-from Linked_Stack import LinkedStack
+from algorithms_datastructures.graphs.traversal.linked_stack import LinkedStack
 
 def depth_first_search_rec_driver(G, root, use_rep=False):
     nodes = G.get_vertices()
@@ -110,8 +110,7 @@ def depth_first_search_iterative(G, root, use_rep=False):
 
 def test_dictionary_adj_map_output():
     for i in range(5):
-        from Algorithms_DataStructures.Graphs.Implementations.Adjacency_Map import Graph_Map
-        from Algorithms_DataStructures.Graphs.Implementations.Adjacency_List import Graph_List
+        from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
 
         # example from https://en.wikipedia.org/wiki/Depth-first_search
         # iterative version correct order: A, E, F, B, D, C, G
@@ -119,7 +118,7 @@ def test_dictionary_adj_map_output():
         # this is also a correct dfs ordering: A, B, F, E, D, C, G
         # each of them follow what dfs does which is exploring as far as possible along each branch before back tracking
 
-        graph_map = Graph_Map()
+        graph_map = Adjacency_Map()
         # set up adj map graph
         A = graph_map.add_vertex('A')
         B = graph_map.add_vertex('B')
@@ -149,14 +148,15 @@ def test_dictionary_adj_map_output():
         # due to randomness with {} sometimes we get a different order using a adj map
 
 if __name__ == "__main__":
-    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_Map import Graph_Map
-    from Algorithms_DataStructures.Graphs.Implementations.Adjacency_List import Graph_List
+    from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
+    from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
+
 
     # recursive version correct order: A, B, D, F, E, C, G (went to D first instead of F)
     # this is also a correct dfs ordering: A, B, F, E, D, C, G
     # each of them follow what dfs does which is exploring as far as possible along each branch before back tracking
 
-    graph_map = Graph_Map()
+    graph_map = Adjacency_Map()
     # set up adj map graph
     A = graph_map.add_vertex('A')
     B = graph_map.add_vertex('B')
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     test_dictionary_adj_map_output()
 
     print("\nDFS on adjacent list")
-    graph_list = Graph_List(7)
+    graph_list = Adjacency_List(7)
     # set up adj map graph, slightly different set up due to diff underlying structure
     a = graph_list.add_vertex(0,'A')
     b = graph_list.add_vertex(1,'B')
