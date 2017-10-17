@@ -210,7 +210,7 @@ def heap_sort():
         output.append(heap.get_min())
 ```
 
-See [from algorithms_datastructures.datastructures.min_heap] (../datastructures/min_heap.py)
+See [from algorithms_datastructures.datastructures.min_heap] (https://github.com/darvid7/pls-hire-me/blob/fb_prep/algorithms_datastructures/datastructures/min_heap.py)
 
 | Situation   |   Time     | Space |
 | ----------- | ---------- | ----- |
