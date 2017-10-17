@@ -178,6 +178,47 @@ The releative positioning of A and a has changed thus not stable.
 
 ### Heap sort
 
+Key idea:
+1. make use of the heap data structure (a.k.a priority queue) so you can put stuff in and take stuff out in sorted order.
+2. heapify the input array (O(n log n) naively, O(n) smartly).
+3. take n items out to form your sorted array O(n log n), every time you take an item out log n to fix the heap, take n items.
+
+Note: Heaps can be represented as an array in implementation and visually as a tree.
+
+#### Heapify
+
+Naive O(n log n) vs better O(n).
+
+Naively you can make a heap and insert each item. After insertion of an item it is O(log n) to maintain the heap property (percolate/sink down) so inserting n items results in O(n log n).
+
+A better approach is to take advantage of leaves being valid sub heaps. Only sink down the nodes that we need to.
+
+We don't need to deal with leaves so given the input array with length n we only care about the first 1 .. n // 2 nodes as the last n // 2 .. n nodes are most likely leaves.
+So we only need to sink down the the first 1 .. n // 2 elements.  We need to do this smartly as if we start at index 1 (the root) it will assume sub heaps encountered uphold the heap property,
+thus we must start from n // 2 and go up to 1 to ensure all sub heaps are fixed before fixing sub heaps from a higher level.
+
+This works as leaves are valid heaps, because they are filled out from left to right we can kinda ignore the last n // 2 elements as they are
+all leaves. So we then get the parents of these sub heaps and make sure they upload the heap property and do this from n // 2 until the root.
+
+A complete binary tree with height h (root has h = 0) has at max (n + 1)//2 leaves, where n is the number of nodes and 2^(h + 1) -1 nodes.
+
+```python
+def heap_sort():
+    heap.heapify(array)
+    output = []
+    for _ in range(heap.count):
+        output.append(heap.get_min())
+```
+
+See [`from algorithms_datastructures.datastructures.min_heap`] (../datastructures/min_heap.py)
+
+| Situation   |   Time     | Space |
+| ----------- | ---------- | ----- |
+| Best Case   | O(n log n)  | O(1) |
+| Worst case  | O(n log n)  | O(1) |
+
+Time is bounded by the log n time to remove a single element done for n elements.
+Space is inplace (don't need more space) except for that of the array (assume it is given). Heap sort is not stable, no guarantee of order of same values in a heap.
 
 
 ## Non comparison based sorts
@@ -185,9 +226,9 @@ The releative positioning of A and a has changed thus not stable.
 ### Counting sort
 
 Key idea:
-1. Make buckets of all possible inputs in the range.
-2. Loop through items in the array, add the count to the correct bucket.
-3. Return bucket key * count.
+1. make buckets of all possible inputs in the range.
+2. loop through items in the array, add the count to the correct bucket.
+3. return bucket key * count.
 
 We need to know the range for counting sort.
 
@@ -228,8 +269,8 @@ def counting_sort_alphabet(string):  # Not stable, can work with string or array
 | Best Case   | O(2n + k)  | O(k + n) |
 | Worst case  | O(2n + k)  | O(k + n) |
 
-Counting sort can be implemented stably and not stably. It will be stable if you caculate the cumulative sum of the indexes and then loop over the input array and find out where to place each item in the output array like in `counting_sort_ints`, it can also be done un-stably like in `counting_sort_alphabet`
-The complexity is treated as O(n). It does two loops over the input size n one to count and one to find placement of inputs. Then a loop to caclulate the cumulative sum based on the range of the input size.
+Counting sort can be implemented stably and not stably. It will be stable if you calculate the cumulative sum of the indexes and then loop over the input array and find out where to place each item in the output array like in `counting_sort_ints()`, it can also be done un-stably like in `counting_sort_alphabet()`
+The complexity is treated as O(n). It does two loops over the input size n one to count and one to find placement of inputs. Then a loop to calculate the cumulative sum based on the range of the input size.
 If the range is small compared to the length of the input it is bounded by O(n), else O(k).
 O(k) extra space for the count array and O(n) for the output array.
 
