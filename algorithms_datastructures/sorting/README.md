@@ -10,13 +10,6 @@ Key idea:
 3. swap that with the current element
 4. repeat for length of array - 1
 
-| Situation   |   Time  | Space |
-| ----------- | ------- | ---- |
-| Best Case   | O(n^2)  | O(1) |
-| Worst case  | O(n^2)  | O(1) |
-
-Does not take into account if the array is already sorted so will result in looping O(n) and O(n) find mins, no extra base used.
-
 ```python
 def selection_sort(array):
     for j in range(len(array) - 1):  # For each element index.
@@ -27,6 +20,13 @@ def selection_sort(array):
         array[j], array[min_i] = array[min_i], array[j]
     return array
 ```
+
+| Situation   |   Time  | Space |
+| ----------- | ------- | ---- |
+| Best Case   | O(n^2)  | O(1) |
+| Worst case  | O(n^2)  | O(1) |
+
+Does not take into account if the array is already sorted so will result in looping O(n) and O(n) find mins, no extra base used.
 
 Note: This is note a stable sort, consider:
 ```
@@ -43,14 +43,6 @@ Key idea:
 2. extend the sorted component by 1, pick out the next element and put it into the sorted component.
 4. repeat for length of array - 1
 
-| Situation   |   Time  | Space |
-| ----------- | ------- | ---- |
-| Best Case   | O(n)    | O(1) |
-| Worst case  | O(n^2)  | O(1) |
-
-If the array is already sorted and nothing needs to be placed then it is O(n) so you never enter the while loop. In the worst case you will loop over the array O(n) and place each element int the sorted portion which can be at most O(n).
-
-
 ```python
 def insertion_sort(array):
     for j in range(1, len(array)):  # For each element index.
@@ -62,6 +54,13 @@ def insertion_sort(array):
         array[index] = value
     return array
 ```
+
+| Situation   |   Time  | Space |
+| ----------- | ------- | ---- |
+| Best Case   | O(n)    | O(1) |
+| Worst case  | O(n^2)  | O(1) |
+
+If the array is already sorted and nothing needs to be placed then it is O(n) so you never enter the while loop. In the worst case you will loop over the array O(n) and place each element int the sorted portion which can be at most O(n).
 
 ## Better comparison based sorts
 
@@ -124,6 +123,8 @@ The reassurance of merge sort is `T(n) = 2T(n/2) + n` which can be used to show 
 
 Merge sort applies divide and conquer because cutting the problem up into smaller pieces (dividing) and then putting the problem back together (conquering).
 
+Merge sort is table as the comparison is left ot right only taking the element from the right array if it is < than the element in the left array.
+
 ### Quick sort
 
 Key idea:
@@ -160,12 +161,77 @@ Note: The O(n) space is for the naive implementation where we store the left and
 The best case is n log n assuming that the problem space is divided equally. The worst case is when only 1 element is removed from the problem set at each time leading to the recursion tree looking like a linear chain.
 In each call we loop through the n items in that call comparing it to the pivot, this in the worst case becomes an O(n) loop thus the worst case time complexity is O(n^2). In the best and expected case the problem set is divided by a log factor, and a O(n) loop to partition is needed which hints at the O(n log n) complexity, O(log n) partitions, each partition takes O(n) operations.
 
-The reassurance relation in the worst case is looks like the arithmetic series where the time needed at level 0 is `cn``, time at level 1 is `c(n - 1)` and the time at level is is `c(n - i)` which sums to `c((n+1)(n/2)-1)` which is upper bounded by n^2. In the expected case where around half of the problem is truncated at each step it looks like that of merge sort.
+The reassurance relation in the worst case is looks like the arithmetic series where the time needed at level 0 is `cn`, time at level 1 is `c(n - 1)` and the time at level is is `c(n - i)` which sums to `c((n+1)(n/2)-1)` which is upper bounded by n^2. In the expected case where around half of the problem is truncated at each step it looks like that of merge sort.
+
+Quick sort is not stable, consider:
+```
+array = [b, a, B, A], where a = A < b = b
+say that b is chosen as the pivot.
+the array will be rearranged as: A, a, B, b
+in the paritioning loop
+- A < b so it will swap with itself and wall will be incremented to 1
+- a < b so it will swap with itself and wall will be incremented to 2
+- B = b so nothing will happen
+Then swap the last index (pivot) with wall resutling in [A, a, b, B].
+The releative positioning of A and a has changed thus not stable.
+```
+
+### Heap sort
 
 
 
 ## Non comparison based sorts
 
 ### Counting sort
+
+Key idea:
+1. Make buckets of all possible inputs in the range.
+2. Loop through items in the array, add the count to the correct bucket.
+3. Return bucket key * count.
+
+We need to know the range for counting sort.
+
+```python
+def counting_sort_ints(array):
+    max_val = max(array)
+    min_val = min(array)
+    counts = [0] * (max_val - min_val + 1)
+    output = [0] * len(array)
+    counts_offset = min_val
+    for value in array:  # Count occurrences.
+        index = value - counts_offset
+        counts[index] += 1
+    for i in range(1, len(counts)):  # Cumulative sum so can loop backwards.
+        counts[i] += counts[i - 1]
+    for i in range(len(array) - 1, -1, -1):  # Loop backwards over input array.
+        index = counts[array[i] - counts_offset] - 1  # Find the index to copy the value to.
+        output[index] = array[i]
+        counts[array[i] - counts_offset] -= 1
+    return output
+
+def counting_sort_alphabet(string):  # Not stable, can work with string or array.
+    counts = [0] * 26  # Assumed lower case alphabet.
+    output = []
+    for char in string:
+        index = ord(char) - ord('a')  # 'a' is index 0.
+        counts[index] += 1
+    for i in range(len(counts)):  # O(k) = O(26) loop, inner loop will only execute O(n) times.
+        # This will not preserve stability but is ok when just dealing with single chars.
+        ascii_value = ord('a') + i
+        for c in range(counts[i]): # The amount of times this happens sums to O(n).
+            output.append(chr(ascii_value))
+    return "".join(output)
+```
+
+| Situation   |   Time     | Space    |
+| ----------- | ---------- | -------- |
+| Best Case   | O(2n + k)  | O(k + n) |
+| Worst case  | O(2n + k)  | O(k + n) |
+
+Counting sort can be implemented stably and not stably. It will be stable if you caculate the cumulative sum of the indexes and then loop over the input array and find out where to place each item in the output array like in `counting_sort_ints`, it can also be done un-stably like in `counting_sort_alphabet`
+The complexity is treated as O(n). It does two loops over the input size n one to count and one to find placement of inputs. Then a loop to caclulate the cumulative sum based on the range of the input size.
+If the range is small compared to the length of the input it is bounded by O(n), else O(k).
+O(k) extra space for the count array and O(n) for the output array.
+
 
 ### Radix sort

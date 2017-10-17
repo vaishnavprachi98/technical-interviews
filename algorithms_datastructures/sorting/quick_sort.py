@@ -77,7 +77,7 @@ def pythonic_quick_sort(arr):         # more pythonic
     if len(arr) <= 1:
         return arr
     low, pivot, high = partition(arr)
-    return quick_sort(low) + [pivot] + quick_sort(high)     # note [1] or [pivot] is a list of len 1
+    return pythonic_quick_sort(low) + [pivot] + pythonic_quick_sort(high)     # note [1] or [pivot] is a list of len 1
 
 def partition(arr):
     pivot = arr[-1]
@@ -134,12 +134,13 @@ def quick_sort_2(array):
         return array
     pivot = len(array) // 2  # Assume mid point as pivot.
     wall = 0  # Everything before the wall will be lower than array[pivot].
-    for i in range(len(array)):  # This partitions the array such that elements less than pivot < wall <= elements greater equal to pivot.
-        if array[i] < array[pivot]:
+    pivot_element = array[pivot]
+    array[-1], array[pivot] = array[pivot], array[-1]
+    for i in range(len(array) - 1):  # This partitions the array such that elements less than pivot < wall <= elements greater equal to pivot.
+        if array[i] < array[-1]:
             array[i], array[wall] = array[wall], array[i]
             wall += 1
-    pivot_element = array[pivot]
-    array[pivot], array[wall] = array[wall], array[pivot]
+    array[-1], array[wall] = array[wall], array[-1]
     left = quick_sort_2(array[:wall])  # Up until pivot not inclusive.
     right = quick_sort_2(array[wall + 1:])  # From pivot + 1 inclusive to the end.
     return left + [pivot_element] + right
@@ -152,18 +153,28 @@ if __name__ == "__main__":
     foo = [123,91,-19, 1,1,2,1,-54,1909,-51293,192,3,-4]
     dada = [-100301203, 1231, 90, 0, 123199, 123818, 14124, 12, 4, -41, -51, 9]
     boo = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0.131, 19]
-    arrays = [arr, bar, car, foo, dada, boo, b]
-    for array in arrays:
-        result_qs = quick_sort(array)
-        result_pythonic = pythonic_quick_sort(array)
-        result_inplace = quick_sort_inplace(array, 0, len(array))
-        result_qs_2 = quick_sort_2(array)
-        if result_qs == result_pythonic == result_qs == result_inplace:
-            print("Results match: " + str(result_qs_2))
-        else:
-            print("Oh No! Results don\'t match")
-            print("quick sort:   " + str(result_qs))
-            print("pythonic:     " + str(result_pythonic))
-            print("inplace:      " + str(result_inplace))
-            print("quick sort 2: " + str(result_qs_2))
+    correct = 0
 
+    for _ in range(1000):
+        arrays = [arr, bar, car, foo, dada, boo, b]
+        for array in arrays:
+            sorted = array[::]
+            sorted.sort()
+            # Note: I think something here mutates the array and other things stuff up because of reference or
+            # something but copying the array fixes this ¯\_(ツ)_/¯.
+            result_qs = quick_sort(array[::])
+            result_pythonic = pythonic_quick_sort(array[::])
+            result_inplace = quick_sort_inplace(array[::], 0, len(array))
+            result_qs_2 = quick_sort_2(array[::])
+
+            if result_qs == result_pythonic == result_qs == result_inplace == sorted:
+                print("Results match: " + str(result_qs_2))
+                correct += 1
+            else:
+                print("Oh No! Results don\'t match")
+                print("array:        " + str(array))
+                print("quick sort:   " + str(result_qs))
+                print("pythonic:     " + str(result_pythonic))
+                print("inplace:      " + str(result_inplace))
+                print("quick sort 2: " + str(result_qs_2))
+    print("correct {}/1000 times".format(int(correct/7)))
