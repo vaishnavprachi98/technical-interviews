@@ -8,7 +8,7 @@ How it works: assume the first item is sorted (very left of arr), take the next 
               loop once on array, loop a number of times on sorted portion
 Invariants: left part is always sorted
 
-Outerloop always N
+Outer loop always N
 Inner depends on number of swaps
 avg case: http://stackoverflow.com/questions/17055341/why-is-insertion-sort-%CE%98n2-in-the-average-case
 
@@ -20,7 +20,7 @@ Time complexity
 Space complexity
 - O(1), doesn't need any more space
 
-Stability: yes as only sawp if > and not >=
+Stability: yes as only swap if > and not >=
 """
 
 def insertion_sort(arr):
@@ -37,9 +37,26 @@ def insertion_sort(arr):
     print(count)
     return arr
 
-if __name__ == "__main___":
+# ---- Another implementation for practice -----
+
+def insertion_sort_2(array):
+    for j in range(1, len(array)):  # For each element index.
+        index = j
+        value = array[j]
+        while index > 0 and value < array[index - 1]:
+            array[index] = array[index - 1]  # Copy over.
+            index -= 1  # Careful, should only decrement after the copy.
+        array[index] = value
+    return array
+
+
+if __name__ == "__main__":
     arr = [1,2,3,4,5,6]
-    print(insertion_sort(arr[::-1]))
+    result1 = insertion_sort(arr[::-1])
+    result2 = insertion_sort_2(arr[::-1])
+    print(result1 == result2)
+    print(result2)
+    print(result1)
 
 
 
