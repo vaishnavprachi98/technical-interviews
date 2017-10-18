@@ -107,9 +107,9 @@ O(n) space
 
 WORKS!!! :D
 """
-from Tree_Node import Tree_Node
+from algorithms_datastructures.trees.tree_node import TreeNode
 
-class AVL_Tree:
+class AvlTree:
 
     def __init__(self):
         self.root = None
@@ -247,7 +247,7 @@ class AVL_Tree:
 
     def insert(self, key):
         # BST insert
-        new_node = Tree_Node(key)
+        new_node = TreeNode(key)
         if self.is_empty():                                     # make root point to the head of the tree (new node)
             self.root = new_node
         else:
@@ -391,17 +391,17 @@ class AVL_Tree:
             a.append(current_node.key)
             #print(current_node.key, end="a")
 if __name__ == "__main__":
-    AVL_Tree = AVL_Tree()
+    AvlTree = AvlTree()
     #a = [10, 5, 11, 6, 7, 15]
     a = [10, 5, 4, 3, 12, 11]
     c = [6,2,4,3,1]             # fit2004 prac
     b = [5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 4, 5, 16, 20, 4, 0, 5, 4, 3]
     for n in b:
-        AVL_Tree.insert(n)
-    print(AVL_Tree.get_min().key)
-    print(AVL_Tree.pre_order())
-    print(AVL_Tree.in_order())
-    print(AVL_Tree.post_order())
+        AvlTree.insert(n)
+    print(AvlTree.get_min().key)
+    print(AvlTree.pre_order())
+    print(AvlTree.in_order())
+    print(AvlTree.post_order())
     # all this works! avl implementation completed :D
     """
     for array a

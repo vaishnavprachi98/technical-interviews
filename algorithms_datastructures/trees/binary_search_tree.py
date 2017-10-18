@@ -49,8 +49,7 @@ Note: Better than linear time, worse than hashtables
     - but in the worst case they are also O(n) --> then comes AVL trees =]
 """
 
-from tree_node import Tree_Node
-
+from algorithms_datastructures.trees.tree_node import TreeNode
 class BinarySearchTree:
 
     def __init__(self):
@@ -63,7 +62,7 @@ class BinarySearchTree:
         """specify the value of the key for the new node
         will create node for you and call auxiliary function to recursively find where the
         new node belongs"""
-        new_node = Tree_Node(key)
+        new_node = TreeNode(key)
         if self.is_empty():                                     # make root point to the head of the tree (new node)
             self.root = new_node
         else:

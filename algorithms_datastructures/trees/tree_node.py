@@ -5,9 +5,10 @@
 
 """
 
-class Tree_Node:
+class TreeNode:
     def __init__(self, key, left=None, right=None):
         self.key = key
+        self.parent = None
         self.extra_data = None          # can hold any info I forgot to add
         self.left = left
         self.right = right
