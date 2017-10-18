@@ -5,38 +5,44 @@
 """
 from collections import deque
 from algorithms_datastructures.trees.tree_node import TreeNode
+
+
 class BinaryTree:
 
     def __init__(self):
         self.root = None
 
-    def to_singly_linked_list(self, node):
+    def to_doubly_linked_list(self, node):
         """Flatten the binary tree into a singly linked list based on in order traversal."""
         if not node.left and not node.right: # At a leaf.
             return node, None
-
         # Traverse as far as possible down the left chain.
         if node.left:
-            start_left_most, end_left_most = self.to_singly_linked_list(node.left)
+            start_left, end_left = self.to_doubly_linked_list(node.left)
             # Add in the current node after the node to the left.
-            if end_left_most is None:  # Can only add to the start.
-                start_left_most.next = node
-            else:  # Occurs at the root.
-                end_left_most.next = node
+            if end_left is None:  # Can only add to the start.
+                start_left.next = node
+                node.back = start_left
+            else:  # Occurs at the root, want to string together left_part -> root.
+                end_left.next = node
+                node.back = end_left
         else:
             # No left child.
-            start_left_most = node
+            start_left = node
 
         # Traverse as far as possible down the right chain.
         if node.right:
-            start_right_most, end_right_most = self.to_singly_linked_list(node.right)
+            start_right, end_right = self.to_doubly_linked_list(node.right)
+            if end_right is None:
+                end_right = start_right  # This was a leaf.
             # Add in current not to point to the start of the right component.
-            node.next = start_right_most
+            node.next = start_right
+            start_right.back = node
         else:
             # No right component.
-            start_right_most = node
-
-        return start_left_most, start_right_most
+            start_right = node
+            end_right = node
+        return start_left, end_right
 
     def get_height(self, node):
         if not node:
@@ -151,6 +157,26 @@ class BinaryTree:
         if node.right:
             self.print_tuple(node.right)
 
+def construct_dodgy_tree():
+    """Creates a binary tree looking like the following
+
+                5
+              /   \
+             2    6
+           /  \
+          1    3
+               \
+                4
+    """
+    binary_tree = BinaryTree()
+    binary_tree.insert(5)
+    binary_tree.root.left = TreeNode(2)
+    binary_tree.root.left.left = TreeNode(1)
+    binary_tree.root.left.right = TreeNode(3)
+    binary_tree.root.left.right.right = TreeNode(4)
+    binary_tree.root.right = TreeNode(6)
+    return binary_tree
+
 if __name__ == "__main__":
     numbers = [10, 15, 30, 3, 6, -1, 2, 5, -2, -3, -4, -5, -6, 9, 8]
     binary_tree = BinaryTree()
@@ -193,10 +219,70 @@ if __name__ == "__main__":
 
     print("Height of binary tree: " + str(binary_tree.get_height(binary_tree.root)))
 
-    print("\nTesting binary tree flattening mutations")
-    start, start_of_right = binary_tree.to_singly_linked_list(binary_tree.root)
+    print("\n~~ Testing binary tree flattening mutations")
+
+    start, end = binary_tree.to_doubly_linked_list(binary_tree.root)
+    print("\nIterating from start to end node")
     current = start
+    linked_list_values_forwards = []
     while current.next is not None:
         print("%s -> " % current.key, end="")
+        linked_list_values_forwards.append(current.key)
         current = current.next
     print(current.key)
+    linked_list_values_forwards.append(current.key)
+    if linked_list_values_forwards == in_order_traversal_expected:
+        print("Linked list values correct!")
+    else:
+        print("Linked list values wrong :(")
+
+    print("\nIterating from end to start node")
+    current = end
+    linked_list_values_backwards = []
+    while current.back is not None:
+        print("%s -> " % current.key, end="")
+        linked_list_values_backwards.append(current.key)
+        current = current.back
+    print(current.key)
+    linked_list_values_backwards.append(current.key)
+
+    if linked_list_values_backwards[::-1] == in_order_traversal_expected:
+        print("Linked list values correct going backwards yay!")
+    else:
+        print("Linked list values wrong :(")
+
+    print("\n~~ Another binary tree flattening mutations test!")
+    bt = construct_dodgy_tree()
+    expected = [1, 2, 3, 4, 5, 6]
+    start, end = bt.to_doubly_linked_list(bt.root)
+
+    print("\nIterating from start to end node")
+    current = start
+    linked_list_values_forwards = []
+    while current.next is not None:
+        print("%s -> " % current.key, end="")
+        linked_list_values_forwards.append(current.key)
+        current = current.next
+    print(current.key)
+    last_node = current
+    linked_list_values_forwards.append(current.key)
+
+    if linked_list_values_forwards == expected:
+        print("Linked list values correct!")
+    else:
+        print("Linked list values wrong :(")
+
+    print("\nIterating from end to start node")
+    current = end
+    linked_list_values_backwards = []
+    while current.back is not None:
+        print("%s -> " % current.key, end="")
+        linked_list_values_backwards.append(current.key)
+        current = current.back
+    print(current.key)
+    linked_list_values_backwards.append(current.key)
+
+    if linked_list_values_backwards[::-1] == expected:
+        print("Linked list values correct!")
+    else:
+        print("Linked list values wrong :(")
