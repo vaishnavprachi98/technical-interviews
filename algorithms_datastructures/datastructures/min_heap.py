@@ -25,6 +25,31 @@ class MinHeap:
         self.count = 0
         self.array = [None]
 
+    def heapify(self, array):
+        """O(n) heapify.
+        Only sink down the nodes that we need to.
+        We don't need to deal with leaves so given the input array with length n we only care about the first 1 .. n // 2 nodes.
+        The last n // 2 .. n nodes are most likely leaves.
+        So we only need to sink down the the first 1 .. n // 2 elements.
+        We need to do this smartly as if we start at index 1 (the root) it will assume sub heaps encountered uphold the heap property,
+        thus we must start from n // 2 and go up to 1 to ensure all sub heaps are fixed before fixing sub heaps from a higher level.
+
+        This works as leaves are valid heaps, because they are filled out from left to right we can kinda ignore the last n // 2 elements as they are
+        all leaves. So we then get the parents of these sub heaps and make sure they upload the heap property and do this from n // 2 until the root.
+
+        A complete binary tree with height h (root has h = 0) has at max (n + 1)//2 leaves, where n is the number of nodes and 2^(h + 1) -1 nodes.
+        """
+        self.array = array[::]
+        self.array.insert(0, None)
+        self.count = len(array)
+        i = (len(array) + 1) // 2  # Only sink nodes at index (n + 1) // 2 up until 1 ensuring all sub heaps upload heap property.
+        log_n_calls = 0
+        while i > 0:
+            self.filter_down(i)
+            i -= 1
+            log_n_calls += 1
+        return log_n_calls
+
     def is_empty(self):
         return self.count == 0
 
@@ -92,10 +117,10 @@ class MinHeap:
     def print_heap(self, i):
         """Print contents of heap from parent to left then right in form (parent, l: left, r: right)."""
         left, right = self.get_children(i)
-        s = "p: %s, l: %s, r: %s\n" % (self.array[i],
+        s = "p: %s, l: %s, r: %s" % (self.array[i],
                                   self.array[left] if left and left <= self.count else "-",
                                   self.array[right] if right and right <= self.count else "-")
-        print(s, end=" ")
+        print(s if i == 1 else "- %s" % s)
         if left and left <= self.count:
             self.print_heap(left)
         if right and right <= self.count:
@@ -104,7 +129,7 @@ class MinHeap:
 if __name__ == "__main__":
     pq = MinHeap()
     items = [1, 0, 10, -3, 4, -2, 1, 3, 2, 1, 4, 6, 8, 10, -1, -4, -5, -6, 19, -62, 50, 1, 0, 0]
-    for item in items:
+    for item in items:  # O(n log n) heapify.
         pq.add_item(item)
 
     items.sort()
@@ -129,3 +154,19 @@ if __name__ == "__main__":
         print("Array looks like: " + str(pq.array))
 
     pq.print_heap(1)
+
+    items.extend(items[::-1])
+    print("~~ Testing O(n) heapify")
+    log_n_calls = pq.heapify(items)
+    print("O(n) heapify number of log(n) calls: {0} for array of length {1}".format(log_n_calls, len(items)))
+    print(pq.array)
+    pq.print_heap(1)
+
+    sorted_elements = pq.array[::][1:]
+    sorted_elements.sort()
+
+    output = []
+    for _ in range(pq.count):
+        output.append(pq.get_min())
+
+    print(sorted_elements == output)

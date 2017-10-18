@@ -51,7 +51,7 @@ Space complexity: O(v)
 
 Can use to traverse trees or graphs
 """
-from algorithms_datastructures.graphs.traversal.linked_stack import LinkedStack
+from algorithms_datastructures.datastructures.linked_stack import LinkedStack
 
 def depth_first_search_rec_driver(G, root, use_rep=False):
     nodes = G.get_vertices()

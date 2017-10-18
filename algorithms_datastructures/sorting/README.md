@@ -210,7 +210,7 @@ def heap_sort():
         output.append(heap.get_min())
 ```
 
-See [from algorithms_datastructures.datastructures.min_heap](https://github.com/darvid7/pls-hire-me/blob/fb_prep/algorithms_datastructures/datastructures/min_heap.py)
+See [algorithms_datastructures.datastructures.min_heap](https://github.com/darvid7/pls-hire-me/blob/fb_prep/algorithms_datastructures/datastructures/min_heap.py)
 
 | Situation   |   Time     | Space |
 | ----------- | ---------- | ----- |
@@ -276,3 +276,87 @@ O(k) extra space for the count array and O(n) for the output array.
 
 
 ### Radix sort
+
+Radix sort can be implemented as LSD (least significant digit) or MSD (most significant digit) manner. LSD is stable by nature, MSD needs extra work. LSD results in sorted order like we expect (eg: 1, 2, .., 10, ..), MSD results in lexicographic order (eg: 1, 10, 2, ...).
+
+It requires a positional notation (where you are up to) in a number/string and can also work on dates etc. Can also convert things into binary and radix sort their binary representations.
+
+We will only consider the LSD implementation of radix sort on integers and strings for simplicity, however note that Radix sort also has applications in parallel computing, tries and binary representations.
+
+```python
+def get_character_lsd(string, position):
+    """Returns the character in the string at the position if it exists, else a.
+    If the position is out of bounds of the string then we return a placing it in the first bucket.
+    This works as the order we encounter strings in the array is sorted if the position is > len(string) -1 meaning we have sorted
+    all characters in that string, so we can place it in the 0th bucket in the order it is encountered."""
+    if len(string) - 1 < position:
+        return 'a'
+    return string[position]
+
+def radix_sort_alphabet_strings(array, verbose):  # Should be stable.
+    max_chars = len(max(array, key=len)) # Get make string by key length of string.
+    buckets = [[] for _ in range(26)]  # Make buckets, 26 possible characters.
+    for position in range(max_chars - 1, -1, -1):  # Loop from max_chars - 1 to 0 (least significant to most).
+        for string in array:
+            # If the position we are looking at is outside of the bounds of the string then will return 'a' or the 0th bucket.
+            significant_char = get_character_lsd(string, position)
+            buckets[ord(significant_char) - ord('a')].append(string)
+        # Copy strings back into array in order of buckets.
+        index = 0
+        for bucket in buckets:
+            for string in bucket:
+                array[index] = string
+                index += 1
+        # Clear buckets.
+        buckets = [[] for _ in range(26)]
+    # Since we have looped for max_chars, each string will be in sorted order now from the last copying of buckets to array.
+    return array
+
+def get_digit(number, position, base=10):
+    """Return the digit we are looking at based on the position and the base.
+    For example:
+        If the number is 1234, position = 0, looking at the 4.
+        position_digit = 10 ** 0 = 1
+        divide 1234 by 1 floored = 1234
+        modulo the result by 10 = 4.
+    Handles the base in which len(number) < position, will result in 0.
+    """
+    position_digit = base ** position  # The 1 in the resulting digit is the position of the digt we are looking at.
+    floored = number // position_digit
+    return floored % base
+
+def radix_sort_decimal_integer(array):
+    max_digits = len(str(max(array)))
+    buckets = [[] for _ in range(10)]  # Make buckets, 10 possible digits.
+    for position in range(max_digits):
+        for number in array:  # Put numbers in buckets based on sig digit.
+            significant_digit = get_digit(number, position)
+            buckets[significant_digit].append(number)
+        # Put items in bucket (sorted to an extend) back into array.
+        # Should be stable as when we first encounter it will append, then will copy back in same order.
+        index = 0
+        for bucket in buckets:
+            for number in bucket:
+                array[index] = number
+                index += 1
+        # Clear buckets.
+        buckets = [[] for _ in range(10)]
+    # Since we have looped for max_digits, each integer will be in sorted order now from the last copying of buckets to array.
+    return array
+```
+
+| Situation   |   Time        | Space     |
+| ----------- | ------------- | ----------|
+| Best Case   | O(n * w * r)  | O(r + n)  |
+| Worst case  | O(n * w * r)  | O(r + n)  |
+
+The first loop is O(w) where w is the max length of the strings or the number of digits in the max integer a.k.a the word size.
+We then do a O(n) loop over the input array where n is the size of the input array.
+Lastly a loop over the buckets O(r) where r is the possible range for example decimals have a range from 0 - 9 so we need 10 buckets and alphabet characters have a range from a - z so we need 26 buckets.
+In this O(r) loop we copy items back into the input array making this inplace part from needing buckets, this is bounded by O(n) as there can only be n items in the buckets.
+We then finish by clearing the buckets which is an O(r) loop.
+
+The total complexity is O(w * (n + r * n + r)), however in practice r is low can be treated as a constant as we know the number of buckets needed based on the scope of the input. W is also low as for example if the max integer is 10000000000 which is quite a big integer w is just 11, likewise with strings.
+So looking as the asymptotic complexity it is O(w * n + w * r * n + w * r) which is bounded by O(w * r * n) = O(n) so it is usually treated as linear.
+
+The space complexity is O(r + n) as we have O(r) buckets which will end up holding O(n) items.
