@@ -6,10 +6,12 @@
 from collections import deque
 
 def topological_sort_rec(dag, node, visited, stack):  # Called O(n) times at max.
-    print('called')
+    print('called')  # Can use this to show it has only been called O(n) times.
     if visited[node.index] != 1:
         visited[node.index] = 1
         for edge in dag.get_adjacent_edges(node):  # Explore all children, O(e).
+            # Exploring children first and putting them on the stack first means when we pop elements off
+            # it is guaranteed parents happen before children meaning we can only do child after parent.
             if visited[edge.destination.index] == 0:
                 topological_sort_rec(dag, edge.destination, visited, stack)
         stack.append(node)  # Add node to the stack only once all children explored.

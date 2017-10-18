@@ -62,8 +62,73 @@ Bfs uses more memory when the branching factor is higher.
 > BFS if you want to test if a graph is bipartite, find the shortest path between two nodes or applications that require such tasks.
 
 ## Dijkstra
-
+`O(v * log e)`
 > Dijkstra's original variant found the shortest path between two nodes,[2] but a more common variant fixes a single node as the "source" node and finds shortest paths from the source to all other nodes in the graph, producing a shortest-path tree.
+
+```python
+import heapq
+import math
+
+def relax(source, destination, edge, distances):
+    if distances[source.index] + edge.cost < distances[destination.index]:
+        distances[destination.index] = distances[source.index] + edge.cost
+        # destination.distance = distances[destination.index]
+        return True
+    return False
+
+def dijkstra(graph, source):
+    pq = []
+    nodes = graph.get_all_vertices()
+    distances = [math.inf] * len(nodes)
+    path = [-1] * len(nodes)
+    distances[source.index] = 0
+    for node in nodes:
+        # Store as (priority, task) tuples, heapq will sort on first element.
+        heapq.heappush(pq, (distances[node.index], node))
+    while pq:
+        # Assumes non negative weights, so when popping a node it is the best way to get there.
+        dist, node = heapq.heappop(pq)
+        for edge in graph.get_adjacent_edges(node):
+            # Note: can't terminate early and do this.
+            # if distances[edge.destination.index] != math.inf:  # We already have the shortest path to this node.
+            #     continue
+            if relax(node, edge.destination, edge, distances):
+                # Found a better way to get to a next node, add that to the pq and set the parent.
+                heapq.heappush(pq, (distances[edge.destination.index], edge.destination))
+                path[edge.destination.index] = node.index
+    return distances, path  # Shortest path from source to any other node in distances.
+```
+
+Note: You can not terminate early in dijkstra if you think you have already visited a particular node.
+This is because you may have added the node with an edge into your pq before exploring an alternate path with a cheaper cost eg:
+
+If you have the following graph:
+```
+(s) -- 3 --> (c) -- 12 --> (d)
+ \                         ^
+  --------------- 20 -----/
+```
+
+You will start by adding (s) to your pq, then you will explore edges from (s) resulting in you adding (c) and (d).
+If we mark (d) as visited don't process it ever again then the shorter path from (s) to (d) through (c) will not be found.
+
+The time complexity for dijkstra is:
+
+Analysis 1:
+[stack overflow, makes a lot of sense](https://stackoverflow.com/questions/18604803/why-is-the-complexity-of-bfs-ove-instead-of-ove)
+1. For each node we will visit all edges O(v - 1)
+2. Each node v can be connected to at max n - 1 other nodes. So at max v - 1
+3. For a single vertex, we visit edges and might need to update the value and push it on to our min heap v - 1 times as any vertex will have at max e incoming edges. Pushing it on to the pq will be at worst log v as there are v nodes O(v - 1 * log v).
+4. Applying 3 to all vertexes then we get O(v  * (v - 1 * log v)) = O(v * (v - 1) * log v)
+5. Note that the maximum number of edges in a graph of v nodes is v * (v - 1) as each node can go to every other node except itself. Applying e = v * (v - 1) we get O(e * log v)
+
+Analysis 2:
+[geeks for geeks](http://www.geeksforgeeks.org/greedy-algorithms-set-7-dijkstras-algorithm-for-adjacency-list-representation/)
+1. Graph traversal is at most O(v + e) like in bfs/dfs as we will visit all nodes and all edges (although we might revisit a node in dijkstra it will have the same upper bound).
+2. At each step in our traversal we might add something on to our pq which would take O(log v) time.
+3. So it is O(v + e) * O (log v) = O(v * log v + e * log v), as e is at max v * (v - 1) it is dominated by O( e * log v)
+
+
 
 ## Bellman-Ford
 - `O(V * E)`
@@ -156,15 +221,20 @@ def floyd_warshall(graph):  # O(V^3)
 
 # Comparisons
 
+# Components
+
 ## Topological Sort
 
 Assumes a dag so the graph can not contain a cycle.
 
 Start from any node, explore it's children, once all children have been added to the set we add it the parent node to the stack.
 
+Exploring children first and putting them on the stack first means when we pop elements off it is guaranteed parents
+happen before children meaning we can only do child after parent so we get a valid topological ordering.
+
 ```python
 def topological_sort_rec(dag, node, visited, stack):  # Called O(n) times at max.
-    print('called')
+    print('called')  # Can use this to show it has only been called O(n) times.
     if visited[node.index] != 1:
         visited[node.index] = 1
         for edge in dag.get_adjacent_edges(node):  # Explore all children, O(e).
@@ -192,3 +262,29 @@ It is another O(n) to get the values out of the stack.
 As we only explore each child once (go down an edge once) and we explore each node it is O(v + e).
 
 Can be seen as a DFS with an extra stack so O(v + e).
+
+## Connected Components
+
+A connected component is any two nodes connected to each other by a path.
+
+
+## Tarjan's Strongly Connected Components
+
+Assumes graph is a direct graph.
+
+Partitions the nodes in the graph into strongly connected components where each node only appears once.
+
+A vertex not on a directed cycle forms a strongly connected component with itself.
+
+Key idea:
+1. pick any start node arbitrary.
+2. visit children
+
+## Articulation points (cut vertices)
+
+An articulation point is a vertex that if removed (and the edges though it) will disconnect the graph.
+
+
+
+
+
