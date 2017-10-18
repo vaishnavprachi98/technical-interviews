@@ -53,60 +53,50 @@ Can use to traverse trees or graphs
 """
 from algorithms_datastructures.datastructures.linked_stack import LinkedStack
 
-def depth_first_search_rec_driver(G, root, use_rep=False):
-    nodes = G.get_vertices()
+def depth_first_search_rec_driver(graph, root, use_rep=False):
+    nodes = graph.get_vertices()
     for node in nodes:
         node.distance = "Infinity"
     output = []
-    depth_first_search_recursive(G, root, output, use_rep)
+    depth_first_search_recursive(graph, root, output, use_rep)
     return output
 
-def depth_first_search_recursive(G, node, output, use_rep=False):
-    node.distance = 0                               # discovered
-    if use_rep:
-        output.append(node.rep)
-    else:
-        output.append(node.name)
-    edges_incident = G.get_adjacent_edges(node)
-    for edge in edges_incident:
-        if edge.destination != node:                # depending on the way we create the edge we need to check for this
-            destination_node = edge.destination     # assuming no loops to same node
-        else:
-            destination_node = edge.origin
+def depth_first_search_recursive(graph, node, output, use_rep=False):
+    node.distance = 0                                   # Mark node as discovered.
+    output.append(node.rep if use_rep else node.name)
+    for edge in graph.get_adjacent_edges(node):         # Need check if un directed.
+        destination_node = edge.destination
         if destination_node.distance == "Infinity":
-            depth_first_search_recursive(G, destination_node, output, use_rep)
+            depth_first_search_recursive(graph, destination_node, output, use_rep)
 
-
-def depth_first_search_iterative(G, root, use_rep=False):
-
-    nodes = G.get_vertices()
+def depth_first_search_iterative(graph, root, use_rep=False):
+    nodes = graph.get_vertices()
     for node in nodes:
         node.distance = "Infinity"
-
-    S = LinkedStack()
-    #root.distance = 0
-    S.push(root)
+    stack = LinkedStack()
+    stack.push(root)
     output = []
-    while not S.is_empty():
-        current_node = S.pop()                          # update current node
-
+    while not stack.is_empty():
+        current_node = stack.pop()                      # update current node
         if current_node.distance != 0:                  # current_node is not discovered
             current_node.distance = 0                   # we have now discovered the current_node
-            if use_rep:                                 # add a representation of node to output
-                output.append(current_node.rep)
-            else:
-                output.append(current_node.name)        # add current node to our output
-
-            edges_incident = G.get_adjacent_edges(current_node)
+            output.append(current_node.rep if use_rep else current_node.name)
+            edges_incident = graph.get_adjacent_edges(current_node)
             for edge in edges_incident:
-                if edge.destination != current_node:
-                    destination_node = edge.destination # get node you can get to from current
-                else:
-                    destination_node = edge.origin      # depending on how we add edges
-                S.push(destination_node)                # push destination on to stack
-        # implicit else for a node we have already seen
+                destination_node = edge.destination
+                stack.push(destination_node)
+        # Implicit else for a node we have already seen
     print(output)
     return output
+
+# ---- Another implementation for practice -----
+
+def dfs_2(graph, node, visited, output):  # Output contains the nodes at the end in order of visitation.
+    visited[node.index] = 1
+    output.append(node)
+    for edge in graph.get_adjacent_edges(node):  # Visit node depth first (go as far as possible) if not already visited.
+        if visited[edge.destination.index] != 1:
+            dfs_2(graph, edge.destination, visited, output)
 
 def test_dictionary_adj_map_output():
     for i in range(5):
@@ -143,14 +133,11 @@ def test_dictionary_adj_map_output():
         # DFS on adj_map graph (iterative): ['A', 'E', 'F', 'B', 'D', 'C', 'G'], iterative correct fro wiki
         # DFS on adj_map graph (iterative): ['A', 'B', 'F', 'E', 'D', 'C', 'G'], correct
         # DFS on adj_map graph (iterative): ['A', 'C', 'G', 'E', 'F', 'B', 'D'], correct
-
-
         # due to randomness with {} sometimes we get a different order using a adj map
 
 if __name__ == "__main__":
     from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
     from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
-
 
     # recursive version correct order: A, B, D, F, E, C, G (went to D first instead of F)
     # this is also a correct dfs ordering: A, B, F, E, D, C, G
@@ -184,11 +171,10 @@ if __name__ == "__main__":
     however they are all correct orderings by picking arbitrary adjacent nodes
     see the tests below
     """
-
-    print("Test")
+    print("Testing DSF on map graph.")
     test_dictionary_adj_map_output()
 
-    print("\nDFS on adjacent list")
+    print("\nTesting DFS on adjacent list")
     graph_list = Adjacency_List(7)
     # set up adj map graph, slightly different set up due to diff underlying structure
     a = graph_list.add_vertex(0,'A')
@@ -198,7 +184,7 @@ if __name__ == "__main__":
     e = graph_list.add_vertex(4,'E')
     f = graph_list.add_vertex(5,'F')
     g = graph_list.add_vertex(6, 'G')
-    # this is directed
+    # Add edges both ways.
     graph_list.add_edge(a, b)
     graph_list.add_edge(a, c)
     graph_list.add_edge(a, e)
@@ -206,7 +192,6 @@ if __name__ == "__main__":
     graph_list.add_edge(b, d)
     graph_list.add_edge(c, g)
     graph_list.add_edge(e, f)
-
     graph_list.add_edge(b, a)
     graph_list.add_edge(c, a)
     graph_list.add_edge(e, a)
@@ -219,6 +204,16 @@ if __name__ == "__main__":
     dfs2_itr = depth_first_search_iterative(graph_list, source2, use_rep=True)
     print("DFS on adj_list graph (iterative): " + str(dfs2_itr))
     dfs2_rec = depth_first_search_rec_driver(graph_list, source2, use_rep=True)
-    print("DFS on adj_list graph (recusrive): " + str(dfs2_rec))
+    print("DFS on adj_list graph (recursive): " + str(dfs2_rec))
 
-    # all correct
+    # ---- Another implementation for practice -----
+    visited = [0] * len(graph_list.get_all_vertices())
+    output = []
+    dfs2_rec2 = dfs_2(graph_list, source2, visited, output)
+    node_representations = [node.rep for node in output]
+
+    if node_representations == dfs2_rec:
+        print("Yay dfs worked")
+    else:
+        print("Node reps might be wrong: " + str(node_representations))
+    # All correct :)
