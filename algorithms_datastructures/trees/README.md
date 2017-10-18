@@ -16,6 +16,22 @@ Common operations on binary trees include:
 Extended operations on binary trees include:
 - lowest_common_ancestor(key_a, key_b)
 
+### Properties
+
+- **Complete binary tree**: If all levels are filled, with the exception of the last with it being filled left to right.
+- **Full/Perfect binary tree**: All levels filled including the last.
+- **Depth**: Length of path from the node to the root, it is 0 at the root
+- **Height**: Length of path of that node to the lowest leaf, height of the tree is longest path from root to any leaf node.
+- **Max number of children at a level**: at level i the max number of children are 2^i as each node can have only 2 children.
+- **Nodes in a binary tree**: 2^(h + 1) - 1 where h is the number of levels in the tree, the -1 for level 0 where we just have root.
+- **Height of a binary tree given n nodes**: n = 2^(h + 1) - 1 => n + 1 = 2^(h + 1) => log(n + 1) - 1
+- **Balanced**: if for each node absolute value of difference between height of left and right subtree <= 1, abs(height_left - height_right) <= 1.
+- **Leaves in a complete binary tree**: (n+1)//2 where n is the number of nodes. n is always odd in a complete binary tree. Each level above has 2^i nodes. Eg: if height = 3 then level 0 has 2^0 nodes, level 1 has 2^1 nodes, level 2 has 2^2 nodes, level 3 has 2^3 nodes. The sum of nodes from level 1 to 2 is 7, the nodes on level 3 are 8, (15 + 1 // 2) = 8.
+
+Some notes on binary trees: https://www.cise.ufl.edu/class/cop3530sp13/lectures/Lecture18.pdf
+
+Note: For complete binary trees arrays are usually use to implement them.
+
 ### Binary Tree
 
 In binary trees if an operation requires looking at all nodes it is O(n), if you only need to traverse down 1 branch it is O(log n) in the average case where it is balanced but O(n) if it forms a chain.
@@ -39,6 +55,14 @@ Finding the height is O(n) as you need to explore all paths so all nodes which i
 Tree traversals are `depth first` traversals so O(e + n) applies, since e is just 2 in a binary tree it is O(n). Again this is because you need to explore all nodes.
 
 ### Binary Search Tree
+
+Same as a binary tree but with all nodes to the left of a node <= node and all nodes to the right of it > than node.
+
+Left < Root < Right
+
+Binary trees are useful because of the L < Root < R property which allows searches, insertions and deletions by the height of the tree.
+
+In the average case the tree is balance and the height is O(log n) and thus searching, deletion and insertion are fast. In the worst case where it forms a linear chain this becomes O(n).
 
 ## Traversals
 

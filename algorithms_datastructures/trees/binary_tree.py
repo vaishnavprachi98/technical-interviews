@@ -13,7 +13,7 @@ class BinaryTree:
         self.root = None
 
     def to_doubly_linked_list(self, node):
-        """Flatten the binary tree into a singly linked list based on in order traversal."""
+        """Flatten the binary tree into a doubly linked list based on in order traversal."""
         if not node.left and not node.right: # At a leaf.
             return node, None
         # Traverse as far as possible down the left chain.
@@ -42,7 +42,7 @@ class BinaryTree:
             # No right component.
             start_right = node
             end_right = node
-        return start_left, end_right
+        return start_left, end_right  # Return this as it is the lower and upper bounds of the tree segment.
 
     def get_height(self, node):
         if not node:
