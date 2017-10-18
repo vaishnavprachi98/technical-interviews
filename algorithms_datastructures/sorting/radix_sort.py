@@ -133,7 +133,7 @@ def radix_sort_decimal_integers(arr):
 # ---- Another implementation for practice -----
 
 
-def get_character_lsd(string, position):
+def get_character(string, position):
     """Returns the character in the string at the position if it exists, else a.
     If the position is out of bounds of the string then we return a placing it in the first bucket.
 
@@ -148,10 +148,10 @@ def radix_sort_alphabet_strings(array, verbose):  # Should be stable.
     max_chars = len(max(array, key=len)) # Get make string by key length of string.
     buckets = [[] for _ in range(26)]  # Make buckets, 26 possible characters.
 
-    for position in range(max_chars - 1, -1, -1):  # Loop from max_chars - 1 to 0 (least significant to most).
+    for position in range(max_chars - 1, -1, -1):  # Loop from max_chars - 1 to 0 (most significant to least to get lexicographical order).
         for string in array:
             # If the position we are looking at is outside of the bounds of the string then will return 'a' or the 0th bucket.
-            significant_char = get_character_lsd(string, position)
+            significant_char = get_character(string, position)
             buckets[ord(significant_char) - ord('a')].append(string)
 
         # Copy strings back into array in order of buckets.

@@ -284,7 +284,7 @@ It requires a positional notation (where you are up to) in a number/string and c
 We will only consider the LSD implementation of radix sort on integers and strings for simplicity, however note that Radix sort also has applications in parallel computing, tries and binary representations.
 
 ```python
-def get_character_lsd(string, position):
+def get_character(string, position):
     """Returns the character in the string at the position if it exists, else a.
     If the position is out of bounds of the string then we return a placing it in the first bucket.
     This works as the order we encounter strings in the array is sorted if the position is > len(string) -1 meaning we have sorted
@@ -296,10 +296,10 @@ def get_character_lsd(string, position):
 def radix_sort_alphabet_strings(array, verbose):  # Should be stable.
     max_chars = len(max(array, key=len)) # Get make string by key length of string.
     buckets = [[] for _ in range(26)]  # Make buckets, 26 possible characters.
-    for position in range(max_chars - 1, -1, -1):  # Loop from max_chars - 1 to 0 (least significant to most).
+    for position in range(max_chars - 1, -1, -1):  # Loop from max_chars - 1 to 0 (most significant to least to get lexicographical order).
         for string in array:
             # If the position we are looking at is outside of the bounds of the string then will return 'a' or the 0th bucket.
-            significant_char = get_character_lsd(string, position)
+            significant_char = get_character(string, position)
             buckets[ord(significant_char) - ord('a')].append(string)
         # Copy strings back into array in order of buckets.
         index = 0
@@ -357,6 +357,6 @@ In this O(r) loop we copy items back into the input array making this inplace pa
 We then finish by clearing the buckets which is an O(r) loop.
 
 The total complexity is O(w * (n + r * n + r)), however in practice r is low can be treated as a constant as we know the number of buckets needed based on the scope of the input. W is also low as for example if the max integer is 10000000000 which is quite a big integer w is just 11, likewise with strings.
-So looking as the asymptotic complexity it is O(w * n + w * r * n + w * r) which is bounded by O(w * r * n) = O(n) so it is usually treated as linear.
+So looking at the asymptotic complexity it is O(w * n + w * r * n + w * r) which is bounded by O(w * r * n) = O(n) when r and w are small so it is usually treated as linear.
 
 The space complexity is O(r + n) as we have O(r) buckets which will end up holding O(n) items.
