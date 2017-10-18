@@ -10,11 +10,38 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
+    def to_singly_linked_list(self, node):
+        """Flatten the binary tree into a singly linked list based on in order traversal."""
+        if not node.left and not node.right: # At a leaf.
+            return node, None
+
+        # Traverse as far as possible down the left chain.
+        if node.left:
+            start_left_most, end_left_most = self.to_singly_linked_list(node.left)
+            # Add in the current node after the node to the left.
+            if end_left_most is None:  # Can only add to the start.
+                start_left_most.next = node
+            else:  # Occurs at the root.
+                end_left_most.next = node
+        else:
+            # No left child.
+            start_left_most = node
+
+        # Traverse as far as possible down the right chain.
+        if node.right:
+            start_right_most, end_right_most = self.to_singly_linked_list(node.right)
+            # Add in current not to point to the start of the right component.
+            node.next = start_right_most
+        else:
+            # No right component.
+            start_right_most = node
+
+        return start_left_most, start_right_most
+
     def get_height(self, node):
         if not node:
             return -1
         return max(self.get_height(node.left), self.get_height(node.right) + 1)
-
 
     def insert(self, data):
         """Insert data by creating a new node at the next available space, if root is taken finds the first available
@@ -165,3 +192,11 @@ if __name__ == "__main__":
         in_order_traversal == in_order_traversal_expected, in_order_traversal))
 
     print("Height of binary tree: " + str(binary_tree.get_height(binary_tree.root)))
+
+    print("\nTesting binary tree flattening mutations")
+    start, start_of_right = binary_tree.to_singly_linked_list(binary_tree.root)
+    current = start
+    while current.next is not None:
+        print("%s -> " % current.key, end="")
+        current = current.next
+    print(current.key)
