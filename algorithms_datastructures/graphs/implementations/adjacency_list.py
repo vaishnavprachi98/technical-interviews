@@ -15,7 +15,7 @@ with space complexity O(v + e)
 from algorithms_datastructures.graphs.implementations.structures import Vertex, Edge
 #from Structures import Vertex, Edge
 
-class Adjacency_List:
+class AdjacencyList:
     def __init__(self, no_vertices):
         self.list = [Vertex() for _ in range(no_vertices)]     # initialize to an array of vertices
 
@@ -87,7 +87,7 @@ class Adjacency_List:
 
 if __name__ == "__main__":
     print("Adjacency list")
-    G = Adjacency_List(5)
+    G = AdjacencyList(5)
     G.print_graph()
     A = G.add_vertex(0,"A")
     B = G.add_vertex(1,"B")

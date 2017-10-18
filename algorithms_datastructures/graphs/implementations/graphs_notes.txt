@@ -73,7 +73,7 @@ note: e/n is the number of edges per node on average
 
 Operation   | Adj Matrix | Adj List | Adj Map |
 find edge   |   O(1)     |  O(e/n)  |   O(1)  |
-insert edge |   O(1)     |  O(e/n)  |   O(1)  |
+insert edge |   O(1)     |  O(1)    |   O(1)  |
 delete edge |   O(1)     |  O(e/n)  |   O(1)  |
 enumerate   |   O(n)     |  O(e/n)  |   O(e/n)|
 edges for node

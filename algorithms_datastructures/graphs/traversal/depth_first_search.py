@@ -100,7 +100,7 @@ def dfs_2(graph, node, visited, output):  # Output contains the nodes at the end
 
 def test_dictionary_adj_map_output():
     for i in range(5):
-        from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
+        from algorithms_datastructures.graphs.implementations.adjacency_map import AdjacencyMap
 
         # example from https://en.wikipedia.org/wiki/Depth-first_search
         # iterative version correct order: A, E, F, B, D, C, G
@@ -108,7 +108,7 @@ def test_dictionary_adj_map_output():
         # this is also a correct dfs ordering: A, B, F, E, D, C, G
         # each of them follow what dfs does which is exploring as far as possible along each branch before back tracking
 
-        graph_map = Adjacency_Map()
+        graph_map = AdjacencyMap()
         # set up adj map graph
         A = graph_map.add_vertex('A')
         B = graph_map.add_vertex('B')
@@ -136,14 +136,14 @@ def test_dictionary_adj_map_output():
         # due to randomness with {} sometimes we get a different order using a adj map
 
 if __name__ == "__main__":
-    from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
-    from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
+    from algorithms_datastructures.graphs.implementations.adjacency_map import AdjacencyMap
+    from algorithms_datastructures.graphs.implementations.adjacency_list import AdjacencyList
 
     # recursive version correct order: A, B, D, F, E, C, G (went to D first instead of F)
     # this is also a correct dfs ordering: A, B, F, E, D, C, G
     # each of them follow what dfs does which is exploring as far as possible along each branch before back tracking
 
-    graph_map = Adjacency_Map()
+    graph_map = AdjacencyMap()
     # set up adj map graph
     A = graph_map.add_vertex('A')
     B = graph_map.add_vertex('B')
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     test_dictionary_adj_map_output()
 
     print("\nTesting DFS on adjacent list")
-    graph_list = Adjacency_List(7)
+    graph_list = AdjacencyList(7)
     # set up adj map graph, slightly different set up due to diff underlying structure
     a = graph_list.add_vertex(0,'A')
     b = graph_list.add_vertex(1,'B')

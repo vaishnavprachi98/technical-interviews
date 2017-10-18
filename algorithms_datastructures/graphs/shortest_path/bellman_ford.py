@@ -7,7 +7,7 @@ Implementation of bellman-ford to find shortest path from a single source to all
 
 """
 import math
-from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
+from algorithms_datastructures.graphs.implementations.adjacency_list import AdjacencyList
 
 def relax(edge, parents, distance):
     origin = edge.origin
@@ -58,7 +58,7 @@ def run_bellman_ford(test_num, num_nodes, make_graph_fn):
 
 def make_graph_1():
     # http://www.programming-algorithms.net/article/47389/Bellman-Ford-algorithm
-    graph = Adjacency_List(6)
+    graph = AdjacencyList(6)
     S = graph.add_vertex(index=0, rep='S')
     A = graph.add_vertex(index=1, rep='A')
     B = graph.add_vertex(index=2, rep='B')
@@ -80,7 +80,7 @@ def make_graph_1():
 
 def make_graph_2():
     # https://www.youtube.com/watch?v=-mOEd_3gTK0&ab_channel=TusharRoy-CodingMadeSimple
-    graph = Adjacency_List(5)
+    graph = AdjacencyList(5)
     zero = graph.add_vertex(index=0, rep='(0)')
     one = graph.add_vertex(index=1, rep='(1)')
     two = graph.add_vertex(index=2, rep='(2)')
@@ -98,7 +98,7 @@ def make_graph_2():
 
 def make_graph_with_neg_cycle():
     # https://www.youtube.com/watch?v=-mOEd_3gTK0&t=969s&ab_channel=TusharRoy-CodingMadeSimple
-    graph = Adjacency_List(4)
+    graph = AdjacencyList(4)
     zero = graph.add_vertex(index=0, rep='(0)')
     one = graph.add_vertex(index=1, rep='(1)')
     two = graph.add_vertex(index=2, rep='(2)')

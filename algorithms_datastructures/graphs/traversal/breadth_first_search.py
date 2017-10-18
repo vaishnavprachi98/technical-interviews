@@ -81,13 +81,13 @@ def breadth_first_search(graph, root, use_rep=False):
     return output
 
 if __name__ == "__main__":
-    from algorithms_datastructures.graphs.implementations.adjacency_map import Adjacency_Map
-    from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
+    from algorithms_datastructures.graphs.implementations.adjacency_map import AdjacencyMap
+    from algorithms_datastructures.graphs.implementations.adjacency_list import AdjacencyList
 
     # Example from FIT2004 sem 2 2014 lec 15, slide 16 = A, B, C, E, F, D
     # any permutation of B, C, E (lvl 1) and F, D (lvl 2) are fine as they are all on the same level
     print("Testing bfs on adjacency map")
-    graph_map = Adjacency_Map()
+    graph_map = AdjacencyMap()
     # Set up adj map graph.
     A = graph_map.add_vertex('A')
     B = graph_map.add_vertex('B')
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # this is because there is some randomness with dictionaries.
 
     print("\nTesting bfs on adjacency list.")
-    graph_list = Adjacency_List(6)
+    graph_list = AdjacencyList(6)
     # This Graph List data structure assumes a directed graph
     # set up adj map graph, slightly different set up due to diff underlying structure
     a = graph_list.add_vertex(0,'A')
