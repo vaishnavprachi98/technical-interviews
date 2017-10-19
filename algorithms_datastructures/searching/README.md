@@ -33,7 +33,7 @@ def binary_search(array, target):
     return -1  # Not found.
 ```
 
-Worst & average case time complexity is O(log n) as we are discarding half the problem set at each iteration [reasoning for O(log n) when discarding half the problem](../../concepts/big_o.md)
+Worst & average case time complexity is O(log n) as we are discarding half the problem set at each iteration [reasoning for O(log n) when discarding half the problem](../../concepts/big_o.md).
 Best case time complexity is O(1) when the first item check in the middle is thr target.
 
 Space complexity is O(1) as no extra space is needed since we use the same array inplace.
@@ -119,6 +119,8 @@ Then when we get to the first number lower than 17 we iterate around 17 += a bit
 
 We can see how `mid_val` gets refined from the bounds of `lo` and `hi` based on the approximation of `mid_val ** nth_root`
 
+`2.571281587648855 * 2.571281587648855 * 2.571281587648855 = 16.9999999403` which fits our bound for accuracy of 6 decimal places.
+
 ## Closest
 
 This variation of binary search returns the index of the target if the target is in the array. Else it returns the index of the closest element.
@@ -186,11 +188,11 @@ def lower_bound_binary_search(array, target):
 
 If we have found the target `array[mid] == target` we know at index mid the target exists, search to the left of this.
 We keep searching until L < mid < target where mid is < target
-once we get hi pointing to the first element < target then every element encountered by array[(hi+lo)//2] will also be < target
-so the bottom half will be continuously discarded until lo > hi and the loop terminates.
+once we get hi pointing to the first element < target then every element encountered by `array[(hi+lo)//2]` will also be < target
+so the bottom half will be continuously discarded until `lo > hi` and the loop terminates.
 
-When lo > hi as we know hi will be pointing to the first occurrence of a number < target, and so lo is pointing to the
-first occurrence of the target (as lo  > h by 1) so return lo.
+When `lo > hi` as we know hi will be pointing to the first occurrence of a number < target, and so `lo` is pointing to the
+first occurrence of the target (as `lo  > h by 1`) so return `lo`.
 
 If we don't find the target at all then
 
@@ -199,5 +201,30 @@ If we don't find the target at all then
 - if target belongs somewhere in the middle of array, we would eventually get to the case where `lo == hi` where the number we are looking at is > target. So as number > target `hi -= 1` so `lo` will be pointing to the first occurrence of a number bigger than the target which is where we should insert.
 
 ### Upper Bound
+
+Similar logic to lower bound however, once we found the element we search to the right of it instead.
+
+If we don't find the target the above cases hold for reasoning behind returning lo.
+
+If we find the target then `array[mid] == target` we then search to the right of this by making `lo = mid + 1`.
+If at `index mid+1` the number is > than target then `hi` would repeatedly decrease meaning that `lo` will be the first occurrence where of a number > target which is where we want to insert the target.
+Else binary search will keep doing it's thing until we get to the case where `lo` has the first occurrence of a number > target.
+
+```python
+def upper_bound_binary_search(array, target):
+    hi = len(array) - 1
+    lo = 0
+    while lo <= hi:
+        mid = (hi + lo) // 2
+        if array[mid] == target:
+            # We know at index mid the target exists, search to the right of this, by changing lo.
+            lo = mid + 1
+        elif array[mid] > target:
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    # Last value in mid is where we can insert the element without breaking ordering.
+    return lo
+```
 
 ## Longest increasing subsequence in O(n log n)
