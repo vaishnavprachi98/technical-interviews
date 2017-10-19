@@ -13,7 +13,7 @@ Gotchas
 - slicing is O(k) and exclusive on the right bound
 - `min()`, `max()` is O(n)
 
-<img src="../images/python_lists.png" width="600">
+<img src="../images/python_lists.png" width="1200">
 
 ## Deque
 
@@ -23,7 +23,7 @@ Important
 - can use to implement a circular queue easily where adding an item out of bounds removes the first item
 - can rotate to the left/right
 
-<img src="../images/python_deque.png" width="600">
+<img src="../images/python_deque.png" width="1200">
 
 ```python
 from collections import deque
@@ -60,7 +60,7 @@ Important
 - O(n) worst case look up
 - order not maintained
 
-<img src="../images/python_sets.png" width="600">
+<img src="../images/python_sets.png" width="1200">
 
 ```python
 list = [1, 2, 3, 4, 5, 6, 7, 7, 7, 8]
@@ -106,7 +106,7 @@ Important
 - get, set, delete all O(n) worst case.
 - order not maintained
 
-<img src="../images/python_dicts.png" width="600">
+<img src="../images/python_dicts.png" width="1200">
 
 ```python
 # Building dict.
