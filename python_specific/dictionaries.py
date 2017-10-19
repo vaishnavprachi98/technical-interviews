@@ -13,40 +13,38 @@ Iteration isn't any cheaper than any other collection ( O(n) ), but membership t
 
 """
 
-"""
-DICTS
-"""
+# Building dict.
+dummy_dict = {}
+dummy_dict['a'] = 'Apple'
+dummy_dict['b'] = 'Batman'
+dummy_dict['c'] = 'Candy'
+dummy_dict['e'] = 'Egg Yolk'
+dummy_dict['f'] = 'Frogs'
+dummy_dict['g'] = 'Gnome'
 
-d = {}
-d['a'] = 'Apple'
-d['b'] = 'Batman'
-d['c'] = 'Candy'
-d['e'] = 'Egg Yolk'
-d['f'] = 'Frogs'
-d['g'] = 'Gnome'
+key_value_pairs = [('burger', 10), ('chips', 100), ('greens', 2)]
+yum = dict(key_value_pairs)
+print(yum.items())
+print(yum['burger'])
 
-for key in d:
-    print(str("key: " + str(key) + ", value: " + str(d[key])))
+# Iteration.
+for key in dummy_dict:
+    print(str("key: " + str(key) + ", value: " + str(dummy_dict[key])))
+for key, value in dummy_dict.items():
+    print("key: %s, value: %s" % (key, value))
 
-print(d.keys())
-print(d.values())
-print(d.get('a'))
-print(d.items())
+# Getting stuff.
+print(dummy_dict.get('a'))
+print(dummy_dict['a'])
 
-print("Getting items form dict")
-for an_item in d.items():
-    print(an_item)
-to_list = list(d.items())       # get items in a form nicely
-print("Items from dict to list of tuples")
-print(to_list)
+# Deleting stuff.
+del dummy_dict['a']
+dummy_dict.pop('b')    # dictionary.pop(key, default)
+print(dummy_dict.items())
 
-for item in to_list:
-    print("item: " + str(item) + ", key: " + str(item[0]) + ", value: " + str(item[1]))
-print("\nRemoving elements form dictionary")
-first_element = 'a', 'Apple'
-d.pop('b')    # dictionary.pop(key, default)
-#d.pop(first_element) won't work as only meant to pass key to pop
-# remove and return the value of key, if not in, return default, else keyerror
-print(d.items())
+# Keys can be anything that it not mutable (integers, keys, tuples).
 
-
+# Comprehension, mapping of n: n ** 2.
+squared_even_numbers = {n: n ** 2 for n in range(2, 100, 2)}
+print(squared_even_numbers.keys())
+print(squared_even_numbers.values())
