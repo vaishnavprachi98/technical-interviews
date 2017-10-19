@@ -4,6 +4,8 @@
 
 Mostly works for https://www.hackerrank.com/challenges/longest-increasing-subsequent/problem
 Except for TLE because an n log n solution exists.
+
+Works on leetcode https://leetcode.com/problems/longest-increasing-subsequence/description/
 """
 
 def longest_increasing_subsequence(array):
