@@ -18,12 +18,69 @@ String questions typically involve some dp to optimize their brute for approache
 Given a string get all permutations.
 
 Key idea:
-1. use a single character.
-2. fix it in a configuration to generate substrings from that position
-3. back track placing it back and getting another character.
+1. remove the first letter.
+2. final all permutations of remaining letters (recursive step).
+3. reinsert letter removed at every possible location
 
+This can be done recursively.
 
-## All sub-strings of length n to 1
+```python
+
+def permuate(string, permutation_holder, call_num):
+    """Order is important in permutations.
+    For a string of length n there are n! permutations.
+
+    Args:
+        call_num: used to help understand the complexity of the algorithm for each call print out the times the nested loop executes.
+        string: the string to find permutations for.
+        permutation_holder: list to append to holding permutations of string.
+    """
+    if len(string) <= 1:  # Base case, only 1 way to permute a string of length 1.
+        permutation_holder.append(string)
+        return
+    first_char = string[0]
+    sub_permutations = []
+    permuate(string[1:], sub_permutations, call_num + 1)  # Recursive step to find all permutations of a substring of string (removing the first character).
+    count = 0
+    for sub_permutation in sub_permutations:
+        # Put first_char in sub_permutation all ways possible.
+        for i in range(len(sub_permutation) + 1):  # Careful for off by 1.
+            permutation = sub_permutation[0:i] + first_char + sub_permutation[i:]
+            permutation_holder.append(permutation)
+            count += 1
+    print("call_num: %s did nested loop %s times" % (call_num, count))
+```
+
+`permuate()` will be called once on a string of length n after fixing the first character.
+It will be called again on a string of length n-1 until a string of length 2 then once more on a string of length 1 which will return the base case.
+
+So `O(n)` calls.
+
+There will be `n!` permutations for a string of length `n`.
+
+Once returning from the base case `sub_permutations` will be a list of 1 string. it will go through the nested loop and add two strings to `permutation_holder`.
+`permutation_holder` ends up being `sub_permutations` for the parent of this recursive call and will iterate through the two strings and then add another six strings to `permutation_hoder` as for each of the two strings of size two you can place a single character in it 3 ways.
+This keeps going until `sub_permutations` has n-2 strings of length n-1, we then go through the nested loop and output `n!` strings.
+
+Note that at the base case the nested loop never executes, at the recursive call right before the base case it only executes twice after that 3 times and so on.
+it is not `n` calls each doing `n!` work. Each call will do at most `n!` work, adding `call_num` as an argument and printing out the count of the nested loop helps us understand the complexity more.
+
+When permuting the string `apples`:
+```
+call_num: 5 did nested loop 2 times
+call_num: 4 did nested loop 6 times
+call_num: 3 did nested loop 24 times
+call_num: 2 did nested loop 120 times
+call_num: 1 did nested loop 720 times
+```
+This means the first call to the program executed the nested loop 720 times, but the second call only did it 120 times.
+Note that 720 is 6! and 120 is 5! and so on.
+
+So there were in total 6 calls to `permuate()` (base cases didn't bring) and each call does `(n - call_num)!` work.
+
+Based on the numbers here we can see it is bounded by `n!` so the algorithm is `O(n!)`
+
+## All substrings of length n to 1
 
 Given a string print all contiguous sub-strings of length n, n-1 and so on until 1.
 
@@ -70,7 +127,7 @@ For a string of length 15 the inner loop executes 120 times, for a string of len
 
 So the overall complexity is O(n^2).
 
-## Longest Common Sub-sequence
+## Longest Common Subsequence
 
 A sub sequence is in the same order but it doesnt't need to be continuous.
 
@@ -158,5 +215,10 @@ def longest_common_subsequence(string_a, string_b, verbose=False):
 ```
 
 The space and time complexity is O(a * b) where a is the length of string_a and b is the length of string_b.
+
+## Longest common substring
+
+Similar to above however a substring has to be continous.
+
 
 ## Palindromic DP
