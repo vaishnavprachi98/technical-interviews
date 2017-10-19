@@ -11,7 +11,6 @@ import math
 def relax(source, destination, edge, distances):
     if distances[source.index] + edge.cost < distances[destination.index]:
         distances[destination.index] = distances[source.index] + edge.cost
-        # destination.distance = distances[destination.index]
         return True
     return False
 
@@ -45,14 +44,16 @@ if __name__ == "__main__":
     class Node:
         def __init__(self, index):
             self.index = index
-            self.distance = 0
+            self.bleh = 0
 
+        # This is needed for heapq even though we can tell it should just use the first item in the tuple for ordering.
+        # it requires everything to be able to be ordered, can just set them all to 0 and compare because it will never be used.
         def __lt__(self, other):
-            return self.distance < other.distance
+            return self.bleh < other.bleh
         def __gt__(self, other):
-            return self.distance > other.distance
+            return self.bleh > other.bleh
         def __eq__(self, other):
-            return self.distance == other.distance
+            return self.bleh == other.bleh
 
     class Edge:
         def __init__(self, source, destination, cost):

@@ -72,7 +72,6 @@ import math
 def relax(source, destination, edge, distances):
     if distances[source.index] + edge.cost < distances[destination.index]:
         distances[destination.index] = distances[source.index] + edge.cost
-        # destination.distance = distances[destination.index]
         return True
     return False
 
@@ -84,7 +83,7 @@ def dijkstra(graph, source):
     distances[source.index] = 0
     for node in nodes:
         # Store as (priority, task) tuples, heapq will sort on first element.
-        heapq.heappush(pq, (distances[node.index], node))
+        heapq.heappush(pq, (distances[node.index], node))  # Will need to implement __lt__, __gt__, __eq__ for custom classes.
     while pq:
         # Assumes non negative weights, so when popping a node it is the best way to get there.
         dist, node = heapq.heappop(pq)
@@ -126,9 +125,7 @@ Analysis 2:
 [geeks for geeks](http://www.geeksforgeeks.org/greedy-algorithms-set-7-dijkstras-algorithm-for-adjacency-list-representation/)
 1. Graph traversal is at most O(v + e) like in bfs/dfs as we will visit all nodes and all edges (although we might revisit a node in dijkstra it will have the same upper bound).
 2. At each step in our traversal we might add something on to our pq which would take O(log v) time.
-3. So it is O(v + e) * O (log v) = O(v * log v + e * log v), as e is at max v * (v - 1) it is dominated by O( e * log v)
-
-
+3. So it is O(v + e) * O (log v) = O(v * log v + e * log v), as e is at max v * (v - 1) it is dominated by O(e * log v)
 
 ## Bellman-Ford
 - `O(V * E)`
@@ -265,12 +262,40 @@ Can be seen as a DFS with an extra stack so O(v + e).
 
 ## Connected Components
 
-A connected component is any two nodes connected to each other by a path.
+A connected component is any two nodes connected to each other by a path. This can be done by a modified DFS which marks each node with it's component number.
 
+```python
+def find_connected_component(graph, visited, node, component_number):  # Modified dfs.
+    for edge in graph.get_adjacent_edges(node):
+        adj_node = edge.destination
+        if visited[adj_node.index] == -1:  # Visit the node.
+            visited[adj_node.index] = component_number
+            find_connected_component(graph, visited, adj_node, component_number)
+
+def connected_components(graph):
+    nodes = graph.get_all_vertices()
+    visited = [-1] * len(nodes)
+    component_number = 0  # Label each component starting at 0.
+    for node in nodes:
+        if visited[node.index] == -1:  # Have not visited this node yet.
+            visited[node.index] = component_number
+            find_connected_component(graph, visited, node, component_number)
+            # We have found all components reachable from node so increment component number to
+            # find components reachable from another node, it is guaranteed a node can't be in 2 components
+            # as otherwise find_connected_component() would have found it.
+            component_number += 1
+    return component_number, visited
+```
+
+The time complexity is O(v + e) like dfs, the loop iterating over all nodes will never enter more than once if the entire graph is sonnected.
+
+The space complexity is O(v) for the visited list.
 
 ## Tarjan's Strongly Connected Components
 
-Assumes graph is a direct graph.
+A graph/subgraph is strongly connected is from any vertex in it you can get to any other.
+
+Assumes graph is a directed graph.
 
 Partitions the nodes in the graph into strongly connected components where each node only appears once.
 
