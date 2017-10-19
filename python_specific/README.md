@@ -12,6 +12,7 @@ Important
 Gotchas
 - slicing is O(k) and exclusive on the right bound
 - `min()`, `max()` is O(n)
+- you may need to resize your list which is slow O(n), however notice the complexity of `.append()` is amortized `O(1)`
 
 <img src="../images/python_lists.png" width="1200">
 

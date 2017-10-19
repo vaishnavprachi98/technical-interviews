@@ -67,7 +67,7 @@ Some sources:
 
 Is a set where you just want to store unique values.
 
-> The HashSet is an implementation of a Set (interface). Set is the general interface to a set-like collection, while HashSet is a specific implementation of the Set interface (which uses hash codes, hence the name). Set is a parent interface of all set classes like TreeSet, LinkedHashSet etc
+> **The HashSet is an implementation of a Set (interface).** Set is the general interface to a set-like collection, while HashSet is a specific implementation of the Set interface (which uses hash codes, hence the name). Set is a parent interface of all set classes like TreeSet, LinkedHashSet etc
 
 ### HashMap vs HashTable (super Java-y)
 
