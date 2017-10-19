@@ -4,7 +4,7 @@
 @modified: 
 
 """
-from Node import Node
+from algorithms_datastructures.datastructures.node import Node
 
 class LinkedList:
     def __init__(self):

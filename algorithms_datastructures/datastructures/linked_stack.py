@@ -44,6 +44,26 @@ class LinkedStack:
             return item
         raise Exception
 
+    def to_doubly_linked_list_reversed(self, node, parent):
+        """The stack structure is node -nextlink-> node where .next points to an item the current node is sitting on top.
+
+        This will mutate the stack.
+
+        This is just an exercise and probably is a very un-useful method in a stack.
+
+        Reverse this so the the back link points to the next link and the next link points to the parent instead of the child
+        starting from the front node.
+        """
+        first = node
+        if node:
+            node.back = node.next
+            node.next = parent
+            _, last = self.to_doubly_linked_list_reversed(node.back, node)
+            if last is None:
+                last = node
+            return first, last
+        return None, None
+
 class Node:
     def __init__(self, item=None, next=None):
         self.item = item
@@ -72,10 +92,34 @@ if __name__ == '__main__':
         for i in string:
             stack.push(i)
 
-        output =""
+        output = ""
 
         while not stack.is_empty():
             output += stack.pop()
         return output
     print(reverse('helloworld'))
 
+    linkedStack.push(15)  # Stack has 4 items.
+    linkedStack.push(100)
+    values_first = []
+    values_last = []
+
+    first, last = linkedStack.to_doubly_linked_list_reversed(linkedStack.top, None)
+    if first:
+        # This is the first node, can use .back to traverse the queue.
+        current = first
+        while current:
+            values_first.append(current.item)
+            current = current.back
+        print(values_first)
+
+    if last:
+        # This is the last node, can use .next to get to parents.
+        current = last
+        while current:
+            values_last.append(current.item)
+            current = current.next
+        print(values_last)
+
+    if values_first and values_last:
+        print("Correct: %s" % (values_first == values_last[::-1]))
