@@ -13,7 +13,7 @@ If can merge, merge. If can't don't.
 
 Assume won't always be sorted.
 
-Completity is upper bounded by sort time O(n log n) as .sort() is timsort.
+Complexity is upper bounded by sort time O(n log n) as .sort() is timsort.
 """
 
 # Precondition: interval_b fits in or can extend interval b.
