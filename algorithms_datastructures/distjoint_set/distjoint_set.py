@@ -16,9 +16,14 @@ class DistjointSet:
     def __init__(self, start_nodes=1):
         self.array = None
 
-    def make_set(self, array):
+    def make_set(self, array, return_mapping=False):
         """Accepts an iterable of data elemetns and adds them into the distjoint set."""
         self.array = [DistjointSetNode(i, data) for i, data in enumerate(array)]
+        if return_mapping:
+            # The disjoint set is built on indexes so to merge things I need an index.
+            # Return the mapping of data object to index which the DisjointSetNode.data points to for callers to use.
+            mappings = {distjoint_set_node.data: i for i, distjoint_set_node in enumerate(self.array)}
+            return mappings
 
     def _union_merge(self, smaller_root_index, larger_root_index):
         smaller_root_node = self.array[smaller_root_index]
@@ -59,7 +64,7 @@ class DistjointSet:
         # so to find parent run .find() on array[node_index]
         return self.find(self.array[node_index].parent)
 
-    def find_with_path_compression(self, node_index):
+    def find_compressed(self, node_index):
         """Same as find() but flattens the structure whenever .find_with_path_compression() is used by
         making each node point directly to the root so you don't need to do the entire traversal.
 
@@ -68,7 +73,7 @@ class DistjointSet:
         """
         if self.array[node_index].parent < 0:  # Is root.
             return node_index
-        root_index = self.find_with_path_compression(self.array[node_index].parent)
+        root_index = self.find_compressed(self.array[node_index].parent)
         self.array[node_index].parent = root_index  # Make this node point to the root
         return root_index
 
@@ -83,7 +88,7 @@ if __name__ == "__main__":
 
     sets = set()
     for i in range(6):
-        set_id = distjoint_set.find_with_path_compression(i)
+        set_id = distjoint_set.find_compressed(i)
         print("node_id: %s has data: %s belongs to set_id: %s with root: %s" %
               (i, distjoint_set.array[i].data, set_id, distjoint_set.array[set_id].data))
         sets.add(set_id)
