@@ -4,7 +4,6 @@
 
 Based on https://www.youtube.com/watch?v=5xosHRdxqHA&ab_channel=BoQian
 """
-from algorithms_datastructures.distjoint_set.distjoint_set import DistjointSetNode
 from algorithms_datastructures.distjoint_set.distjoint_set import DistjointSet
 from algorithms_datastructures.graphs.implementations.structures import Edge
 from algorithms_datastructures.graphs.implementations.structures import Vertex
@@ -20,15 +19,10 @@ def kruskals(nodes, edges):
         if distjoint_set.find_compressed(djs_index_map[src]) != distjoint_set.find_compressed(djs_index_map[dst]):
             # These two vertices are not connected yet, we found the min edge that connects them.
             # Merge in disjoint set.
-            distjoint_set.union_by_size(
-                djs_index_map[src],
-                djs_index_map[dst]
-            )
+            distjoint_set.union_by_size(djs_index_map[src], djs_index_map[dst])
             # Add to mst.
             mst.append(edge)
     return mst
-
-
 
 if __name__ == "__main__":
     nodes = ["a", "b", "f", "c", "d", "e"]

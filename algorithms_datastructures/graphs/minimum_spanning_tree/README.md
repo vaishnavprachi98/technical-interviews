@@ -17,6 +17,23 @@ Key idea:
 4. else we have already see the vertex and got there with a cheaper edge, do nothing
 5. return mst
 
+```python
+def kruskals(nodes, edges):
+    mst = []
+    distjoint_set = DistjointSet()
+    djs_index_map = distjoint_set.make_set(nodes, return_mapping=True)  # DistjointSetNode.data now points to a Vertex.
+    edges.sort(key=lambda e:e.weight)  # Sort edges by weight, min is first.
+    for edge in edges:
+        src = edge.origin
+        dst = edge.destination
+        if distjoint_set.find_compressed(djs_index_map[src]) != distjoint_set.find_compressed(djs_index_map[dst]):
+            # These two vertices are not connected yet, we found the min edge that connects them.
+            # Merge in disjoint set.
+            distjoint_set.union_by_size(djs_index_map[src], djs_index_map[dst])
+            # Add to mst.
+            mst.append(edge)
+    return mst
+```
 The complexity of Kruskals is `O(E * log E)`.
 
 We iterate through all edges which is `O(E)`.
