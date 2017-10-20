@@ -5,3 +5,4 @@
 """
 
 def tarjans_strongly_connected_components(dag):
+    pass
