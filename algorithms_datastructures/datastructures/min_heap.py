@@ -81,7 +81,7 @@ class MinHeap:
             return left
         return right
 
-    def filter_up(self, i):
+    def filter_up(self, i):  # O(log n).
         """Rise an item at index i to it's correct position in the heap.
         The heap property enforces that the parents key is <= it's children."""
         while i > 1 and self.array[i] < self.array[self.get_parent(i)]:  # Violates parent <= children.
@@ -89,7 +89,7 @@ class MinHeap:
             i = self.get_parent(i)  # Now looking at the parent (where we moved node i to).
         # Exists loop when the child is >= to the parent meaning the parent is <= to the child.
 
-    def filter_down(self, i):
+    def filter_down(self, i): # O(log n).
         """Sink node at index i down to it's correct position enforcing heap property child <= parent."""
         while 2 * i <= self.count:  # self.count will hold the number of elements in the array, will be either 2 * i or 2 * i + 1 from the lowest parent node.
             # Node i can have children.

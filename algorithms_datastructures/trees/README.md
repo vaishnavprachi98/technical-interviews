@@ -27,7 +27,7 @@ Extended operations on binary trees include:
 - **Height of a binary tree given n nodes**: n = 2^(h + 1) - 1 => n + 1 = 2^(h + 1) => log(n + 1) - 1
 - **Balanced**: if for each node absolute value of difference between height of left and right subtree <= 1, abs(height_left - height_right) <= 1.
 - **Leaves in a complete binary tree**: (n+1)//2 where n is the number of nodes. n is always odd in a complete binary tree. Each level above has 2^i nodes.
-    Eg: height = 3m level 0 has 2^0 nodes, level 1 has 2^1 nodes, level 2 has 2^2 nodes, level 3 has 2^3 nodes. The sum of nodes from level 1 to 2 is 7, the nodes on level 3 are 8, (15 + 1 // 2) = 8.
+    Eg: height = 3, level 0 has 2^0 nodes, level 1 has 2^1 nodes, level 2 has 2^2 nodes, level 3 has 2^3 nodes. The sum of nodes from level 1 to 2 is 7, the nodes on level 3 are 8, (15 + 1 // 2) = 8.
 
 Some [notes on binary trees](https://www.cise.ufl.edu/class/cop3530sp13/lectures/Lecture18.pdf)
 

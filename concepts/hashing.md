@@ -43,9 +43,9 @@ If collision occur, store in a linked list
 ### Open Addressing
 
 Includes:
-- Linear Probing: Linear scan for next avaliable spot, need to modulo length of hashtable for wrap around.
-- Quadratic Probing: Instead of linear probing add quadratic polynomial or x^2
-- Double Hashing: Like linear probing but instead of a constant step we use a second independent hash function to figure out where to look.
+- **Linear Probing**: Linear scan for next avaliable spot, need to modulo length of hashtable for wrap around.
+- **Quadratic Probing**: Instead of linear probing add quadratic polynomial or x^2
+- **Double Hashing**: Like linear probing but instead of a constant step we use a second independent hash function to figure out where to look.
 
 
 **Linear probing vs Quadratic probing**
@@ -85,7 +85,7 @@ HashTable
 > Synchronized is a Java keyword. It means that the method cannot be executed by two threads at the same time and the JVM take care of enforcing that. In C++, you will have to use some synchronization construct, like a critical section or a mutex.
 > When one thread is executing a synchronized method for an object, all other threads that invoke synchronized methods for the same object block (suspend execution) until the first thread is done with the object.
 
-<img src="../images/java_hashmap_vs_hashtable.png" width="800">
+<img src="../images/java_hashmap_vs_hashtable.png" width="500">
 
 ### HashTable (python relevant)
 

@@ -270,10 +270,11 @@ if __name__ == '__main__':
 
     from algorithms_datastructures.datastructures.min_heap import MinHeap
 
-    heap = MinHeap()
+    heap = MinHeap()  # Another implementation for practice.
     for array in arrays:
         sorted_array = array[::]
         sorted_array.sort()
+
 
         heap.heapify(array)
         hs_2 = []
