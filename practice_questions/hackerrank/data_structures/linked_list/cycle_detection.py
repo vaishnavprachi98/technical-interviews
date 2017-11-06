@@ -5,11 +5,17 @@
 https://www.hackerrank.com/challenges/detect-whether-a-linked-list-contains-a-cycle/problem
 
 A cycle exists if any node is visited once during traversal.
+
+Both Passed :)
 """
 
 def has_cycle_better(head): # a.k.a floyd cycle detection, hare & turtle.
-    # Space complexity: O(1)
-    # Time complexity:
+    # Idea: if a cycle exists then you won't be able to finish the traversal,
+    #   it also means that if you have 2 pointers going at different speeds/steps that
+    #   they will keep on going until they are both the same node.
+    #   else if it has no cycles then both will finish fine.
+    # Space complexity: O(1) don't store extra space, store an extra node.
+    # Time complexity: O(n)
     #   best case where list has no loops O(n/2) = O(n) as b will traverse 2 nodes every time so you reach
     #       the last node in n/2 time at which b = None and the while loop will exit.
     #   worst case where loop exists, both a and b will be stuck in the loop until a == b.
@@ -39,12 +45,6 @@ def has_cycle_better(head): # a.k.a floyd cycle detection, hare & turtle.
     #       At most t can go through every item in the loop, so at worst where the entire list forms a circle and there are n
     #       elements in the loop and t starts at the head and h starts at head.next (1 node ahead of t) t will only go to
     #       n nodes (n-1 links),  thus this is O(n).
-    #
-    # Don't store extra space, store an extra node.
-    # Idea: if a cycle exists then you won't be able to finish the traversal,
-    #   it also means that if you have 2 pointers going at different speeds/steps that
-    #   they will keep on going until they are both the same node.
-    #   else if it has no cycles then both will finish fine.
     tortoise = head
     hare = head.next
     # Test case I missed if head points to head, I had if a == b and a != head so it looped forever.
