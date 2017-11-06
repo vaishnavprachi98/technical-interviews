@@ -22,6 +22,8 @@ https://www.hackerrank.com/challenges/reverse-a-linked-list
  becomes
 
  4 -> 3 -> 2 -> 1 -> Null
+
+Passed :)
 """
 
 # Iterative version works.
