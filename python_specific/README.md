@@ -8,6 +8,7 @@ Important
 - represented as an array
 - big cost in growing beyond allocation size
 - big cost in inserting near the begging as need to shift elements right
+- `reverse`/`[::-1]` is O(n)
 
 Gotchas
 - slicing is O(k) and exclusive on the right bound
