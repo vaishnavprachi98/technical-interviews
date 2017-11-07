@@ -107,6 +107,10 @@ class MinHeap:
         self.remove(1)
         return root_element
 
+    def peak(self):
+        """Look at smallest item in heap without modifying heap."""
+        return self.array[1]
+
     def remove(self, i):
         # Swap the item at index i with the last item.
         self.array[i], self.array[self.count] = self.array[self.count], self.array[i]
