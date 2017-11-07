@@ -59,8 +59,7 @@ arr = [1, 2, 3]
 #  now try take item 1
 #       which requires trying to not take item 2
 # ... and so on
-# so the subset size is bounded by n, this is more space efficient as you try generate as much as possible from your choices
-# then try something else so you only need to store your n choices to get to what you have.
+# so the subset size is bounded by n, this is more space efficient as you try generate as much as possible from your
 print("CS Dojo's soln")
 
 def print_subset(subset):
@@ -108,7 +107,7 @@ def all_subsets_rec(arr, i, subsets):
         for subset in subsets:
             print(subset)
         return
-    new = [].
+    new = []
     for subset in subsets:
         look_at = arr[i]
         new.append(subset[::]) # Don't take item i.

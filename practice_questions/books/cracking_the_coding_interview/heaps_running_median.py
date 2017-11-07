@@ -3,6 +3,7 @@
 @since: 13/08/2017
 
 https://www.hackerrank.com/challenges/ctci-find-the-running-median/problem
+https://www.hackerrank.com/challenges/find-the-running-median/problem
 
 The median is the middle number of an array (middle index) or if the array has an even number of items the average of
 the two middle numbers.
@@ -34,7 +35,7 @@ lower_half_max_heap = []
 def add_number_to_heap(num):
     """Adds a number to a heap, assuming the heaps correctly represent the lower half of numbers and the upper half.
     So the only factor taken into account is the number of items in the heaps.
-    If same numebr of items add to lower half, else add to half with the least number of items.
+    If same number of items add to lower half, else add to half with the least number of items.
     """
     if len(lower_half_max_heap) == 0:
         heapq.heappush(lower_half_max_heap, num * -1)

@@ -268,7 +268,7 @@ if __name__ == '__main__':
     boo = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0.131, 19]
     arrays = [arr, bar, car, foo, dada, boo, b]
 
-    from algorithms_datastructures.datastructures.min_heap import MinHeap
+    from algorithms_datastructures.heaps.min_heap import MinHeap
 
     heap = MinHeap()  # Another implementation for practice.
     for array in arrays:
