@@ -63,3 +63,10 @@ Todo:
 - OOP
 
 - compare List Comprehension vs Generator Comprehension vs Lambda, Map, Filter
+
+- skip list?
+
+- text processing?
+
+- everything in algos ds in python? & clrs?
+

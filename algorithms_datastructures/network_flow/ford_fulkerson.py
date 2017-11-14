@@ -4,7 +4,7 @@
 
 Implementation of ford_fulkerson to find max flow.
 """
-from algorithms_datastructures.graphs.implementations.adjacency_list import Adjacency_List
+from algorithms_datastructures.graphs.implementations.adjacency_list import AdjacencyList
 
 def find_path_dfs(residual_network, source, target, edge_list, visited):
     if source == target:
@@ -86,7 +86,7 @@ def ford_fulkerson(flow_network, residual_network, source, target, num_nodes, re
 
 def make_networks_mathspace():
     # https://mathspace.co/learn/world-of-maths/networks/network-flow-18724/network-flow-1289/
-    flow_network = Adjacency_List(4)
+    flow_network = AdjacencyList(4)
     A = flow_network.add_vertex(index=0, rep='A')
     B = flow_network.add_vertex(index=1, rep='B')
     D = flow_network.add_vertex(index=2, rep='D')
@@ -97,7 +97,7 @@ def make_networks_mathspace():
     flow_network.add_edge(origin_vertex=B, destination_vertex=C, capacity=15, flow=0)
     flow_network.add_edge(origin_vertex=D, destination_vertex=C, capacity=11, flow=0)
 
-    residual_network = Adjacency_List(4)
+    residual_network = AdjacencyList(4)
     Ar = residual_network.add_vertex(index=0, rep='A')
     Br = residual_network.add_vertex(index=1, rep='B')
     Dr = residual_network.add_vertex(index=2, rep='D')
@@ -111,7 +111,7 @@ def make_networks_mathspace():
 
 def make_networks_basic_test():
     # A simple linear chain network showing that edges S->A and B->T will be restricted by the min flow in an edge in the augmenting path.
-    flow_network = Adjacency_List(4)
+    flow_network = AdjacencyList(4)
     S = flow_network.add_vertex(index=0, rep='S')
     A = flow_network.add_vertex(index=1, rep='A')
     B = flow_network.add_vertex(index=2, rep='B')
@@ -120,7 +120,7 @@ def make_networks_basic_test():
     flow_network.add_edge(origin_vertex=A, destination_vertex=B, capacity=2, flow=0)
     flow_network.add_edge(origin_vertex=B, destination_vertex=T, capacity=50, flow=0)
 
-    residual_network = Adjacency_List(4)
+    residual_network = AdjacencyList(4)
     Sr = residual_network.add_vertex(index=0, rep='S')
     Ar = residual_network.add_vertex(index=1, rep='A')
     Br = residual_network.add_vertex(index=2, rep='B')
@@ -132,7 +132,7 @@ def make_networks_basic_test():
 
 def make_networks():
     # Modeling 2nd graph from with max flow of 17: https://www.hackerearth.com/practice/algorithms/graphs/maximum-flow/tutorial/
-    flow_network = Adjacency_List(6)
+    flow_network = AdjacencyList(6)
     S = flow_network.add_vertex(index=0, rep='S')
     A = flow_network.add_vertex(index=1, rep='A')
     B = flow_network.add_vertex(index=2, rep='B')
@@ -150,7 +150,7 @@ def make_networks():
     DT = flow_network.add_edge(origin_vertex=D, destination_vertex=T, capacity=10, flow=0)
 
     # Make residual graph.
-    residual_network = Adjacency_List(6)
+    residual_network = AdjacencyList(6)
     Sr = residual_network.add_vertex(index=0, rep='S')
     Ar = residual_network.add_vertex(index=1, rep='A')
     Br = residual_network.add_vertex(index=2, rep='B')
@@ -170,7 +170,7 @@ def make_networks():
 
 def make_networks_example():
     # Network based on: https://www.youtube.com/watch?v=rLIR89YyNjg&ab_channel=A%26A
-    flow_network = Adjacency_List(6)
+    flow_network = AdjacencyList(6)
     A = flow_network.add_vertex(index=0, rep='A')
     B = flow_network.add_vertex(index=1, rep='B')
     C = flow_network.add_vertex(index=2, rep='C')
@@ -188,7 +188,7 @@ def make_networks_example():
     flow_network.add_edge(origin_vertex=E, destination_vertex=F, capacity=20, flow=0)
 
     # Residual network:
-    residual_network = Adjacency_List(6)
+    residual_network = AdjacencyList(6)
     Ar = residual_network.add_vertex(index=0, rep='A')
     Br = residual_network.add_vertex(index=1, rep='B')
     Cr = residual_network.add_vertex(index=2, rep='C')
@@ -208,7 +208,7 @@ def make_networks_example():
     return flow_network, residual_network, A, F, Ar, Fr
 
 def make_networks_codeforces():
-    flow_network = Adjacency_List(4)
+    flow_network = AdjacencyList(4)
     one = flow_network.add_vertex(index=0, rep='(1)')
     two = flow_network.add_vertex(index=1, rep='(2)')
     three = flow_network.add_vertex(index=2, rep='(3)')
@@ -219,7 +219,7 @@ def make_networks_codeforces():
     flow_network.add_edge(origin_vertex=two, destination_vertex=four, capacity=10, flow=0)
     flow_network.add_edge(origin_vertex=three, destination_vertex=four, capacity=10, flow=0)
 
-    residual_network = Adjacency_List(4)
+    residual_network = AdjacencyList(4)
     one_r = residual_network.add_vertex(index=0, rep='(1)')
     two_r = residual_network.add_vertex(index=1, rep='(2)')
     three_r = residual_network.add_vertex(index=2, rep='(3)')

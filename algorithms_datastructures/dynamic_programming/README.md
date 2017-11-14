@@ -41,3 +41,52 @@ A table finding algorithm similar to memoization but you need to chose order of 
 Coming up with the ordering can be non intuitive like the coin chaining problem, where as in the down approach you can just - 1 the number of coins and do a brute force.
 
 Quotes from: https://stackoverflow.com/questions/6164629/dynamic-programming-and-memoization-bottom-up-vs-top-down-approaches
+
+## Common questions
+
+### Longest increasing subsequence
+
+Note: This can be done better with an n log n solution.
+
+Given a list of integers some may be negative what is the longest increasing sub sequence.
+
+A subsequence does not have to be continuous but the order of the elements must not change.
+
+For example:
+- [3, 4, -1, 0, 6, 2, 3], lis = -1, 0, 2, 3
+- [2, 5, 1, 8, 3], list = 2, 5, 8
+
+Key idea:
+1. keep two pointers i, j, initialize table to 1s
+2. have i iterate through the array starting from 1 as at index 0 the lis is 1.
+3. j iterates from 0 to i - 1.
+4. for each value of i, have pointer j ask is arr[j] < arr[i], if so increment the lis for arr[i]
+
+Effectively what we are asking is at a[i] what is the longest increasing subsequence possible by checking all indexes from 0 to i - 1.
+
+```python
+def longest_increasing_subsequence(array):
+    table = [1] * len(array)
+    aux = [i for i in range(len(array))]  # Need this to find the solution.
+    for i in range(1, len(array)):  # O(n^2)
+        for j in range(0, i):
+            if array[j] < array[i]:  # Can increment lis.
+                if table[i] > table[j]:  # table[i] has a longer lis which doesn't include arr[j], don't do anything.
+                    continue
+                table[i] = table[j] + 1  # Add 1 to represent taking arr[j].
+                aux[i] = j
+    # Find the lis and the ending index of the lis.
+    max_lis = max(table)  # Max lis not always at last element.
+    lis_index = table.index(max_lis)  # These operations are probs O(n).
+
+    lis = []
+    while True:  # O(n) Find the actual lis using the aux array.
+        lis.append(array[lis_index])
+        lis_index = aux[lis_index]
+        if table[lis_index] == 1:
+            break
+    lis.append(array[lis_index])
+    return lis[::-1]
+```
+
+

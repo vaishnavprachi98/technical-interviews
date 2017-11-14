@@ -27,7 +27,7 @@ from algorithms_datastructures.graphs.implementations.structures import Vertex, 
 
 #from Structures import Vertex, Edge
 
-class Adjacency_Map:
+class AdjacencyMap:
     def __init__(self, directed=False):
         """Create empty graph (undirected by default)"""
         self.outgoing = {}
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     # Testing, G is an undirected graph, dG is a directed graph
     # G will look like FIT2004 graphs slide 13
     print("\n   **  Test undirected graph   **  ")
-    G = Adjacency_Map()
+    G = AdjacencyMap()
     A = G.add_vertex('A')
     B = G.add_vertex('B')
     C = G.add_vertex('C')
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 
     print("\n **  Testing a directed graph    **  \n")
 
-    dG = Adjacency_Map(directed=True)
+    dG = AdjacencyMap(directed=True)
 
     dA = dG.add_vertex('-A')
     dB = dG.add_vertex('-B')

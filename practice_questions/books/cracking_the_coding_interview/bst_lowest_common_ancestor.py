@@ -25,7 +25,7 @@ import sys
 
 sys.path.append("../../../algorithms_datastructures/trees")  # Needed to import from another dir.
 
-from binary_search_tree import BinarySearchTree
+from algorithms_datastructures.trees.binary_search_tree import BinarySearchTree
 
 node_values = [4, 2, 3, 1, 7, 6]
 

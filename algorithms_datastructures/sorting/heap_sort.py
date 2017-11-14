@@ -43,6 +43,7 @@ def heapify_standard(arr):
         minPQ.add(element)          # inserting into a heap is O(log n)
     return minPQ
 
+# TODO: Bug in get_min() or percolate_down().
 
 def get_min(array, n):
     """To get min we need to first swap the root with the last item so we can remove the min at the root
@@ -129,6 +130,7 @@ def heap_sort_better(arr):      # uses O(n) heapify
         min_val = get_min(arr, n)
         n -= 1                  # we have removed something
         arr[0] = n              # update heap size
+
         output.append(min_val)
     return output
 
@@ -257,9 +259,35 @@ def test_pq():
     print(str(heap))
 
 if __name__ == '__main__':
-   # both work :D
-   arr = [11, -1, 5, 6, 10, 11, -4, 1, 8, 12, 120, -5]
-   print(heap_sort_better(arr))
-   # remember below sorts first element as well, above uses that to track heap size
-   arr = [11, -1, 5, 6, 10, 11, -4, 1, 8, 12, 120, -5]
-   print(heap_sort_worse(arr))
+    arr = [1,2,3,4,2]
+    b = [10, 9, 8, 7, 4, 1, 0, -1, -40]
+    bar = [8, 100 ,1,-3,11,1,0]
+    car = [0,-3,1,-2]
+    foo = [123,91,-19, 1,1,2,1,-54,1909,-51293,192,3,-4]
+    dada = [-100301203, 1231, 90, 0, 123199, 123818, 14124, 12, 4, -41, -51, 9]
+    boo = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0.131, 19]
+    arrays = [arr, bar, car, foo, dada, boo, b]
+
+    from algorithms_datastructures.heaps.min_heap import MinHeap
+
+    heap = MinHeap()  # Another implementation for practice.
+    for array in arrays:
+        sorted_array = array[::]
+        sorted_array.sort()
+
+
+        heap.heapify(array)
+        hs_2 = []
+        for _ in range(heap.count):
+            hs_2.append(heap.get_min())
+
+        #hs_better = heap_sort_better(array)
+        hs_worse = heap_sort_worse(array)
+
+        if hs_2 == hs_worse == sorted_array:
+            print("Results match: " + str(hs_2))
+        else:
+            print("Oh No! Results don\'t match")
+            #print("heap sort better: " + str(hs_better))
+            print("heap sort worse: " + str(hs_worse))
+            print("heap sort 2: " + str(hs_2))

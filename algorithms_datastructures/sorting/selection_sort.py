@@ -20,7 +20,7 @@ Stability: no due to the swapping
     first iteration will result in: a c B b A
     second iteration will result in: a A B b c
     this is sorted
-    relative posotion of b and B went from b B to B b, so not stable
+    relative position of b and B went from b B to B b, so not stable
 """
 
 def selection_sort(arr):
@@ -40,9 +40,26 @@ def selection_sort(arr):
     print(count)
     return arr
 
-if __name__ == "__main___":
-    arr = [1,2,3,4,5,6,7,8]
-    print(selection_sort(arr[::-1]))
+# ---- Another implementation for practice -----
 
+def selection_sort_2(array):
+    for j in range(len(array) - 1):  # For each element index.
+        min_i = j
+        for k in range(j, len(array)):  # For element indexes in range start until end.
+            if array[k] < array[min_i]:
+               min_i = k
+        array[j], array[min_i] = array[min_i], array[j]
+    return array
+
+if __name__ == "__main__":
+    arr = [1,2,3,4,5,6,7,8]
+    result = selection_sort(arr[::-1])
+    print(arr[::-1])
+    result2 = selection_sort_2(arr[::-1])
+    print(result == result2)
+    print(result2)
+    print(result)
+    # Can use count to look at complexity bounds.
     # sorted already, still count = 42
     # reverse sorted, count = 42
+

@@ -23,7 +23,12 @@ Stability: yes as in merge we use > or < and not =
 Note: no matter what the input is, the count always stays the same for arrays of the same length
 - arr and bar are the same len, but different numbers. Both get a count of 13
 - this reflects merge sort's best=worst=avg complexity
+
+
+Inplace merge sort
+http://stackoverflow.com/questions/2571049/how-to-sort-in-place-using-the-merge-sort-algorithm
 """
+print_count = False
 count = 0
 
 def merge_sort(arr):
@@ -32,7 +37,8 @@ def merge_sort(arr):
     """
     global count
     count += 1
-    print(count)
+    if print_count:
+        print(count)
     if len(arr) <= 1:
         return arr
     else:
@@ -68,17 +74,58 @@ def merge_sort(arr):
         # above does the merge
         return merged_arr
 
-"""
-Inplace merge sort
-http://stackoverflow.com/questions/2571049/how-to-sort-in-place-using-the-merge-sort-algorithm
-"""
+# ---- Another implementation for practice -----
 
-if __name__ == "__main___":
+def merge_arrays(left, right):
+    result = [0 for _ in range(len(left) + len(right))]
+    result_index = 0
+    left_index = 0
+    right_index = 0
+    while True:
+        if left_index >= len(left):
+            # Copy over rest of right.
+            for i in range(right_index, len(right)):
+                result[result_index] = right[i]
+                result_index += 1
+            break
+        if right_index >= len(right):
+            # Copy over rest of left.
+            for i in range(left_index, len(left)):
+                result[result_index] = left[i]
+                result_index += 1
+            break
+        if left[left_index] <= right[right_index]:
+            result[result_index] = left[left_index]
+            result_index += 1
+            left_index += 1
+        else:  # right is < left.
+            result[result_index] = right[right_index]
+            result_index += 1
+            right_index += 1
+    return result
+
+def merge_sort_2(array):
+    if len(array) <= 1:
+        return array
+    mid = len(array) // 2
+    left = merge_sort_2(array[:mid])
+    right = merge_sort_2(array[mid:])
+    return merge_arrays(left, right)
 
 
+if __name__ == "__main__":
     arr = [1,2,3,4,5,6,7]
     bar = [8, 100 ,1,-3,11,1,0]
     car = [0,-3,1,-2]
     foo = [123,91,-19, 1,1,2,1,-54,1909,-51293,192,3,-4]
-    print(merge_sort(bar))
+    tests = [arr, bar, car, foo]
+    for array in tests:
+        result1 = merge_sort(array)
+        result2 = merge_sort_2(array)
+        if result2 == result1:
+            print("Results match, " + str(result1))
+        else:
+            print("Oh No!!! Results don't match")
+            print("result1: " + str(result1))
+            print("result2: " + str(result2))
 

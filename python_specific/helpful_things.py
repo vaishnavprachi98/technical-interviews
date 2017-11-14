@@ -1,5 +1,3 @@
-"""
-@author: David Lei
-@since: 3/10/2017
+# Beavergnaw 10297 UVA
 
-"""
+def cube_root()
